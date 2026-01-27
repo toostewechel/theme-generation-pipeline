@@ -1,0 +1,114 @@
+{
+  "space-0": {
+    "$type": "number",
+    "$value": 0
+  },
+  "space-1": {
+    "$type": "number",
+    "$value": 4
+  },
+  "space-2": {
+    "$type": "number",
+    "$value": 8
+  },
+  "space-3": {
+    "$type": "number",
+    "$value": 12
+  },
+  "space-4": {
+    "$type": "number",
+    "$value": 16
+  },
+  "space-5": {
+    "$type": "number",
+    "$value": 20
+  },
+  "space-6": {
+    "$type": "number",
+    "$value": 24
+  },
+  "space-8": {
+    "$type": "number",
+    "$value": 32
+  },
+  "space-10": {
+    "$type": "number",
+    "$value": 40
+  },
+  "space-12": {
+    "$type": "number",
+    "$value": 48
+  },
+  "space-16": {
+    "$type": "number",
+    "$value": 64
+  },
+  "space-20": {
+    "$type": "number",
+    "$value": 80
+  },
+  "space-24": {
+    "$type": "number",
+    "$value": 96
+  },
+  "space-32": {
+    "$type": "number",
+    "$value": 128
+  },
+  "size-0": {
+    "$type": "number",
+    "$value": 0
+  },
+  "size-1": {
+    "$type": "number",
+    "$value": 4
+  },
+  "size-2": {
+    "$type": "number",
+    "$value": 8
+  },
+  "size-3": {
+    "$type": "number",
+    "$value": 12
+  },
+  "size-4": {
+    "$type": "number",
+    "$value": 16
+  },
+  "size-5": {
+    "$type": "number",
+    "$value": 20
+  },
+  "size-6": {
+    "$type": "number",
+    "$value": 24
+  },
+  "size-8": {
+    "$type": "number",
+    "$value": 32
+  },
+  "size-10": {
+    "$type": "number",
+    "$value": 40
+  },
+  "size-12": {
+    "$type": "number",
+    "$value": 48
+  },
+  "size-14": {
+    "$type": "number",
+    "$value": 56
+  },
+  "size-16": {
+    "$type": "number",
+    "$value": 64
+  },
+  "size-20": {
+    "$type": "number",
+    "$value": 80
+  },
+  "size-24": {
+    "$type": "number",
+    "$value": 96
+  }
+}

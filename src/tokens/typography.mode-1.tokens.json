@@ -1,0 +1,62 @@
+{
+  "typography-display-large-font-family": {
+    "$type": "fontFamily",
+    "$value": "{font-family-sans}"
+  },
+  "typography-display-large-font-weight": {
+    "$type": "fontWeight",
+    "$value": "{font-weight-bold}"
+  },
+  "typography-display-large-font-size": {
+    "$type": "number",
+    "$value": "{font-size-1300}"
+  },
+  "typography-display-large-line-height": {
+    "$type": "number",
+    "$value": "{font-line-height-none}"
+  },
+  "typography-display-large-letter-spacing": {
+    "$type": "number",
+    "$value": "{font-letter-spacing-tight}"
+  },
+  "typography-display-medium-font-family": {
+    "$type": "fontFamily",
+    "$value": "{font-family-sans}"
+  },
+  "typography-display-medium-font-weight": {
+    "$type": "fontWeight",
+    "$value": "{font-weight-bold}"
+  },
+  "typography-display-medium-font-size": {
+    "$type": "number",
+    "$value": "{font-size-1200}"
+  },
+  "typography-display-medium-line-height": {
+    "$type": "number",
+    "$value": "{font-line-height-none}"
+  },
+  "typography-display-medium-letter-spacing": {
+    "$type": "number",
+    "$value": "{font-letter-spacing-tight}"
+  },
+  "typography-display-small-font-family": {
+    "$type": "fontFamily",
+    "$value": "{font-family-sans}"
+  },
+  "typography-display-small-font-weight": {
+    "$type": "fontWeight",
+    "$value": "{font-weight-bold}"
+  },
+  "typography-display-small-font-size": {
+    "$type": "number",
+    "$value": "{font-size-1100}"
+  },
+  "typography-display-small-line-height": {
+    "$type": "number",
+    "$value": "{font-line-height-none}"
+  },
+  "typography-display-small-letter-spacing": {
+    "$type": "number",
+    "$value": "{font-letter-spacing-tight}"
+  }
+}

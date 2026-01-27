@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "scripts": {
+    "build:tokens": "npx tsx scripts/buildTokens.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "style-dictionary": "^5.2.0",
+    "style-dictionary-utils": "^6.0.1",
+    "tsx": "^4.0.0"
+  }
+}

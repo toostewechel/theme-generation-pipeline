@@ -1,0 +1,74 @@
+{
+  "name": "Design Tokens",
+  "collections": {
+    "primitives-color": {
+      "modes": {
+        "mode-1": [
+          "primitives-color.mode-1.tokens.json"
+        ]
+      }
+    },
+    "color": {
+      "modes": {
+        "light": [
+          "color.light.tokens.json"
+        ],
+        "dark": [
+          "color.dark.tokens.json"
+        ]
+      }
+    },
+    "primitives-font": {
+      "modes": {
+        "mode-1": [
+          "primitives-font.mode-1.tokens.json"
+        ]
+      }
+    },
+    "primitives-dimension": {
+      "modes": {
+        "mode-1": [
+          "primitives-dimension.mode-1.tokens.json"
+        ]
+      }
+    },
+    "dimension": {
+      "modes": {
+        "mode-1": [
+          "dimension.mode-1.tokens.json"
+        ]
+      }
+    },
+    "primtives-radius": {
+      "modes": {
+        "mode-1": [
+          "primtives-radius.mode-1.tokens.json"
+        ]
+      }
+    },
+    "radius": {
+      "modes": {
+        "sharp": [
+          "radius.sharp.tokens.json"
+        ],
+        "default": [
+          "radius.default.tokens.json"
+        ],
+        "rounded": [
+          "radius.rounded.tokens.json"
+        ],
+        "pill": [
+          "radius.pill.tokens.json"
+        ]
+      }
+    },
+    "typography": {
+      "modes": {
+        "mode-1": [
+          "typography.mode-1.tokens.json"
+        ]
+      }
+    }
+  },
+  "styles": {}
+}
