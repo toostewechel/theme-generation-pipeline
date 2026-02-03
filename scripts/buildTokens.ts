@@ -12,6 +12,9 @@ const basePlatformConfig = {
   prefix: "",
   buildPath: "./dist/css/",
   transformGroup: "css/extended",
+  transforms: ["dimension/css"],
+  outputUnit: "rem",
+  basePxFontSize: 16,
   colorOutputFormat: "hex",
 };
 
@@ -20,7 +23,7 @@ const primitives = [
   "./src/tokens/primitives-color.mode-1.tokens.json",
   "./src/tokens/primitives-font.mode-1.tokens.json",
   "./src/tokens/primitives-dimension.mode-1.tokens.json",
-  "./src/tokens/primitives-radius.mode-1.tokens.json", // Note: typo in original filename
+  "./src/tokens/primitives-radius.mode-1.tokens.json",
 ];
 
 // Semantic tokens that don't have modes
