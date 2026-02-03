@@ -39,10 +39,10 @@
         ]
       }
     },
-    "primtives-radius": {
+    "primitives-radius": {
       "modes": {
         "mode-1": [
-          "primtives-radius.mode-1.tokens.json"
+          "primitives-radius.mode-1.tokens.json"
         ]
       }
     },
@@ -70,5 +70,9 @@
       }
     }
   },
-  "styles": {}
+  "styles": {
+    "typography": [
+      "typography.styles.tokens.json"
+    ]
+  }
 }

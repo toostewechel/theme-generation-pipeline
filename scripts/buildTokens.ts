@@ -20,12 +20,13 @@ const primitives = [
   "./src/tokens/primitives-color.mode-1.tokens.json",
   "./src/tokens/primitives-font.mode-1.tokens.json",
   "./src/tokens/primitives-dimension.mode-1.tokens.json",
-  "./src/tokens/primtives-radius.mode-1.tokens.json", // Note: typo in original filename
+  "./src/tokens/primitives-radius.mode-1.tokens.json", // Note: typo in original filename
 ];
 
 // Semantic tokens that don't have modes
 const semanticSingleMode = [
   "./src/tokens/typography.mode-1.tokens.json",
+  "./src/tokens/typography.styles.tokens.json",
   "./src/tokens/dimension.mode-1.tokens.json",
 ];
 
@@ -64,6 +65,9 @@ console.log("✔ Built base.css (light mode + default radius)");
 // ============================================
 const darkSd = new StyleDictionary();
 const darkBuild = await darkSd.extend({
+  log: {
+    verbosity: "silent",
+  },
   include: primitives, // Include primitives for reference resolution
   source: ["./src/tokens/color.dark.tokens.json"],
   platforms: {
@@ -73,7 +77,7 @@ const darkBuild = await darkSd.extend({
         {
           destination: "theme-dark.css",
           format: "css/advanced",
-          filter: "isSource", // Only output source tokens, not included primitives
+          filter: "isSource", // Filtering is intentional for token references; only output source tokens, not included primitives
           options: {
             selector: '[data-theme="dark"]',
             outputReferences: true,

@@ -1,11 +1,11 @@
 {
+  "font-family-serif": {
+    "$type": "fontFamily",
+    "$value": "Playfair Display"
+  },
   "font-family-sans": {
     "$type": "fontFamily",
     "$value": "Inter"
-  },
-  "font-family-serif": {
-    "$type": "fontFamily",
-    "$value": "String value"
   },
   "font-family-mono": {
     "$type": "fontFamily",
@@ -105,50 +105,86 @@
   },
   "font-size-1300": {
     "$type": "number",
-    "$value": 60
+    "$value": 54
   },
-  "font-line-height-none": {
+  "font-line-height-300": {
     "$type": "number",
-    "$value": 0
+    "$value": 12
   },
-  "font-line-height-tight": {
+  "font-line-height-400": {
     "$type": "number",
-    "$value": 1.25
+    "$value": 16
   },
-  "font-line-height-snug": {
+  "font-line-height-500": {
     "$type": "number",
-    "$value": 1.375
+    "$value": 20
   },
-  "font-line-height-normal": {
+  "font-line-height-600": {
     "$type": "number",
-    "$value": 1.5
+    "$value": 24
   },
-  "font-line-height-relaxed": {
+  "font-line-height-700": {
     "$type": "number",
-    "$value": 1.625
+    "$value": 28
   },
-  "font-line-height-loose": {
+  "font-line-height-800": {
     "$type": "number",
-    "$value": 2
+    "$value": 32
   },
-  "font-letter-spacing-tighter": {
+  "font-line-height-900": {
     "$type": "number",
-    "$value": -0.05000000074505806
+    "$value": 36
   },
-  "font-letter-spacing-tight": {
+  "font-line-height-1000": {
     "$type": "number",
-    "$value": -0.02500000037252903
+    "$value": 40
+  },
+  "font-letter-spacing-wider": {
+    "$type": "number",
+    "$value": 0.3499999940395355
+  },
+  "font-line-height-1200": {
+    "$type": "number",
+    "$value": 48
+  },
+  "font-line-height-1400": {
+    "$type": "number",
+    "$value": 56
+  },
+  "font-letter-spacing-wide": {
+    "$type": "number",
+    "$value": 0.25
+  },
+  "font-line-height-1600": {
+    "$type": "number",
+    "$value": 64
   },
   "font-letter-spacing-normal": {
     "$type": "number",
     "$value": 0
   },
-  "font-letter-spacing-wide": {
+  "font-line-height-2000": {
     "$type": "number",
-    "$value": 0.02500000037252903
+    "$value": 80
   },
-  "font-letter-spacing-wider": {
+  "font-letter-spacing-tight": {
     "$type": "number",
-    "$value": 0.05000000074505806
+    "$value": -0.25
+  },
+  "font-line-height-2400": {
+    "$type": "number",
+    "$value": 96
+  },
+  "font-line-height-2800": {
+    "$type": "number",
+    "$value": 112
+  },
+  "font-line-height-3200": {
+    "$type": "number",
+    "$value": 128
+  },
+  "font-letter-spacing-tighter": {
+    "$type": "number",
+    "$value": -0.3499999940395355
   }
 }
