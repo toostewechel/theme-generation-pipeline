@@ -1,170 +1,185 @@
 {
   "spacing-component-gap-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-1}"
   },
   "spacing-layout-section-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-12}"
   },
   "spacing-layout-section-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-16}"
   },
   "spacing-layout-section-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-24}"
   },
   "spacing-layout-section-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-32}"
   },
   "spacing-layout-container-padding": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-4}"
   },
   "spacing-layout-stack-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-2}"
   },
   "spacing-layout-stack-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-4}"
   },
   "spacing-layout-stack-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-6}"
   },
   "spacing-layout-stack-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-8}"
   },
   "spacing-component-gap-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-2}"
   },
   "spacing-component-gap-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-3}"
   },
   "spacing-component-gap-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-4}"
   },
   "spacing-component-gap-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-6}"
   },
   "spacing-component-padding-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-2}"
   },
   "spacing-component-padding-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-3}"
   },
   "spacing-component-padding-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-4}"
   },
   "spacing-component-padding-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-6}"
   },
   "spacing-component-padding-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{space-8}"
   },
   "sizing-icon-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-3}"
   },
   "sizing-icon-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-4}"
   },
   "sizing-icon-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-5}"
   },
   "sizing-icon-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-6}"
   },
   "sizing-icon-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-8}"
   },
   "sizing-control-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-6}"
   },
   "sizing-control-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-8}"
   },
   "sizing-control-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-10}"
   },
   "sizing-control-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-12}"
   },
   "sizing-control-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-14}"
   },
   "sizing-touch-min": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-10}"
   },
   "sizing-touch-comfortable": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-12}"
   },
   "sizing-avatar-xs": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-6}"
   },
   "sizing-avatar-sm": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-8}"
   },
   "sizing-avatar-md": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-10}"
   },
   "sizing-avatar-lg": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-12}"
   },
   "sizing-avatar-xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-16}"
   },
   "sizing-avatar-2xl": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{size-24}"
   },
   "sizing-container-sm": {
-    "$type": "number",
-    "$value": 640
+    "$type": "dimension",
+    "$value": {
+      "value": 640,
+      "unit": "px"
+    }
   },
   "sizing-container-md": {
-    "$type": "number",
-    "$value": 768
+    "$type": "dimension",
+    "$value": {
+      "value": 768,
+      "unit": "px"
+    }
   },
   "sizing-container-lg": {
-    "$type": "number",
-    "$value": 1024
+    "$type": "dimension",
+    "$value": {
+      "value": 1024,
+      "unit": "px"
+    }
   },
   "sizing-container-xl": {
-    "$type": "number",
-    "$value": 1280
+    "$type": "dimension",
+    "$value": {
+      "value": 1280,
+      "unit": "px"
+    }
   },
   "sizing-container-2xl": {
-    "$type": "number",
-    "$value": 1536
+    "$type": "dimension",
+    "$value": {
+      "value": 1536,
+      "unit": "px"
+    }
   }
 }

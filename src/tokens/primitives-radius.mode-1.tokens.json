@@ -1,54 +1,93 @@
 {
   "radius-unit": {
-    "$type": "number",
-    "$value": 4
+    "$type": "dimension",
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    }
   },
   "radius-none": {
-    "$type": "number",
-    "$value": 0
+    "$type": "dimension",
+    "$value": {
+      "value": 0,
+      "unit": "px"
+    }
   },
   "radius-full": {
-    "$type": "number",
-    "$value": 9999
+    "$type": "dimension",
+    "$value": {
+      "value": 9999,
+      "unit": "px"
+    }
   },
   "radius-scale-xs": {
-    "$type": "number",
-    "$value": 0.25
+    "$type": "dimension",
+    "$value": {
+      "value": 0.25,
+      "unit": "px"
+    }
   },
   "radius-scale-sm": {
-    "$type": "number",
-    "$value": 0.5
+    "$type": "dimension",
+    "$value": {
+      "value": 0.5,
+      "unit": "px"
+    }
   },
   "radius-scale-md": {
-    "$type": "number",
-    "$value": 1
+    "$type": "dimension",
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    }
   },
   "radius-scale-lg": {
-    "$type": "number",
-    "$value": 1.5
+    "$type": "dimension",
+    "$value": {
+      "value": 1.5,
+      "unit": "px"
+    }
   },
   "radius-scale-xl": {
-    "$type": "number",
-    "$value": 2
+    "$type": "dimension",
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    }
   },
   "radius-cap-xs": {
-    "$type": "number",
-    "$value": 2
+    "$type": "dimension",
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    }
   },
   "radius-cap-sm": {
-    "$type": "number",
-    "$value": 4
+    "$type": "dimension",
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    }
   },
   "radius-cap-md": {
-    "$type": "number",
-    "$value": 8
+    "$type": "dimension",
+    "$value": {
+      "value": 8,
+      "unit": "px"
+    }
   },
   "radius-cap-lg": {
-    "$type": "number",
-    "$value": 16
+    "$type": "dimension",
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    }
   },
   "radius-cap-xl": {
-    "$type": "number",
-    "$value": 24
+    "$type": "dimension",
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    }
   }
 }

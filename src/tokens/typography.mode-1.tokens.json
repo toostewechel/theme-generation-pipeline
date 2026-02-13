@@ -8,15 +8,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-display-large-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-1300}"
   },
   "typography-display-large-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-1400}"
   },
   "typography-display-large-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-tight}"
   },
   "typography-display-medium-font-family": {
@@ -28,15 +28,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-display-medium-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-1100}"
   },
   "typography-display-medium-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-1200}"
   },
   "typography-display-medium-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-tight}"
   },
   "typography-display-small-font-family": {
@@ -48,15 +48,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-display-small-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-700}"
   },
   "typography-display-small-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-900}"
   },
   "typography-display-small-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-wide}"
   },
   "typography-heading-3xl-font-family": {
@@ -68,15 +68,15 @@
     "$value": "{font-weight-bold}"
   },
   "typography-heading-3xl-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-900}"
   },
   "typography-heading-3xl-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-1000}"
   },
   "typography-heading-3xl-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-normal}"
   },
   "typography-heading-2xl-font-family": {
@@ -88,15 +88,15 @@
     "$value": "{font-weight-bold}"
   },
   "typography-heading-2xl-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-800}"
   },
   "typography-heading-2xl-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-1000}"
   },
   "typography-heading-2xl-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-normal}"
   },
   "typography-heading-xl-font-family": {
@@ -108,15 +108,15 @@
     "$value": "{font-weight-bold}"
   },
   "typography-heading-xl-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-700}"
   },
   "typography-heading-xl-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-800}"
   },
   "typography-heading-xl-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-normal}"
   },
   "typography-heading-lg-font-family": {
@@ -128,15 +128,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-heading-lg-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-600}"
   },
   "typography-heading-lg-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-700}"
   },
   "typography-heading-lg-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-wide}"
   },
   "typography-heading-md-font-family": {
@@ -148,15 +148,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-heading-md-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-500}"
   },
   "typography-heading-md-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-600}"
   },
   "typography-heading-md-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-wide}"
   },
   "typography-heading-sm-font-family": {
@@ -168,15 +168,15 @@
     "$value": "{font-weight-semi-bold}"
   },
   "typography-heading-sm-font-size": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-size-400}"
   },
   "typography-heading-sm-line-height": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-line-height-600}"
   },
   "typography-heading-sm-letter-spacing": {
-    "$type": "number",
+    "$type": "dimension",
     "$value": "{font-letter-spacing-wide}"
   }
 }

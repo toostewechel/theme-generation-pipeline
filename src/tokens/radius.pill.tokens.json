@@ -1,6 +1,9 @@
 {
   "radius-intensity": {
-    "$type": "number",
-    "$value": 9999
+    "$type": "dimension",
+    "$value": {
+      "value": 9999,
+      "unit": "px"
+    }
   }
 }

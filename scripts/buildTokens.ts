@@ -24,6 +24,7 @@ const primitives = [
   "./src/tokens/primitives-font.mode-1.tokens.json",
   "./src/tokens/primitives-dimension.mode-1.tokens.json",
   "./src/tokens/primitives-radius.mode-1.tokens.json",
+  "./src/tokens/effects.styles.tokens.json",
 ];
 
 // Semantic tokens that don't have modes

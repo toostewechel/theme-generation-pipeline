@@ -192,16 +192,25 @@
     "$value": "{color-blue-100}"
   },
   "color-state-disabled-opacity": {
-    "$type": "number",
-    "$value": 0.5
+    "$type": "dimension",
+    "$value": {
+      "value": 0.5,
+      "unit": "px"
+    }
   },
   "color-state-hover-intensity": {
-    "$type": "number",
-    "$value": 0.9200000166893005
+    "$type": "dimension",
+    "$value": {
+      "value": 0.9200000166893005,
+      "unit": "px"
+    }
   },
   "color-state-active-intensity": {
-    "$type": "number",
-    "$value": 0.8500000238418579
+    "$type": "dimension",
+    "$value": {
+      "value": 0.8500000238418579,
+      "unit": "px"
+    }
   },
   "color-state-focus-ring": {
     "$type": "color",
