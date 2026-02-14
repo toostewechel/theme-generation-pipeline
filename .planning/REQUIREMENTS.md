@@ -80,37 +80,37 @@ Requirements for initial release. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PIPE-01 | — | Pending |
-| PIPE-02 | — | Pending |
-| PIPE-03 | — | Pending |
-| PIPE-04 | — | Pending |
-| PIPE-05 | — | Pending |
-| COLR-01 | — | Pending |
-| COLR-02 | — | Pending |
-| COLR-03 | — | Pending |
-| COLR-04 | — | Pending |
-| COLR-05 | — | Pending |
-| DIMS-01 | — | Pending |
-| DIMS-02 | — | Pending |
-| DIMS-03 | — | Pending |
-| RADI-01 | — | Pending |
-| RADI-02 | — | Pending |
-| RADI-03 | — | Pending |
-| RADI-04 | — | Pending |
-| RADI-05 | — | Pending |
-| RADI-06 | — | Pending |
-| TYPO-01 | — | Pending |
-| TYPO-02 | — | Pending |
-| TYPO-03 | — | Pending |
-| QUAL-01 | — | Pending |
-| QUAL-02 | — | Pending |
-| QUAL-03 | — | Pending |
+| PIPE-01 | Phase 1 | Pending |
+| PIPE-02 | Phase 1 | Pending |
+| PIPE-03 | Phase 1 | Pending |
+| PIPE-04 | Phase 1 | Pending |
+| PIPE-05 | Phase 1 | Pending |
+| QUAL-02 | Phase 1 | Pending |
+| QUAL-03 | Phase 1 | Pending |
+| COLR-03 | Phase 2 | Pending |
+| COLR-04 | Phase 2 | Pending |
+| COLR-05 | Phase 2 | Pending |
+| RADI-02 | Phase 2 | Pending |
+| RADI-03 | Phase 2 | Pending |
+| RADI-04 | Phase 2 | Pending |
+| RADI-05 | Phase 2 | Pending |
+| RADI-06 | Phase 2 | Pending |
+| QUAL-01 | Phase 2 | Pending |
+| COLR-01 | Phase 3 | Pending |
+| COLR-02 | Phase 3 | Pending |
+| DIMS-01 | Phase 3 | Pending |
+| DIMS-02 | Phase 3 | Pending |
+| DIMS-03 | Phase 3 | Pending |
+| RADI-01 | Phase 3 | Pending |
+| TYPO-01 | Phase 4 | Pending |
+| TYPO-02 | Phase 4 | Pending |
+| TYPO-03 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25
+- Mapped to phases: 25
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-14*
-*Last updated: 2026-02-14 after initial definition*
+*Last updated: 2026-02-14 after roadmap creation*
