@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** Reliable, zero-custom-logic token transformation — leverage Style Dictionary and style-dictionary-utils built-in functionality to minimize maintenance burden while producing correct, consumable CSS variables.
-**Current focus:** Phase 1: Build Pipeline Foundation
+**Current focus:** Phase 2: Multi-Mode Architecture
 
 ## Current Position
 
