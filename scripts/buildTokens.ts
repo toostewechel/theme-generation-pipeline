@@ -16,10 +16,11 @@ interface Manifest {
 }
 
 // Register custom transform for unitless dimensions
-// Tokens with $description: 'unitless' output as raw numbers without units
+// Tokens with the $description: 'unitless' will output as raw numbers without units
 StyleDictionary.registerTransform({
   name: "dimension/unitless",
   type: "value",
+  // Transitive means the transform should follow and apply to token references
   transitive: true,
   filter: (token) => {
     return token.$type === "dimension" && token.$description === "unitless";
@@ -32,13 +33,8 @@ StyleDictionary.registerTransform({
   },
 });
 
-/**
- * Shared platform configuration for consistent transforms and rem output
- * Applied to all 7 builds (root, light, dark, 4 radius modes)
- *
- * Transform order matters: dimension/unitless must come before dimension/css
- * to strip units from unitless tokens before dimension/css adds px or rem units
- */
+// Shared platform configuration for consistent transforms applied to all 7 builds
+// Transform order matters: dimension/unitless must come before dimension/css to ensure unitless tokens are processed correctly
 const sharedPlatformConfig = {
   transforms: [
     "attribute/cti",
@@ -70,10 +66,8 @@ const sharedPlatformConfig = {
   basePxFontSize: 16,
 };
 
-/**
- * Build tokens using Style Dictionary v5 with multi-mode CSS output
- * Handles token name collisions across modes by building separately and concatenating
- */
+// Build tokens using Style Dictionary v5 with multi-mode CSS output
+// Handles token name collisions across modes by building separately and concatenating
 async function buildTokens() {
   try {
     // Read and parse manifest
@@ -131,8 +125,9 @@ async function buildTokens() {
     mkdirSync("dist/css", { recursive: true });
 
     const tempFiles: string[] = [];
-    let cssOutput =
+    const header =
       "/**\n * Do not edit directly, this file was auto-generated.\n */\n\n";
+    let cssOutput = "";
 
     // Build 1: :root with base tokens + light color + default radius
     const rootSources = [
@@ -276,7 +271,7 @@ async function buildTokens() {
     }
 
     // Write final combined CSS file
-    writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
+    writeFileSync("dist/css/tokens.css", header + cssOutput, "utf-8");
 
     // Clean up temporary files
     for (const tempFile of tempFiles) {
