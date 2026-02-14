@@ -43,10 +43,10 @@ Plans:
   3. CSS output includes `[data-radius-mode='sharp']`, `[data-radius-mode='default']`, `[data-radius-mode='rounded']`, and `[data-radius-mode='pill']` selectors
   4. Selectors appear in correct specificity order (`:root` first, then `[data-*]` overrides)
   5. Same semantic token name (e.g., `--color-background-surface-default`) appears in multiple mode selectors without collision
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 02-01: [TBD during planning]
+- [ ] 02-01-PLAN.md — Multi-mode CSS output with css/advanced format and data-attribute selectors
 
 ### Phase 3: Value Transformations
 **Goal**: Token values transform correctly from DTCG format to CSS-ready output
