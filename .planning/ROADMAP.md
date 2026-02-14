@@ -57,10 +57,10 @@ Plans:
   2. Primitive color, dimension, and radius tokens appear as CSS variables under `:root`
   3. Dimension tokens with px values convert to rem units using 16px base
   4. Dimension tokens with `$description: "unitless"` output as raw numbers without units
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 03-01: [TBD during planning]
+- [ ] 03-01-PLAN.md — Custom unitless transform, px-to-rem conversion, and rem platform config
 
 ### Phase 4: Typography
 **Goal**: Typography tokens output with CSS font shorthand and individual properties
@@ -84,5 +84,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Build Pipeline Foundation | 1/1 | ✓ Complete | 2026-02-14 |
 | 2. Multi-Mode Architecture | 1/1 | ✓ Complete | 2026-02-14 |
-| 3. Value Transformations | 0/TBD | Not started | - |
+| 3. Value Transformations | 0/1 | Not started | - |
 | 4. Typography | 0/TBD | Not started | - |
