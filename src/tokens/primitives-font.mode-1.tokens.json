@@ -1,15 +1,15 @@
 {
   "font-family-serif": {
     "$type": "fontFamily",
-    "$value": "Playfair Display"
+    "$value": "Test Signifier VF"
   },
   "font-family-sans": {
     "$type": "fontFamily",
-    "$value": "Inter"
+    "$value": "Geist"
   },
   "font-family-mono": {
     "$type": "fontFamily",
-    "$value": "JetBrains Mono"
+    "$value": "Berkeley Mono"
   },
   "font-weight-thin": {
     "$type": "fontWeight",
@@ -208,13 +208,6 @@
       "unit": "px"
     }
   },
-  "font-line-height-1200": {
-    "$type": "dimension",
-    "$value": {
-      "value": 48,
-      "unit": "px"
-    }
-  },
   "font-letter-spacing-wider": {
     "$type": "dimension",
     "$value": {
@@ -222,10 +215,10 @@
       "unit": "px"
     }
   },
-  "font-line-height-1400": {
+  "font-line-height-1200": {
     "$type": "dimension",
     "$value": {
-      "value": 56,
+      "value": 48,
       "unit": "px"
     }
   },
@@ -236,10 +229,10 @@
       "unit": "px"
     }
   },
-  "font-line-height-1600": {
+  "font-line-height-1400": {
     "$type": "dimension",
     "$value": {
-      "value": 64,
+      "value": 56,
       "unit": "px"
     }
   },
@@ -247,6 +240,13 @@
     "$type": "dimension",
     "$value": {
       "value": 0,
+      "unit": "px"
+    }
+  },
+  "font-line-height-1600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 64,
       "unit": "px"
     }
   },

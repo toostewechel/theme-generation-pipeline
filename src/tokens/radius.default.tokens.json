@@ -1,5 +1,6 @@
 {
   "radius-intensity": {
+    "$description": "unitless",
     "$type": "dimension",
     "$value": {
       "value": 1,

@@ -1,9 +1,7 @@
-import { StyleDictionary } from 'style-dictionary-utils';
-import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from 'fs';
+import { StyleDictionary } from "style-dictionary-utils";
+import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
 
-/**
- * Manifest structure matching src/tokens/manifest.json
- */
+// Manifest structure matching src/tokens/manifest.json
 interface Manifest {
   collections: {
     [collectionName: string]: {
@@ -17,23 +15,21 @@ interface Manifest {
   };
 }
 
-/**
- * Register custom transform for unitless dimensions
- * Tokens with $description: 'unitless' output as raw numbers without units
- */
+// Register custom transform for unitless dimensions
+// Tokens with $description: 'unitless' output as raw numbers without units
 StyleDictionary.registerTransform({
-  name: 'dimension/unitless',
-  type: 'value',
+  name: "dimension/unitless",
+  type: "value",
   transitive: true,
   filter: (token) => {
-    return token.$type === 'dimension' && token.$description === 'unitless';
+    return token.$type === "dimension" && token.$description === "unitless";
   },
   transform: (token) => {
-    if (typeof token.$value === 'object' && token.$value.value !== undefined) {
+    if (typeof token.$value === "object" && token.$value.value !== undefined) {
       return String(token.$value.value);
     }
     return String(token.$value);
-  }
+  },
 });
 
 /**
@@ -41,36 +37,36 @@ StyleDictionary.registerTransform({
  * Applied to all 7 builds (root, light, dark, 4 radius modes)
  *
  * Transform order matters: dimension/unitless must come before dimension/css
- * to strip units from unitless tokens before dimension/css adds px units
+ * to strip units from unitless tokens before dimension/css adds px or rem units
  */
 const sharedPlatformConfig = {
   transforms: [
-    'attribute/cti',
-    'name/kebab',
-    'time/seconds',
-    'html/icon',
-    'size/rem',
-    'asset/url',
-    'fontFamily/css',
-    'cubicBezier/css',
-    'strokeStyle/css/shorthand',
-    'border/css/shorthand',
-    'typography/css/shorthand',
-    'transition/css/shorthand',
-    'shadow/css/shorthand',
-    'w3c-color/css',
-    'dimension/unitless',
-    'dimension/css',
-    'duration/css',
-    'shadow/css',
-    'strokeStyle/css',
-    'transition/css',
-    'typography/css',
-    'fontWeight/css',
-    'w3c-border/css',
-    'gradient/css',
+    "attribute/cti",
+    "name/kebab",
+    "time/seconds",
+    "html/icon",
+    "size/rem",
+    "asset/url",
+    "fontFamily/css",
+    "cubicBezier/css",
+    "strokeStyle/css/shorthand",
+    "border/css/shorthand",
+    "typography/css/shorthand",
+    "transition/css/shorthand",
+    "shadow/css/shorthand",
+    "w3c-color/css",
+    "dimension/unitless",
+    "dimension/css",
+    "duration/css",
+    "shadow/css",
+    "strokeStyle/css",
+    "transition/css",
+    "typography/css",
+    "fontWeight/css",
+    "w3c-border/css",
+    "gradient/css",
   ],
-  outputUnit: 'rem',
+  outputUnit: "rem",
   basePxFontSize: 16,
 };
 
@@ -81,8 +77,8 @@ const sharedPlatformConfig = {
 async function buildTokens() {
   try {
     // Read and parse manifest
-    const manifestPath = 'src/tokens/manifest.json';
-    const manifestContent = readFileSync(manifestPath, 'utf-8');
+    const manifestPath = "src/tokens/manifest.json";
+    const manifestContent = readFileSync(manifestPath, "utf-8");
     const manifest: Manifest = JSON.parse(manifestContent);
 
     // Identify base files (primitives, single-mode collections)
@@ -95,61 +91,70 @@ async function buildTokens() {
       const collection = manifest.collections[collectionName];
       const modes = Object.keys(collection.modes);
 
-      if (collectionName === 'color' && modes.length > 1) {
+      if (collectionName === "color" && modes.length > 1) {
         // Multi-mode color collection
         for (const mode of modes) {
-          colorModes[mode] = collection.modes[mode].map(f => `src/tokens/${f}`);
+          colorModes[mode] = collection.modes[mode].map(
+            (f) => `src/tokens/${f}`,
+          );
         }
-      } else if (collectionName === 'radius' && modes.length > 1) {
+      } else if (collectionName === "radius" && modes.length > 1) {
         // Multi-mode radius collection
         for (const mode of modes) {
-          radiusModes[mode] = collection.modes[mode].map(f => `src/tokens/${f}`);
+          radiusModes[mode] = collection.modes[mode].map(
+            (f) => `src/tokens/${f}`,
+          );
         }
       } else {
         // Single-mode or primitive collection
         for (const mode of modes) {
-          baseFiles.push(...collection.modes[mode].map(f => `src/tokens/${f}`));
+          baseFiles.push(
+            ...collection.modes[mode].map((f) => `src/tokens/${f}`),
+          );
         }
       }
     }
 
     // Process styles
     for (const styleName of Object.keys(manifest.styles)) {
-      baseFiles.push(...manifest.styles[styleName].map(f => `src/tokens/${f}`));
+      baseFiles.push(
+        ...manifest.styles[styleName].map((f) => `src/tokens/${f}`),
+      );
     }
 
     console.log(`Building multi-mode CSS...`);
     console.log(`Base files: ${baseFiles.length}`);
-    console.log(`Color modes: ${Object.keys(colorModes).join(', ')}`);
-    console.log(`Radius modes: ${Object.keys(radiusModes).join(', ')}`);
+    console.log(`Color modes: ${Object.keys(colorModes).join(", ")}`);
+    console.log(`Radius modes: ${Object.keys(radiusModes).join(", ")}`);
 
     // Create output directory
-    mkdirSync('dist/css', { recursive: true });
+    mkdirSync("dist/css", { recursive: true });
 
     const tempFiles: string[] = [];
-    let cssOutput = '/**\n * Do not edit directly, this file was auto-generated.\n */\n\n';
+    let cssOutput =
+      "/**\n * Do not edit directly, this file was auto-generated.\n */\n\n";
 
     // Build 1: :root with base tokens + light color + default radius
     const rootSources = [
       ...baseFiles,
-      ...(colorModes['light'] || []),
-      ...(radiusModes['default'] || []),
+      ...(colorModes["light"] || []),
+      ...(radiusModes["default"] || []),
     ];
 
     const sdRoot = new StyleDictionary({
       source: rootSources,
-      log: { warnings: 'disabled' }, // Suppress collision warnings
+      log: { warnings: "disabled" }, // Suppress collision warnings
       platforms: {
         css: {
           ...sharedPlatformConfig,
-          buildPath: 'dist/css/',
+          buildPath: "dist/css/",
           files: [
             {
-              destination: '_temp_root.css',
-              format: 'css/variables',
+              destination: "_temp_root.css",
+              format: "css/variables",
               options: {
                 outputReferences: true,
-                selector: ':root',
+                selector: ":root",
               },
             },
           ],
@@ -158,25 +163,28 @@ async function buildTokens() {
     });
 
     await sdRoot.buildAllPlatforms();
-    const rootCss = readFileSync('dist/css/_temp_root.css', 'utf-8')
-      .replace(/\/\*\*[\s\S]*?\*\/\n\n/, ''); // Remove auto-generated comment
+    const rootCss = readFileSync("dist/css/_temp_root.css", "utf-8").replace(
+      /\/\*\*[\s\S]*?\*\/\n\n/,
+      "",
+    ); // Remove auto-generated comment
     cssOutput += rootCss;
-    tempFiles.push('dist/css/_temp_root.css');
+    tempFiles.push("dist/css/_temp_root.css");
 
     // Build 2: [data-color-mode='light']
-    if (colorModes['light']) {
+    if (colorModes["light"]) {
       const sdLight = new StyleDictionary({
-        source: [...baseFiles, ...colorModes['light']],
-        log: { warnings: 'disabled' },
+        source: [...baseFiles, ...colorModes["light"]],
+        log: { warnings: "disabled" },
         platforms: {
           css: {
             ...sharedPlatformConfig,
-            buildPath: 'dist/css/',
+            buildPath: "dist/css/",
             files: [
               {
-                destination: '_temp_light.css',
-                format: 'css/variables',
-                filter: (token: any) => token.filePath.includes('color.light.tokens.json'),
+                destination: "_temp_light.css",
+                format: "css/variables",
+                filter: (token: any) =>
+                  token.filePath.includes("color.light.tokens.json"),
                 options: {
                   outputReferences: true,
                   selector: "[data-color-mode='light']",
@@ -188,26 +196,29 @@ async function buildTokens() {
       });
 
       await sdLight.buildAllPlatforms();
-      const lightCss = readFileSync('dist/css/_temp_light.css', 'utf-8')
-        .replace(/\/\*\*[\s\S]*?\*\/\n\n/, '');
+      const lightCss = readFileSync(
+        "dist/css/_temp_light.css",
+        "utf-8",
+      ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
       cssOutput += lightCss;
-      tempFiles.push('dist/css/_temp_light.css');
+      tempFiles.push("dist/css/_temp_light.css");
     }
 
     // Build 3: [data-color-mode='dark']
-    if (colorModes['dark']) {
+    if (colorModes["dark"]) {
       const sdDark = new StyleDictionary({
-        source: [...baseFiles, ...colorModes['dark']],
-        log: { warnings: 'disabled' },
+        source: [...baseFiles, ...colorModes["dark"]],
+        log: { warnings: "disabled" },
         platforms: {
           css: {
             ...sharedPlatformConfig,
-            buildPath: 'dist/css/',
+            buildPath: "dist/css/",
             files: [
               {
-                destination: '_temp_dark.css',
-                format: 'css/variables',
-                filter: (token: any) => token.filePath.includes('color.dark.tokens.json'),
+                destination: "_temp_dark.css",
+                format: "css/variables",
+                filter: (token: any) =>
+                  token.filePath.includes("color.dark.tokens.json"),
                 options: {
                   outputReferences: true,
                   selector: "[data-color-mode='dark']",
@@ -219,28 +230,31 @@ async function buildTokens() {
       });
 
       await sdDark.buildAllPlatforms();
-      const darkCss = readFileSync('dist/css/_temp_dark.css', 'utf-8')
-        .replace(/\/\*\*[\s\S]*?\*\/\n\n/, '');
+      const darkCss = readFileSync("dist/css/_temp_dark.css", "utf-8").replace(
+        /\/\*\*[\s\S]*?\*\/\n\n/,
+        "",
+      );
       cssOutput += darkCss;
-      tempFiles.push('dist/css/_temp_dark.css');
+      tempFiles.push("dist/css/_temp_dark.css");
     }
 
     // Build 4-7: Radius modes
-    const radiusModeOrder = ['sharp', 'default', 'rounded', 'pill'];
+    const radiusModeOrder = ["sharp", "default", "rounded", "pill"];
     for (const mode of radiusModeOrder) {
       if (radiusModes[mode]) {
         const sdRadius = new StyleDictionary({
           source: [...baseFiles, ...radiusModes[mode]],
-          log: { warnings: 'disabled' },
+          log: { warnings: "disabled" },
           platforms: {
             css: {
               ...sharedPlatformConfig,
-              buildPath: 'dist/css/',
+              buildPath: "dist/css/",
               files: [
                 {
                   destination: `_temp_radius_${mode}.css`,
-                  format: 'css/variables',
-                  filter: (token: any) => token.filePath.includes(`radius.${mode}.tokens.json`),
+                  format: "css/variables",
+                  filter: (token: any) =>
+                    token.filePath.includes(`radius.${mode}.tokens.json`),
                   options: {
                     outputReferences: true,
                     selector: `[data-radius-mode='${mode}']`,
@@ -252,15 +266,17 @@ async function buildTokens() {
         });
 
         await sdRadius.buildAllPlatforms();
-        const radiusCss = readFileSync(`dist/css/_temp_radius_${mode}.css`, 'utf-8')
-          .replace(/\/\*\*[\s\S]*?\*\/\n\n/, '');
+        const radiusCss = readFileSync(
+          `dist/css/_temp_radius_${mode}.css`,
+          "utf-8",
+        ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
         cssOutput += radiusCss;
         tempFiles.push(`dist/css/_temp_radius_${mode}.css`);
       }
     }
 
     // Write final combined CSS file
-    writeFileSync('dist/css/tokens.css', cssOutput, 'utf-8');
+    writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
 
     // Clean up temporary files
     for (const tempFile of tempFiles) {
@@ -271,11 +287,11 @@ async function buildTokens() {
       }
     }
 
-    console.log('\nBuild completed successfully');
-    console.log('✔ dist/css/tokens.css');
+    console.log("\nBuild completed successfully");
+    console.log("✔ dist/css/tokens.css");
     process.exit(0);
   } catch (error) {
-    console.error('Build failed:', error);
+    console.error("Build failed:", error);
     process.exit(1);
   }
 }

@@ -1,7 +1,7 @@
 {
   "color-background-surface-sunken": {
     "$type": "color",
-    "$value": "{color-neutral-50}"
+    "$value": "{color-neutral-paper}"
   },
   "color-background-surface-default": {
     "$type": "color",
@@ -27,21 +27,25 @@
     "$type": "color",
     "$value": "{color-brand-500}"
   },
+  "color-background-marker": {
+    "$type": "color",
+    "$value": "{color-brand-200}"
+  },
   "color-text-emphasis": {
     "$type": "color",
-    "$value": "{color-neutral-900}"
+    "$value": "{color-neutral-950}"
   },
   "color-text-default": {
     "$type": "color",
-    "$value": "{color-neutral-800}"
+    "$value": "{color-neutral-900}"
   },
   "color-text-subtle": {
     "$type": "color",
-    "$value": "{color-neutral-500}"
+    "$value": "{color-neutral-700}"
   },
   "color-text-muted": {
     "$type": "color",
-    "$value": "{color-neutral-400}"
+    "$value": "{color-neutral-600}"
   },
   "color-text-inverse": {
     "$type": "color",
@@ -49,7 +53,7 @@
   },
   "color-text-brand": {
     "$type": "color",
-    "$value": "{color-neutral-600}"
+    "$value": "{color-brand-700}"
   },
   "color-text-on-brand": {
     "$type": "color",
@@ -83,13 +87,21 @@
     "$type": "color",
     "$value": "{color-neutral-0}"
   },
+  "color-border-emphasis": {
+    "$type": "color",
+    "$value": "{color-neutral-400}"
+  },
   "color-border-default": {
     "$type": "color",
-    "$value": "{color-neutral-200}"
+    "$value": "{color-neutral-300}"
   },
   "color-border-subtle": {
     "$type": "color",
-    "$value": "{color-neutral-100}"
+    "$value": "{color-neutral-200}"
+  },
+  "color-border-gridlines": {
+    "$type": "color",
+    "$value": "{color-neutral-200}"
   },
   "color-control-background": {
     "$type": "color",
@@ -192,6 +204,7 @@
     "$value": "{color-blue-100}"
   },
   "color-state-disabled-opacity": {
+    "$description": "unitless",
     "$type": "dimension",
     "$value": {
       "value": 0.5,
@@ -199,6 +212,7 @@
     }
   },
   "color-state-hover-intensity": {
+    "$description": "unitless",
     "$type": "dimension",
     "$value": {
       "value": 0.9200000166893005,
@@ -206,6 +220,7 @@
     }
   },
   "color-state-active-intensity": {
+    "$description": "unitless",
     "$type": "dimension",
     "$value": {
       "value": 0.8500000238418579,
