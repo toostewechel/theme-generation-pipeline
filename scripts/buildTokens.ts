@@ -1,144 +1,102 @@
-import { StyleDictionary } from "style-dictionary-utils";
-import { rmSync } from "fs";
+import { StyleDictionary } from 'style-dictionary-utils';
+import { readFileSync, mkdirSync } from 'fs';
 
-// Clean dist directory before build
-try {
-  rmSync("./dist", { recursive: true, force: true });
-} catch {
-  // Directory doesn't exist, that's fine
+/**
+ * Manifest structure matching src/tokens/manifest.json
+ */
+interface Manifest {
+  collections: {
+    [collectionName: string]: {
+      modes: {
+        [modeName: string]: string[];
+      };
+    };
+  };
+  styles: {
+    [styleName: string]: string[];
+  };
 }
 
-const basePlatformConfig = {
-  prefix: "",
-  buildPath: "./dist/css/",
-  transformGroup: "css/extended",
-  transforms: ["dimension/css"],
-  outputUnit: "rem",
-  basePxFontSize: 16,
-  colorOutputFormat: "hex",
-};
+/**
+ * Build tokens using Style Dictionary v5
+ * Reads manifest.json and discovers all token files
+ */
+async function buildTokens() {
+  try {
+    // Read and parse manifest
+    const manifestPath = 'src/tokens/manifest.json';
+    const manifestContent = readFileSync(manifestPath, 'utf-8');
+    const manifest: Manifest = JSON.parse(manifestContent);
 
-// Shared primitives (always included)
-const primitives = [
-  "./src/tokens/primitives-color.mode-1.tokens.json",
-  "./src/tokens/primitives-font.mode-1.tokens.json",
-  "./src/tokens/primitives-dimension.mode-1.tokens.json",
-  "./src/tokens/primitives-radius.mode-1.tokens.json",
-  "./src/tokens/effects.styles.tokens.json",
-];
+    // Flatten collections to source array with stable sorting
+    const sourceFiles: string[] = [];
 
-// Semantic tokens that don't have modes
-const semanticSingleMode = [
-  "./src/tokens/typography.mode-1.tokens.json",
-  "./src/tokens/typography.styles.tokens.json",
-  "./src/tokens/dimension.mode-1.tokens.json",
-];
+    // Process collections
+    const collectionNames = Object.keys(manifest.collections).sort((a, b) =>
+      a.localeCompare(b)
+    );
 
-// ============================================
-// Build 1: Base tokens (primitives + light mode + default radius)
-// ============================================
-const lightSd = new StyleDictionary();
-const lightBuild = await lightSd.extend({
-  source: [
-    ...primitives,
-    ...semanticSingleMode,
-    "./src/tokens/color.light.tokens.json",
-    "./src/tokens/radius.default.tokens.json",
-  ],
-  platforms: {
-    css: {
-      ...basePlatformConfig,
-      files: [
-        {
-          destination: "base.css",
-          format: "css/advanced",
-          options: {
-            selector: ":root",
-            outputReferences: true,
-          },
-        },
-      ],
-    },
-  },
-});
-await lightBuild.buildAllPlatforms();
-console.log("✔ Built base.css (light mode + default radius)");
+    for (const collectionName of collectionNames) {
+      const collection = manifest.collections[collectionName];
+      const modeNames = Object.keys(collection.modes).sort((a, b) =>
+        a.localeCompare(b)
+      );
 
-// ============================================
-// Build 2: Dark mode semantic tokens only
-// ============================================
-const darkSd = new StyleDictionary();
-const darkBuild = await darkSd.extend({
-  log: {
-    verbosity: "silent",
-  },
-  include: primitives, // Include primitives for reference resolution
-  source: ["./src/tokens/color.dark.tokens.json"],
-  platforms: {
-    css: {
-      ...basePlatformConfig,
-      files: [
-        {
-          destination: "theme-dark.css",
-          format: "css/advanced",
-          filter: "isSource", // Filtering is intentional for token references; only output source tokens, not included primitives
-          options: {
-            selector: '[data-theme="dark"]',
-            outputReferences: true,
-          },
-        },
-      ],
-    },
-  },
-});
-await darkBuild.buildAllPlatforms();
-console.log("✔ Built theme-dark.css");
+      for (const modeName of modeNames) {
+        const files = collection.modes[modeName];
+        for (const file of files) {
+          sourceFiles.push(`src/tokens/${file}`);
+        }
+      }
+    }
 
-// ============================================
-// Build 3: Radius variants (only the intensity value changes)
-// ============================================
-const radiusModes = [
-  {
-    file: "radius.sharp.tokens.json",
-    selector: '[data-radius="sharp"]',
-    output: "radius-sharp.css",
-  },
-  {
-    file: "radius.rounded.tokens.json",
-    selector: '[data-radius="rounded"]',
-    output: "radius-rounded.css",
-  },
-  {
-    file: "radius.pill.tokens.json",
-    selector: '[data-radius="pill"]',
-    output: "radius-pill.css",
-  },
-];
+    // Process styles
+    const styleNames = Object.keys(manifest.styles).sort((a, b) =>
+      a.localeCompare(b)
+    );
 
-for (const mode of radiusModes) {
-  const radiusSd = new StyleDictionary();
-  const radiusBuild = await radiusSd.extend({
-    include: ["./src/tokens/primtives-radius.mode-1.tokens.json"], // Include for reference
-    source: [`./src/tokens/${mode.file}`],
-    platforms: {
-      css: {
-        ...basePlatformConfig,
-        files: [
-          {
-            destination: mode.output,
-            format: "css/advanced",
-            filter: "isSource",
-            options: {
-              selector: mode.selector,
-              outputReferences: true,
+    for (const styleName of styleNames) {
+      const files = manifest.styles[styleName];
+      for (const file of files) {
+        sourceFiles.push(`src/tokens/${file}`);
+      }
+    }
+
+    // Sort final array for deterministic ordering
+    sourceFiles.sort((a, b) => a.localeCompare(b));
+
+    console.log(`Discovered ${sourceFiles.length} token files from manifest`);
+
+    // Create output directory
+    mkdirSync('dist/css', { recursive: true });
+
+    // Configure Style Dictionary v5
+    const sd = new StyleDictionary({
+      source: sourceFiles,
+      platforms: {
+        css: {
+          transformGroup: 'css/extended',
+          buildPath: 'dist/css/',
+          files: [
+            {
+              destination: 'tokens.css',
+              format: 'css/variables',
             },
-          },
-        ],
+          ],
+        },
       },
-    },
-  });
-  await radiusBuild.buildAllPlatforms();
-  console.log(`✔ Built ${mode.output}`);
+    });
+
+    // Build all platforms (async in v5)
+    await sd.buildAllPlatforms();
+
+    console.log('Build completed successfully');
+    process.exit(0);
+  } catch (error) {
+    console.error('Build failed:', error);
+    process.exit(1);
+  }
 }
 
-console.log("\n✅ All tokens built successfully!");
+// Execute
+buildTokens();
