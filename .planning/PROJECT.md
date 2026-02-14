@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A build pipeline that transforms DTCG-format design tokens into CSS custom properties using Style Dictionary v5 and style-dictionary-utils. It reads a manifest-driven token architecture (primitives, semantic tokens, multi-mode collections) and outputs a single combined CSS file with data-attribute selectors for theming. The primary consumer is web projects; app platform support is a future goal.
+A build pipeline that transforms DTCG-format design tokens into a single CSS file with multi-mode theming support. Reads a manifest-driven token architecture (primitives, semantic tokens, multi-mode collections) and outputs CSS custom properties with `[data-color-mode]` and `[data-radius-mode]` selectors for runtime theme switching. Built on Style Dictionary v5 and style-dictionary-utils.
 
 ## Core Value
 
@@ -12,50 +12,50 @@ Reliable, zero-custom-logic token transformation — leverage Style Dictionary a
 
 ### Validated
 
-- Token files exist in DTCG format with `$type`/`$value` properties — existing
-- Manifest structure defines collections, modes, and file mappings — existing
-- Primitive token collections: color, font, dimension, radius — existing
-- Semantic token collections: color (light/dark), dimension, radius (4 modes), typography — existing
-- Composite typography styles with individual property tokens — existing
-- `$description: "unitless"` metadata convention for dimension tokens that stay as numbers — existing
+- ✓ Build script reads manifest.json and discovers all collections and their modes — v1.0
+- ✓ Primitive tokens emitted as CSS variables under `:root` — v1.0
+- ✓ Color semantic tokens output under `[data-color-mode='light']` and `[data-color-mode='dark']` — v1.0
+- ✓ Light color mode also output under `:root` as default — v1.0
+- ✓ Radius semantic tokens output under `[data-radius-mode='sharp|default|rounded|pill']` — v1.0
+- ✓ Default radius mode also output under `:root` as default — v1.0
+- ✓ Dimension tokens transformed from px to rem (16px base) — v1.0
+- ✓ Tokens with `$description: "unitless"` skip rem conversion and output as raw numbers — v1.0
+- ✓ Typography composite tokens output as CSS font shorthand variables — v1.0
+- ✓ Typography individual property tokens output as separate CSS variables — v1.0
+- ✓ Single combined CSS output file (`dist/css/tokens.css`) — v1.0
+- ✓ Correct handling of same-named tokens across modes (no collisions) — v1.0
+- ✓ Token references resolve correctly across collections — v1.0
+- ✓ CSS selector ordering correct (`:root` first, `[data-*]` after) — v1.0
+- ✓ Build output is deterministic — v1.0
+- ✓ Token files exist in DTCG format with `$type`/`$value` properties — existing
+- ✓ Manifest structure defines collections, modes, and file mappings — existing
 
 ### Active
 
-- [ ] Build script (`buildTokens.ts`) reads manifest.json and processes all collections
-- [ ] Primitive tokens emitted as CSS variables under `:root`
-- [ ] Color semantic tokens output under `[data-color-mode='light']` and `[data-color-mode='dark']`
-- [ ] Light color mode also output under `:root` as default
-- [ ] Radius semantic tokens output under `[data-radius-mode='sharp|default|rounded|pill']`
-- [ ] Default radius mode also output under `:root` as default
-- [ ] Dimension tokens transformed from px to rem
-- [ ] Tokens with `$description: "unitless"` skip rem conversion and output as raw numbers
-- [ ] Typography composite tokens output as CSS font shorthand variables
-- [ ] Typography individual property tokens output as separate CSS variables
-- [ ] Single combined CSS output file (`dist/css/tokens.css`)
-- [ ] Correct handling of same-named tokens across modes (no collisions)
-- [ ] No custom transform/format logic — use Style Dictionary + style-dictionary-utils built-ins only
+(None — next milestone will define new requirements)
 
 ### Out of Scope
 
 - App platform output (iOS, Android) — future milestone, not v1
-- Runtime token switching (CSS-only, no JS runtime) — not needed
+- Runtime JavaScript theme switching — CSS-only pipeline, consumers implement switcher
 - Custom transforms or formats — explicitly avoided to reduce maintenance
 - Token validation or linting — separate concern
 - Design tool sync (Figma plugin, etc.) — separate tooling
+- CSS utility class generation — not a token pipeline concern
+- Watch mode / dev server — use external tools, keep build script focused
 
 ## Context
 
-- Tokens exported from a design tool in DTCG format with sRGB color objects (normalized 0-1 components)
-- Style Dictionary v5.2.0 and style-dictionary-utils v6.0.1 already installed
-- The `scripts/buildTokens.ts` file was previously deleted and needs to be rebuilt
-- Radius uses a multiplier pattern: `radius-intensity` (unitless, varies per mode) combined with `radius-scale-*` and `radius-cap-*` primitives
-- Color primitives use the DTCG color object format `{ colorSpace, components, alpha? }` which style-dictionary-utils handles natively
-- Typography is split into individual property tokens (`typography-heading-lg-font-size`) and composite style tokens (`display-lg` with `$type: "typography"`)
+Shipped v1.0 with 300 LOC TypeScript (buildTokens.ts).
+Tech stack: Style Dictionary v5.2.0, style-dictionary-utils v6.0.1, Node.js v22+, ESM.
+Output: single `dist/css/tokens.css` with 485 lines, ~18KB.
+Token architecture: 13 DTCG token files across 8 collections with 6 mode variants.
+Build time: ~7 seconds (7 separate SD instances for multi-mode output).
 
 ## Constraints
 
 - **Tech stack**: Style Dictionary v5 + style-dictionary-utils — already installed, must use these
-- **No custom logic**: All transforms and formats must come from SD or SD-utils built-ins
+- **Minimal custom logic**: One custom transform (dimension/unitless) kept to minimum; all other transforms from SD/SD-utils built-ins
 - **Node version**: Requires Node.js v22.0.0+ (Style Dictionary v5 requirement)
 - **Module system**: ESM (`"type": "module"` in package.json)
 - **Output format**: CSS custom properties only (web-first)
@@ -64,12 +64,16 @@ Reliable, zero-custom-logic token transformation — leverage Style Dictionary a
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Single combined CSS file | Better performance than multiple files, simpler to consume | — Pending |
-| `$description: "unitless"` for px-to-rem exceptions | Co-located with token definition, no separate config to maintain | — Pending |
-| Separate data-attributes per collection (`data-color-mode`, `data-radius-mode`) | Independent mode switching, no coupling between color and radius themes | — Pending |
-| Default modes in `:root` | Works without any data-attributes set, progressive enhancement | — Pending |
-| No prefix on CSS variables | Shorter names, cleaner DX (`--color-background-surface-default`) | — Pending |
-| Primitives emitted as CSS vars | Useful for debugging/prototyping, low cost to include | — Pending |
+| Single combined CSS file | Better performance than multiple files, simpler to consume | ✓ Good — 18KB single file, easy to import |
+| `$description: "unitless"` for px-to-rem exceptions | Co-located with token definition, no separate config to maintain | ✓ Good — clean metadata pattern |
+| Separate data-attributes per collection | Independent mode switching, no coupling between color and radius themes | ✓ Good — flexible theming |
+| Default modes in `:root` | Works without any data-attributes set, progressive enhancement | ✓ Good — zero-config defaults |
+| No prefix on CSS variables | Shorter names, cleaner DX | ✓ Good — `--color-background-surface-default` |
+| Primitives emitted as CSS vars | Useful for debugging/prototyping, low cost to include | ✓ Good |
+| css/extended transform group (style-dictionary-utils) | Built-in css transforms don't handle DTCG format | ✓ Good — handles sRGB, dimensions, typography correctly |
+| Multi-build concatenation for modes | SD merges/deduplicates same-named tokens at parse time; css/advanced rules can't access deduplicated tokens | ✓ Good — correct output, acceptable build time |
+| Explicit transforms array over transformGroup | Can't mix transformGroup with custom transforms | ✓ Good — required for dimension/unitless |
+| Transform ordering: dimension/unitless before dimension/css | dimension/css adds px units; unitless must strip first | ✓ Good — correct output |
 
 ---
-*Last updated: 2026-02-14 after initialization*
+*Last updated: 2026-02-14 after v1.0 milestone*
