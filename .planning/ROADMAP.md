@@ -13,7 +13,7 @@ Transform DTCG design tokens into CSS custom properties through four focused pha
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Build Pipeline Foundation** - Manifest processing and basic CSS output with reference resolution
-- [ ] **Phase 2: Multi-Mode Architecture** - Data-attribute selectors for theme switching in single CSS file
+- [x] **Phase 2: Multi-Mode Architecture** - Data-attribute selectors for theme switching in single CSS file
 - [ ] **Phase 3: Value Transformations** - Color, dimension, and radius token transformations
 - [ ] **Phase 4: Typography** - Composite typography token handling
 
@@ -46,7 +46,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 02-01-PLAN.md — Multi-mode CSS output with css/advanced format and data-attribute selectors
+- [x] 02-01-PLAN.md — Multi-mode CSS output with css/advanced format and data-attribute selectors
 
 ### Phase 3: Value Transformations
 **Goal**: Token values transform correctly from DTCG format to CSS-ready output
@@ -83,6 +83,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Build Pipeline Foundation | 1/1 | ✓ Complete | 2026-02-14 |
-| 2. Multi-Mode Architecture | 0/TBD | Not started | - |
+| 2. Multi-Mode Architecture | 1/1 | ✓ Complete | 2026-02-14 |
 | 3. Value Transformations | 0/TBD | Not started | - |
 | 4. Typography | 0/TBD | Not started | - |
