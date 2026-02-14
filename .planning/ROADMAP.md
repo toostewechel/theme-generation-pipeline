@@ -28,10 +28,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Token references like `{color-neutral-500}` resolve to actual values in output
   3. All collections from manifest.json are processed and included in output
   4. Build runs deterministically (same input produces identical output every time)
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 01-01: [TBD during planning]
+- [ ] 01-01-PLAN.md — Build script with manifest-driven token discovery and CSS output
 
 ### Phase 2: Multi-Mode Architecture
 **Goal**: Single CSS file with data-attribute selectors for light/dark colors and radius modes
@@ -82,7 +82,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Build Pipeline Foundation | 0/TBD | Not started | - |
+| 1. Build Pipeline Foundation | 0/1 | Planned | - |
 | 2. Multi-Mode Architecture | 0/TBD | Not started | - |
 | 3. Value Transformations | 0/TBD | Not started | - |
 | 4. Typography | 0/TBD | Not started | - |
