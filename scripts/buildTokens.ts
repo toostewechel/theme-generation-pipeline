@@ -18,6 +18,63 @@ interface Manifest {
 }
 
 /**
+ * Register custom transform for unitless dimensions
+ * Tokens with $description: 'unitless' output as raw numbers without units
+ */
+StyleDictionary.registerTransform({
+  name: 'dimension/unitless',
+  type: 'value',
+  transitive: true,
+  filter: (token) => {
+    return token.$type === 'dimension' && token.$description === 'unitless';
+  },
+  transform: (token) => {
+    if (typeof token.$value === 'object' && token.$value.value !== undefined) {
+      return String(token.$value.value);
+    }
+    return String(token.$value);
+  }
+});
+
+/**
+ * Shared platform configuration for consistent transforms and rem output
+ * Applied to all 7 builds (root, light, dark, 4 radius modes)
+ *
+ * Transform order matters: dimension/unitless must come before dimension/css
+ * to strip units from unitless tokens before dimension/css adds px units
+ */
+const sharedPlatformConfig = {
+  transforms: [
+    'attribute/cti',
+    'name/kebab',
+    'time/seconds',
+    'html/icon',
+    'size/rem',
+    'asset/url',
+    'fontFamily/css',
+    'cubicBezier/css',
+    'strokeStyle/css/shorthand',
+    'border/css/shorthand',
+    'typography/css/shorthand',
+    'transition/css/shorthand',
+    'shadow/css/shorthand',
+    'w3c-color/css',
+    'dimension/unitless',
+    'dimension/css',
+    'duration/css',
+    'shadow/css',
+    'strokeStyle/css',
+    'transition/css',
+    'typography/css',
+    'fontWeight/css',
+    'w3c-border/css',
+    'gradient/css',
+  ],
+  outputUnit: 'rem',
+  basePxFontSize: 16,
+};
+
+/**
  * Build tokens using Style Dictionary v5 with multi-mode CSS output
  * Handles token name collisions across modes by building separately and concatenating
  */
@@ -84,7 +141,7 @@ async function buildTokens() {
       log: { warnings: 'disabled' }, // Suppress collision warnings
       platforms: {
         css: {
-          transformGroup: 'css/extended',
+          ...sharedPlatformConfig,
           buildPath: 'dist/css/',
           files: [
             {
@@ -113,7 +170,7 @@ async function buildTokens() {
         log: { warnings: 'disabled' },
         platforms: {
           css: {
-            transformGroup: 'css/extended',
+            ...sharedPlatformConfig,
             buildPath: 'dist/css/',
             files: [
               {
@@ -144,7 +201,7 @@ async function buildTokens() {
         log: { warnings: 'disabled' },
         platforms: {
           css: {
-            transformGroup: 'css/extended',
+            ...sharedPlatformConfig,
             buildPath: 'dist/css/',
             files: [
               {
@@ -177,7 +234,7 @@ async function buildTokens() {
           log: { warnings: 'disabled' },
           platforms: {
             css: {
-              transformGroup: 'css/extended',
+              ...sharedPlatformConfig,
               buildPath: 'dist/css/',
               files: [
                 {
