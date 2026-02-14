@@ -70,10 +70,10 @@ Plans:
   1. Individual typography property tokens (font-size, font-weight, line-height, font-family) appear as separate CSS variables
   2. Composite typography style tokens appear as CSS font shorthand variables
   3. Primitive font tokens appear as CSS variables under `:root`
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 04-01: [TBD during planning]
+- [ ] 04-01-PLAN.md — Verify typography token output (no code changes needed)
 
 ## Progress
 
