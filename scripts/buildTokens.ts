@@ -125,9 +125,8 @@ async function buildTokens() {
     mkdirSync("dist/css", { recursive: true });
 
     const tempFiles: string[] = [];
-    const header =
+    let cssOutput =
       "/**\n * Do not edit directly, this file was auto-generated.\n */\n\n";
-    let cssOutput = "";
 
     // Build 1: :root with base tokens + light color + default radius
     const rootSources = [
@@ -271,7 +270,7 @@ async function buildTokens() {
     }
 
     // Write final combined CSS file
-    writeFileSync("dist/css/tokens.css", header + cssOutput, "utf-8");
+    writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
 
     // Clean up temporary files
     for (const tempFile of tempFiles) {
