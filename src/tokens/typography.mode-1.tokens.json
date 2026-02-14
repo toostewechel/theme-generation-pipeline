@@ -37,7 +37,7 @@
   },
   "typography-display-medium-letter-spacing": {
     "$type": "dimension",
-    "$value": "{font-letter-spacing-tight}"
+    "$value": "{font-letter-spacing-tighter}"
   },
   "typography-display-small-font-family": {
     "$type": "fontFamily",
@@ -61,11 +61,11 @@
   },
   "typography-heading-3xl-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-3xl-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-3xl-font-size": {
     "$type": "dimension",
@@ -81,11 +81,11 @@
   },
   "typography-heading-2xl-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-2xl-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-2xl-font-size": {
     "$type": "dimension",
@@ -101,11 +101,11 @@
   },
   "typography-heading-xl-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-xl-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-xl-font-size": {
     "$type": "dimension",
@@ -121,11 +121,11 @@
   },
   "typography-heading-lg-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-lg-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-lg-font-size": {
     "$type": "dimension",
@@ -137,15 +137,15 @@
   },
   "typography-heading-lg-letter-spacing": {
     "$type": "dimension",
-    "$value": "{font-letter-spacing-wide}"
+    "$value": "{font-letter-spacing-normal}"
   },
   "typography-heading-md-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-md-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-md-font-size": {
     "$type": "dimension",
@@ -157,15 +157,15 @@
   },
   "typography-heading-md-letter-spacing": {
     "$type": "dimension",
-    "$value": "{font-letter-spacing-wide}"
+    "$value": "{font-letter-spacing-normal}"
   },
   "typography-heading-sm-font-family": {
     "$type": "fontFamily",
-    "$value": "{font-family-sans}"
+    "$value": "{font-family-serif}"
   },
   "typography-heading-sm-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-heading-sm-font-size": {
     "$type": "dimension",
