@@ -1,0 +1,295 @@
+{
+  "font-family-serif": {
+    "$type": "fontFamily",
+    "$value": "Test Signifier VF"
+  },
+  "font-family-sans": {
+    "$type": "fontFamily",
+    "$value": "Geist"
+  },
+  "font-family-mono": {
+    "$type": "fontFamily",
+    "$value": "Berkeley Mono"
+  },
+  "font-weight-thin": {
+    "$type": "fontWeight",
+    "$value": 100
+  },
+  "font-weight-extra-light": {
+    "$type": "fontWeight",
+    "$value": 200
+  },
+  "font-weight-light": {
+    "$type": "fontWeight",
+    "$value": 300
+  },
+  "font-weight-regular": {
+    "$type": "fontWeight",
+    "$value": 400
+  },
+  "font-weight-medium": {
+    "$type": "fontWeight",
+    "$value": 500
+  },
+  "font-weight-semi-bold": {
+    "$type": "fontWeight",
+    "$value": 600
+  },
+  "font-weight-bold": {
+    "$type": "fontWeight",
+    "$value": 700
+  },
+  "font-weight-extra-bold": {
+    "$type": "fontWeight",
+    "$value": 800
+  },
+  "font-weight-black": {
+    "$type": "fontWeight",
+    "$value": 900
+  },
+  "font-size-50": {
+    "$type": "dimension",
+    "$value": {
+      "value": 11,
+      "unit": "px"
+    }
+  },
+  "font-size-75": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "font-size-100": {
+    "$type": "dimension",
+    "$value": {
+      "value": 14,
+      "unit": "px"
+    }
+  },
+  "font-size-200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    }
+  },
+  "font-size-300": {
+    "$type": "dimension",
+    "$value": {
+      "value": 18,
+      "unit": "px"
+    }
+  },
+  "font-size-400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 20,
+      "unit": "px"
+    }
+  },
+  "font-size-500": {
+    "$type": "dimension",
+    "$value": {
+      "value": 22,
+      "unit": "px"
+    }
+  },
+  "font-size-600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 25,
+      "unit": "px"
+    }
+  },
+  "font-size-700": {
+    "$type": "dimension",
+    "$value": {
+      "value": 28,
+      "unit": "px"
+    }
+  },
+  "font-size-800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 32,
+      "unit": "px"
+    }
+  },
+  "font-size-900": {
+    "$type": "dimension",
+    "$value": {
+      "value": 36,
+      "unit": "px"
+    }
+  },
+  "font-size-1000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 40,
+      "unit": "px"
+    }
+  },
+  "font-size-1100": {
+    "$type": "dimension",
+    "$value": {
+      "value": 45,
+      "unit": "px"
+    }
+  },
+  "font-size-1200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 50,
+      "unit": "px"
+    }
+  },
+  "font-size-1300": {
+    "$type": "dimension",
+    "$value": {
+      "value": 54,
+      "unit": "px"
+    }
+  },
+  "font-line-height-300": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "font-line-height-400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    }
+  },
+  "font-line-height-500": {
+    "$type": "dimension",
+    "$value": {
+      "value": 20,
+      "unit": "px"
+    }
+  },
+  "font-line-height-600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    }
+  },
+  "font-line-height-700": {
+    "$type": "dimension",
+    "$value": {
+      "value": 28,
+      "unit": "px"
+    }
+  },
+  "font-line-height-800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 32,
+      "unit": "px"
+    }
+  },
+  "font-line-height-900": {
+    "$type": "dimension",
+    "$value": {
+      "value": 36,
+      "unit": "px"
+    }
+  },
+  "font-line-height-1000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 40,
+      "unit": "px"
+    }
+  },
+  "font-letter-spacing-wider": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.3499999940395355,
+      "unit": "px"
+    }
+  },
+  "font-line-height-1200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 48,
+      "unit": "px"
+    }
+  },
+  "font-letter-spacing-wide": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.25,
+      "unit": "px"
+    }
+  },
+  "font-line-height-1400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 56,
+      "unit": "px"
+    }
+  },
+  "font-letter-spacing-normal": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0,
+      "unit": "px"
+    }
+  },
+  "font-line-height-1600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 64,
+      "unit": "px"
+    }
+  },
+  "font-letter-spacing-tight": {
+    "$type": "dimension",
+    "$value": {
+      "value": -0.25,
+      "unit": "px"
+    }
+  },
+  "font-line-height-2000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 80,
+      "unit": "px"
+    }
+  },
+  "font-line-height-2400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 96,
+      "unit": "px"
+    }
+  },
+  "font-line-height-2800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 112,
+      "unit": "px"
+    }
+  },
+  "font-line-height-3200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 128,
+      "unit": "px"
+    }
+  },
+  "font-letter-spacing-tighter": {
+    "$type": "dimension",
+    "$value": {
+      "value": -0.3499999940395355,
+      "unit": "px"
+    }
+  }
+}

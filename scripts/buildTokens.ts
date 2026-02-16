@@ -246,8 +246,8 @@ async function buildTokens() {
       }
     }
 
-    console.log("\nBuild completed successfully");
-    console.log("✔ dist/css/tokens.css");
+    console.log("\n🎉 Build completed successfully");
+    console.log("✅ dist/css/tokens.css");
     process.exit(0);
   } catch (error) {
     console.error("Build failed:", error);
