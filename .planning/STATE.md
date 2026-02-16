@@ -11,7 +11,7 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 Milestone: v1.0 MVP — SHIPPED 2026-02-14
 Status: Milestone complete, planning next
-Last activity: 2026-02-14 — Completed v1.0 milestone (4 phases, 4 plans)
+Last activity: 2026-02-16 - Completed quick task 1: Remove duplicate light mode color tokens from CSS output to make it DRY
 
 Progress: [██████████] 100% (v1.0)
 
@@ -46,6 +46,12 @@ None.
 ### Blockers/Concerns
 
 None.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Remove duplicate light mode color tokens from CSS output to make it DRY | 2026-02-16 | 70cc0c7 | [1-remove-duplicate-light-mode-color-tokens](./quick/1-remove-duplicate-light-mode-color-tokens/) |
 
 ## Session Continuity
 
