@@ -49,7 +49,6 @@ const sharedPlatformConfig = {
     "border/css/shorthand",
     "typography/css/shorthand",
     "transition/css/shorthand",
-    "shadow/css/shorthand",
     "w3c-color/css",
     "dimension/unitless",
     "dimension/css",
@@ -116,10 +115,10 @@ async function buildTokens() {
       );
     }
 
-    console.log(`Building multi-mode CSS...`);
-    console.log(`Base files: ${baseFiles.length}`);
-    console.log(`Color modes: ${Object.keys(colorModes).join(", ")}`);
-    console.log(`Radius modes: ${Object.keys(radiusModes).join(", ")}`);
+    console.log(`🔨 Building multi-mode CSS...`);
+    console.log(`📦 Base files: ${baseFiles.length}`);
+    console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
+    console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
 
     // Create output directory
     mkdirSync("dist/css", { recursive: true });
@@ -137,7 +136,7 @@ async function buildTokens() {
 
     const sdRoot = new StyleDictionary({
       source: rootSources,
-      log: { warnings: "disabled" }, // Suppress collision warnings
+      log: { verbosity: "silent" }, // Suppress all build output
       platforms: {
         css: {
           ...sharedPlatformConfig,
@@ -168,7 +167,7 @@ async function buildTokens() {
     if (colorModes["light"]) {
       const sdLight = new StyleDictionary({
         source: [...baseFiles, ...colorModes["light"]],
-        log: { warnings: "disabled" },
+        log: { verbosity: "silent" },
         platforms: {
           css: {
             ...sharedPlatformConfig,
@@ -202,7 +201,7 @@ async function buildTokens() {
     if (colorModes["dark"]) {
       const sdDark = new StyleDictionary({
         source: [...baseFiles, ...colorModes["dark"]],
-        log: { warnings: "disabled" },
+        log: { verbosity: "silent" },
         platforms: {
           css: {
             ...sharedPlatformConfig,
@@ -238,7 +237,7 @@ async function buildTokens() {
       if (radiusModes[mode]) {
         const sdRadius = new StyleDictionary({
           source: [...baseFiles, ...radiusModes[mode]],
-          log: { warnings: "disabled" },
+          log: { verbosity: "silent" },
           platforms: {
             css: {
               ...sharedPlatformConfig,
