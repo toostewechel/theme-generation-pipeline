@@ -217,6 +217,7 @@
   },
   "color-state-disabled-opacity": {
     "$type": "dimension",
+    "$description": "unitless",
     "$value": {
       "value": 0.5,
       "unit": "px"
@@ -224,6 +225,7 @@
   },
   "color-state-hover-intensity": {
     "$type": "dimension",
+    "$description": "unitless",
     "$value": {
       "value": 0.9200000166893005,
       "unit": "px"
@@ -231,6 +233,7 @@
   },
   "color-state-active-intensity": {
     "$type": "dimension",
+    "$description": "unitless",
     "$value": {
       "value": 0.8500000238418579,
       "unit": "px"
