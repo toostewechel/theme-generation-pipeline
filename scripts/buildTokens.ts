@@ -127,7 +127,7 @@ async function buildTokens() {
     let cssOutput =
       "/**\n * Do not edit directly, this file was auto-generated.\n */\n\n";
 
-    // Build 1: :root with base tokens + light color + default radius
+    // Build 1: :root with base tokens + light color (serves as default/light mode) + default radius
     const rootSources = [
       ...baseFiles,
       ...(colorModes["light"] || []),
@@ -163,41 +163,7 @@ async function buildTokens() {
     cssOutput += rootCss;
     tempFiles.push("dist/css/_temp_root.css");
 
-    // Build 2: [data-color-mode='light']
-    if (colorModes["light"]) {
-      const sdLight = new StyleDictionary({
-        source: [...baseFiles, ...colorModes["light"]],
-        log: { verbosity: "silent" },
-        platforms: {
-          css: {
-            ...sharedPlatformConfig,
-            buildPath: "dist/css/",
-            files: [
-              {
-                destination: "_temp_light.css",
-                format: "css/variables",
-                filter: (token: any) =>
-                  token.filePath.includes("color.light.tokens.json"),
-                options: {
-                  outputReferences: true,
-                  selector: "[data-color-mode='light']",
-                },
-              },
-            ],
-          },
-        },
-      });
-
-      await sdLight.buildAllPlatforms();
-      const lightCss = readFileSync(
-        "dist/css/_temp_light.css",
-        "utf-8",
-      ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
-      cssOutput += lightCss;
-      tempFiles.push("dist/css/_temp_light.css");
-    }
-
-    // Build 3: [data-color-mode='dark']
+    // Build 2: [data-color-mode='dark']
     if (colorModes["dark"]) {
       const sdDark = new StyleDictionary({
         source: [...baseFiles, ...colorModes["dark"]],
