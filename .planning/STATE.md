@@ -11,7 +11,7 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 Milestone: v1.0 MVP — SHIPPED 2026-02-14
 Status: Milestone complete, planning next
-Last activity: 2026-02-16 - Completed quick task 1: Remove duplicate light mode color tokens from CSS output to make it DRY
+Last activity: 2026-02-16 - Completed quick task 2: Fix dimension unitless transform to use DTCG $description property
 
 Progress: [██████████] 100% (v1.0)
 
@@ -39,6 +39,9 @@ Progress: [██████████] 100% (v1.0)
 
 All v1.0 decisions logged in PROJECT.md Key Decisions table with outcomes.
 
+**Quick task 2:**
+- Use DTCG-compliant $description property for custom transform metadata (enables dimension/unitless transform to filter correctly on token.$description === "unitless")
+
 ### Pending Todos
 
 None.
@@ -52,9 +55,10 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | Remove duplicate light mode color tokens from CSS output to make it DRY | 2026-02-16 | 70cc0c7 | [1-remove-duplicate-light-mode-color-tokens](./quick/1-remove-duplicate-light-mode-color-tokens/) |
+| 2 | Fix dimension unitless transform to use DTCG $description property | 2026-02-16 | 3fc1ccb | [2-fix-dimension-unitless-transform-use-dtc](./quick/2-fix-dimension-unitless-transform-use-dtc/) |
 
 ## Session Continuity
 
-Last session: 2026-02-14
-Stopped at: Completed v1.0 milestone
+Last session: 2026-02-16T08:38:04Z
+Stopped at: Completed quick task 2-fix-dimension-unitless-transform-use-dtc
 Resume: `/gsd:new-milestone` to start next milestone
