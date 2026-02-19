@@ -1,5 +1,6 @@
 import { StyleDictionary } from "style-dictionary-utils";
 import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
+import { typographyMixinsFormat } from "../src/formatters/typographyMixins.js";
 
 // Manifest structure matching src/tokens/manifest.json
 interface Manifest {
@@ -32,6 +33,9 @@ StyleDictionary.registerTransform({
     return String(token.$value);
   },
 });
+
+// Register custom format for SCSS typography mixins
+StyleDictionary.registerFormat(typographyMixinsFormat);
 
 // Shared platform configuration for consistent transforms applied to all 7 builds
 // Transform order matters: dimension/unitless must come before dimension/css to ensure unitless tokens are processed correctly
@@ -234,6 +238,29 @@ async function buildTokens() {
       }
     }
 
+    // Build: SCSS typography mixins
+    mkdirSync("dist/scss", { recursive: true });
+
+    const sdScss = new StyleDictionary({
+      source: baseFiles,
+      log: { verbosity: "silent" },
+      platforms: {
+        scss: {
+          ...sharedPlatformConfig,
+          buildPath: "dist/scss/",
+          files: [
+            {
+              destination: "typography-mixins.scss",
+              format: "scss/typography-mixins",
+              filter: (token: any) => token.$type === "typography",
+            },
+          ],
+        },
+      },
+    });
+
+    await sdScss.buildAllPlatforms();
+
     // Write final combined CSS file
     writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
 
@@ -248,6 +275,7 @@ async function buildTokens() {
 
     console.log("\n🎉 Build completed successfully");
     console.log("✅ dist/css/tokens.css");
+    console.log("✅ dist/scss/typography-mixins.scss");
     process.exit(0);
   } catch (error) {
     console.error("Build failed:", error);
