@@ -1,7 +1,6 @@
 {
-  "radius-intensity": {
+  "width": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
       "value": 1,
       "unit": "px"

@@ -1,94 +1,82 @@
 {
-  "radius-unit": {
-    "$type": "dimension",
-    "$value": {
-      "value": 4,
-      "unit": "px"
-    }
-  },
-  "radius-none": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0,
-      "unit": "px"
-    }
-  },
-  "radius-full": {
+  "1": {
     "$type": "dimension",
     "$value": {
       "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-xs": {
+  "2": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
-      "value": 0.25,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-sm": {
+  "3": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
-      "value": 0.5,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-md": {
+  "4": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
-      "value": 1,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-lg": {
+  "5": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
-      "value": 1.5,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-xl": {
+  "6": {
     "$type": "dimension",
-    "$description": "unitless",
     "$value": {
-      "value": 2,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-cap-xs": {
+  "1-max": {
     "$type": "dimension",
     "$value": {
-      "value": 2,
+      "value": 4.5,
       "unit": "px"
     }
   },
-  "radius-cap-sm": {
+  "2-max": {
     "$type": "dimension",
     "$value": {
-      "value": 4,
+      "value": 6,
       "unit": "px"
     }
   },
-  "radius-cap-md": {
+  "3-max": {
     "$type": "dimension",
     "$value": {
-      "value": 8,
+      "value": 9,
       "unit": "px"
     }
   },
-  "radius-cap-lg": {
+  "4-max": {
     "$type": "dimension",
     "$value": {
-      "value": 16,
+      "value": 12,
       "unit": "px"
     }
   },
-  "radius-cap-xl": {
+  "5-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 18,
+      "unit": "px"
+    }
+  },
+  "6-max": {
     "$type": "dimension",
     "$value": {
       "value": 24,

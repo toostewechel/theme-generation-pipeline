@@ -3,51 +3,82 @@
   "collections": {
     "primitives-color": {
       "modes": {
-        "mode-1": ["primitives-color.mode-1.tokens.json"]
-      }
-    },
-    "color": {
-      "modes": {
-        "light": ["color.light.tokens.json"],
-        "dark": ["color.dark.tokens.json"]
-      }
-    },
-    "primitives-font": {
-      "modes": {
-        "mode-1": ["primitives-font.mode-1.tokens.json"]
-      }
-    },
-    "primitives-dimension": {
-      "modes": {
-        "mode-1": ["primitives-dimension.mode-1.tokens.json"]
-      }
-    },
-    "dimension": {
-      "modes": {
-        "mode-1": ["dimension.mode-1.tokens.json"]
+        "value": [
+          "primitives-color.value.tokens.json"
+        ]
       }
     },
     "primitives-radius": {
       "modes": {
-        "mode-1": ["primitives-radius.mode-1.tokens.json"]
+        "small": [
+          "primitives-radius.small.tokens.json"
+        ],
+        "medium": [
+          "primitives-radius.medium.tokens.json"
+        ],
+        "large": [
+          "primitives-radius.large.tokens.json"
+        ],
+        "full": [
+          "primitives-radius.full.tokens.json"
+        ]
       }
     },
-    "radius": {
+    "primitives-dimension": {
       "modes": {
-        "sharp": ["radius.sharp.tokens.json"],
-        "default": ["radius.default.tokens.json"],
-        "rounded": ["radius.rounded.tokens.json"],
-        "pill": ["radius.pill.tokens.json"]
+        "mode-1": [
+          "primitives-dimension.mode-1.tokens.json"
+        ]
       }
     },
-    "typography": {
+    "primitives-font": {
       "modes": {
-        "mode-1": ["typography.mode-1.tokens.json"]
+        "value": [
+          "primitives-font.value.tokens.json"
+        ]
+      }
+    },
+    "color": {
+      "modes": {
+        "light": [
+          "color.light.tokens.json"
+        ],
+        "dark": [
+          "color.dark.tokens.json"
+        ]
+      }
+    },
+    "text-styles": {
+      "modes": {
+        "value": [
+          "text-styles.value.tokens.json"
+        ]
+      }
+    },
+    "size": {
+      "modes": {
+        "value": [
+          "size.value.tokens.json"
+        ]
+      }
+    },
+    "border": {
+      "modes": {
+        "default": [
+          "border.default.tokens.json"
+        ],
+        "bold": [
+          "border.bold.tokens.json"
+        ]
       }
     }
   },
   "styles": {
-    "typography": ["typography.styles.tokens.json"],
-    "shadows": ["effects.styles.tokens.json"]
+    "typography": [
+      "typography.styles.tokens.json"
+    ],
+    "effects": [
+      "effects.styles.tokens.json"
+    ]
   }
 }

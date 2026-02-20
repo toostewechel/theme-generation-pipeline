@@ -82,6 +82,7 @@ async function buildTokens() {
     const baseFiles: string[] = [];
     const colorModes: { [mode: string]: string[] } = {};
     const radiusModes: { [mode: string]: string[] } = {};
+    const borderModes: { [mode: string]: string[] } = {};
 
     // Process collections
     for (const collectionName of Object.keys(manifest.collections)) {
@@ -99,6 +100,13 @@ async function buildTokens() {
         // Multi-mode radius collection
         for (const mode of modes) {
           radiusModes[mode] = collection.modes[mode].map(
+            (f) => `src/tokens/${f}`,
+          );
+        }
+      } else if (collectionName === "border" && modes.length > 1) {
+        // Multi-mode border collection
+        for (const mode of modes) {
+          borderModes[mode] = collection.modes[mode].map(
             (f) => `src/tokens/${f}`,
           );
         }
@@ -123,6 +131,7 @@ async function buildTokens() {
     console.log(`📦 Base files: ${baseFiles.length}`);
     console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
     console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
+    console.log(`📏 Border modes: ${Object.keys(borderModes).join(", ")}`);
 
     // Create output directory
     mkdirSync("dist/css", { recursive: true });
@@ -136,6 +145,7 @@ async function buildTokens() {
       ...baseFiles,
       ...(colorModes["light"] || []),
       ...(radiusModes["default"] || []),
+      ...(borderModes["default"] || []),
     ];
 
     const sdRoot = new StyleDictionary({
@@ -235,6 +245,43 @@ async function buildTokens() {
         ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
         cssOutput += radiusCss;
         tempFiles.push(`dist/css/_temp_radius_${mode}.css`);
+      }
+    }
+
+    // Build: Border modes
+    const borderModeOrder = ["default", "bold"];
+    for (const mode of borderModeOrder) {
+      if (borderModes[mode]) {
+        const sdBorder = new StyleDictionary({
+          source: [...baseFiles, ...borderModes[mode]],
+          log: { verbosity: "silent" },
+          platforms: {
+            css: {
+              ...sharedPlatformConfig,
+              buildPath: "dist/css/",
+              files: [
+                {
+                  destination: `_temp_border_${mode}.css`,
+                  format: "css/variables",
+                  filter: (token: any) =>
+                    token.filePath.includes(`border.${mode}.tokens.json`),
+                  options: {
+                    outputReferences: true,
+                    selector: `[data-border-mode='${mode}']`,
+                  },
+                },
+              ],
+            },
+          },
+        });
+
+        await sdBorder.buildAllPlatforms();
+        const borderCss = readFileSync(
+          `dist/css/_temp_border_${mode}.css`,
+          "utf-8",
+        ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
+        cssOutput += borderCss;
+        tempFiles.push(`dist/css/_temp_border_${mode}.css`);
       }
     }
 
