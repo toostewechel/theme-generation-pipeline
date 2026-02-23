@@ -127,7 +127,7 @@ async function buildTokens() {
       );
     }
 
-    console.log(`🔨 Building multi-mode CSS + SCSS...`);
+    console.log(`🔨 Building multi-mode CSS...`);
     console.log(`📦 Base files: ${baseFiles.length}`);
     console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
     console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
@@ -140,8 +140,6 @@ async function buildTokens() {
     const tempFiles: string[] = [];
     let cssOutput =
       "/**\n * Do not edit directly, this file was auto-generated.\n */\n\n";
-    let scssOutput =
-      "// Do not edit directly, this file was auto-generated.\n\n";
 
     // Build 1: :root with base tokens + light color (serves as default/light mode) + default radius
     const rootSources = [
@@ -169,20 +167,6 @@ async function buildTokens() {
             },
           ],
         },
-        scss: {
-          ...sharedPlatformConfig,
-          buildPath: "dist/scss/",
-          files: [
-            {
-              destination: "_temp_root.scss",
-              format: "scss/variables",
-              options: {
-                outputReferences: true,
-                selector: ":root",
-              },
-            },
-          ],
-        },
       },
     });
 
@@ -193,13 +177,6 @@ async function buildTokens() {
     ); // Remove auto-generated comment
     cssOutput += rootCss;
     tempFiles.push("dist/css/_temp_root.css");
-
-    const rootScss = readFileSync("dist/scss/_temp_root.scss", "utf-8").replace(
-      /\/\/.*Do not edit.*\n\n/,
-      "",
-    );
-    scssOutput += rootScss;
-    tempFiles.push("dist/scss/_temp_root.scss");
 
     // Build 2: [data-color-mode='dark']
     if (colorModes["dark"]) {
@@ -223,22 +200,6 @@ async function buildTokens() {
               },
             ],
           },
-          scss: {
-            ...sharedPlatformConfig,
-            buildPath: "dist/scss/",
-            files: [
-              {
-                destination: "_temp_dark.scss",
-                format: "scss/variables",
-                filter: (token: any) =>
-                  token.filePath.includes("color.dark.tokens.json"),
-                options: {
-                  outputReferences: true,
-                  selector: "[data-color-mode='dark']",
-                },
-              },
-            ],
-          },
         },
       });
 
@@ -249,14 +210,6 @@ async function buildTokens() {
       );
       cssOutput += darkCss;
       tempFiles.push("dist/css/_temp_dark.css");
-
-      const darkScss = readFileSync(
-        "dist/scss/_temp_dark.scss",
-        "utf-8",
-      ).replace(/\/\/.*Do not edit.*\n\n/, "");
-      scssOutput += "// Color: dark mode\n";
-      scssOutput += darkScss;
-      tempFiles.push("dist/scss/_temp_dark.scss");
     }
 
     // Build 4-7: Radius modes
@@ -274,22 +227,6 @@ async function buildTokens() {
                 {
                   destination: `_temp_radius_${mode}.css`,
                   format: "css/variables",
-                  filter: (token: any) =>
-                    token.filePath.includes(`radius.${mode}.tokens.json`),
-                  options: {
-                    outputReferences: true,
-                    selector: `[data-radius-mode='${mode}']`,
-                  },
-                },
-              ],
-            },
-            scss: {
-              ...sharedPlatformConfig,
-              buildPath: "dist/scss/",
-              files: [
-                {
-                  destination: `_temp_radius_${mode}.scss`,
-                  format: "scss/variables",
                   filter: (token: any) =>
                     token.filePath.includes(`radius.${mode}.tokens.json`),
                   options: {
@@ -374,7 +311,6 @@ async function buildTokens() {
 
     // Write final combined output files
     writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
-    writeFileSync("dist/scss/tokens.scss", scssOutput, "utf-8");
 
     // Clean up temporary files
     for (const tempFile of tempFiles) {
@@ -388,7 +324,6 @@ async function buildTokens() {
     console.log("\n🎉 Build completed successfully");
     console.log("✅ dist/css/tokens.css");
     console.log("✅ dist/scss/typography-mixins.scss");
-    console.log("✅ dist/scss/tokens.scss");
     process.exit(0);
   } catch (error) {
     console.error("Build failed:", error);
