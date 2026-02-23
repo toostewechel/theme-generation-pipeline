@@ -1,5 +1,6 @@
 import { StyleDictionary } from "style-dictionary-utils";
 import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
+import { typographyMixinsFormat } from "../src/formatters/typographyMixins.js";
 
 // Manifest structure matching src/tokens/manifest.json
 interface Manifest {
@@ -32,6 +33,9 @@ StyleDictionary.registerTransform({
     return String(token.$value);
   },
 });
+
+// Register custom format for SCSS typography mixins
+StyleDictionary.registerFormat(typographyMixinsFormat);
 
 // Shared platform configuration for consistent transforms applied to all 7 builds
 // Transform order matters: dimension/unitless must come before dimension/css to ensure unitless tokens are processed correctly
@@ -78,6 +82,7 @@ async function buildTokens() {
     const baseFiles: string[] = [];
     const colorModes: { [mode: string]: string[] } = {};
     const radiusModes: { [mode: string]: string[] } = {};
+    const borderModes: { [mode: string]: string[] } = {};
 
     // Process collections
     for (const collectionName of Object.keys(manifest.collections)) {
@@ -95,6 +100,13 @@ async function buildTokens() {
         // Multi-mode radius collection
         for (const mode of modes) {
           radiusModes[mode] = collection.modes[mode].map(
+            (f) => `src/tokens/${f}`,
+          );
+        }
+      } else if (collectionName === "border" && modes.length > 1) {
+        // Multi-mode border collection
+        for (const mode of modes) {
+          borderModes[mode] = collection.modes[mode].map(
             (f) => `src/tokens/${f}`,
           );
         }
@@ -119,6 +131,7 @@ async function buildTokens() {
     console.log(`📦 Base files: ${baseFiles.length}`);
     console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
     console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
+    console.log(`📏 Border modes: ${Object.keys(borderModes).join(", ")}`);
 
     // Create output directories
     mkdirSync("dist/css", { recursive: true });
@@ -135,6 +148,7 @@ async function buildTokens() {
       ...baseFiles,
       ...(colorModes["light"] || []),
       ...(radiusModes["default"] || []),
+      ...(borderModes["default"] || []),
     ];
 
     const sdRoot = new StyleDictionary({
@@ -295,16 +309,68 @@ async function buildTokens() {
         ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
         cssOutput += radiusCss;
         tempFiles.push(`dist/css/_temp_radius_${mode}.css`);
-
-        const radiusScss = readFileSync(
-          `dist/scss/_temp_radius_${mode}.scss`,
-          "utf-8",
-        ).replace(/\/\/.*Do not edit.*\n\n/, "");
-        scssOutput += `// Radius: ${mode} mode\n`;
-        scssOutput += radiusScss;
-        tempFiles.push(`dist/scss/_temp_radius_${mode}.scss`);
       }
     }
+
+    // Build: Border modes
+    const borderModeOrder = ["default", "bold"];
+    for (const mode of borderModeOrder) {
+      if (borderModes[mode]) {
+        const sdBorder = new StyleDictionary({
+          source: [...baseFiles, ...borderModes[mode]],
+          log: { verbosity: "silent" },
+          platforms: {
+            css: {
+              ...sharedPlatformConfig,
+              buildPath: "dist/css/",
+              files: [
+                {
+                  destination: `_temp_border_${mode}.css`,
+                  format: "css/variables",
+                  filter: (token: any) =>
+                    token.filePath.includes(`border.${mode}.tokens.json`),
+                  options: {
+                    outputReferences: true,
+                    selector: `[data-border-mode='${mode}']`,
+                  },
+                },
+              ],
+            },
+          },
+        });
+
+        await sdBorder.buildAllPlatforms();
+        const borderCss = readFileSync(
+          `dist/css/_temp_border_${mode}.css`,
+          "utf-8",
+        ).replace(/\/\*\*[\s\S]*?\*\/\n\n/, "");
+        cssOutput += borderCss;
+        tempFiles.push(`dist/css/_temp_border_${mode}.css`);
+      }
+    }
+
+    // Build: SCSS typography mixins
+    mkdirSync("dist/scss", { recursive: true });
+
+    const sdScss = new StyleDictionary({
+      source: baseFiles,
+      log: { verbosity: "silent" },
+      platforms: {
+        scss: {
+          ...sharedPlatformConfig,
+          buildPath: "dist/scss/",
+          files: [
+            {
+              destination: "typography-mixins.scss",
+              format: "scss/typography-mixins",
+              filter: (token: any) => token.$type === "typography",
+            },
+          ],
+        },
+      },
+    });
+
+    await sdScss.buildAllPlatforms();
 
     // Write final combined output files
     writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
@@ -321,6 +387,7 @@ async function buildTokens() {
 
     console.log("\n🎉 Build completed successfully");
     console.log("✅ dist/css/tokens.css");
+    console.log("✅ dist/scss/typography-mixins.scss");
     console.log("✅ dist/scss/tokens.scss");
     process.exit(0);
   } catch (error) {

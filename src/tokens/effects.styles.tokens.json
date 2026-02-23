@@ -1,46 +1,27 @@
 {
-  "shadow-small": {
+  "drop-shadow-100": {
     "$type": "shadow",
     "$value": [
       {
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
           ],
-          "alpha": 0.07999999821186066
+          "alpha": 0.10000000149011612
         },
         "offsetX": {
           "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 2,
+          "value": 1,
           "unit": "px"
         },
         "blur": {
-          "value": 4,
-          "unit": "px"
-        },
-        "spread": {
           "value": 0,
-          "unit": "px"
-        }
-      },
-      {
-        "color": "{color-black-alpha-4}",
-        "offsetX": {
-          "value": 0,
-          "unit": "px"
-        },
-        "offsetY": {
-          "value": 0,
-          "unit": "px"
-        },
-        "blur": {
-          "value": 6,
           "unit": "px"
         },
         "spread": {
@@ -50,21 +31,21 @@
       }
     ]
   },
-  "shadow-medium": {
+  "drop-shadow-200": {
     "$type": "shadow",
     "$value": [
       {
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
           ],
-          "alpha": 0.05999999865889549
+          "alpha": 0.10000000149011612
         },
         "offsetX": {
-          "value": 4,
+          "value": 1,
           "unit": "px"
         },
         "offsetY": {
@@ -84,22 +65,22 @@
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
           ],
-          "alpha": 0.03999999910593033
+          "alpha": 0.05000000074505806
         },
         "offsetX": {
-          "value": 0,
+          "value": 1,
           "unit": "px"
         },
         "offsetY": {
-          "value": 0,
+          "value": 2,
           "unit": "px"
         },
         "blur": {
-          "value": 4,
+          "value": 2,
           "unit": "px"
         },
         "spread": {
@@ -109,25 +90,25 @@
       }
     ]
   },
-  "shadow-large": {
+  "drop-shadow-300": {
     "$type": "shadow",
     "$value": [
       {
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
           ],
-          "alpha": 0.07999999821186066
+          "alpha": 0.10000000149011612
         },
         "offsetX": {
-          "value": 8,
+          "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 2,
           "unit": "px"
         },
         "blur": {
@@ -138,17 +119,383 @@
           "value": 0,
           "unit": "px"
         }
+      }
+    ]
+  },
+  "drop-shadow-400": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.05000000074505806
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 6,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 24,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
       },
       {
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0,
-            0,
-            0
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
           ],
-          "alpha": 0.03999999910593033
+          "alpha": 0.05000000074505806
         },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 4,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 16,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "drop-shadow-500": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.05000000074505806
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 32,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.10000000149011612
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 4,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 16,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "drop-shadow-600": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.05000000074505806
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 16,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 40,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.10000000149011612
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 24,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-100": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.20000000298023224
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 4,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-200": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.20000000298023224
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 4,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-300": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0470588244497776,
+            0.0470588244497776,
+            0.05098039284348488
+          ],
+          "alpha": 0.05000000074505806
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 4,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 4,
+          "unit": "px"
+        },
+        "spread": {
+          "value": -1,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-400": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.10000000149011612
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 16,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 32,
+          "unit": "px"
+        },
+        "spread": {
+          "value": -4,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-500": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.20000000298023224
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 16,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 16,
+          "unit": "px"
+        },
+        "spread": {
+          "value": -8,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "inner-shadow-600": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "alpha": 0.20000000298023224
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 16,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 32,
+          "unit": "px"
+        },
+        "spread": {
+          "value": -8,
+          "unit": "px"
+        }
+      }
+    ]
+  },
+  "focus-ring-brand": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "color": "{primary-alpha-50}",
         "offsetX": {
           "value": 0,
           "unit": "px"
@@ -158,11 +505,11 @@
           "unit": "px"
         },
         "blur": {
-          "value": 4,
+          "value": 0,
           "unit": "px"
         },
         "spread": {
-          "value": 0,
+          "value": 4,
           "unit": "px"
         }
       }

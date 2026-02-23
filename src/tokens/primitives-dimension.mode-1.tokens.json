@@ -6,91 +6,119 @@
       "unit": "px"
     }
   },
-  "space-1": {
+  "space-025": {
+    "$type": "dimension",
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    }
+  },
+  "space-050": {
+    "$type": "dimension",
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    }
+  },
+  "space-100": {
     "$type": "dimension",
     "$value": {
       "value": 4,
       "unit": "px"
     }
   },
-  "space-2": {
+  "space-150": {
+    "$type": "dimension",
+    "$value": {
+      "value": 6,
+      "unit": "px"
+    }
+  },
+  "space-200": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     }
   },
-  "space-3": {
+  "space-300": {
     "$type": "dimension",
     "$value": {
       "value": 12,
       "unit": "px"
     }
   },
-  "space-4": {
+  "space-400": {
     "$type": "dimension",
     "$value": {
       "value": 16,
       "unit": "px"
     }
   },
-  "space-5": {
+  "space-500": {
     "$type": "dimension",
     "$value": {
       "value": 20,
       "unit": "px"
     }
   },
-  "space-6": {
+  "space-600": {
     "$type": "dimension",
     "$value": {
       "value": 24,
       "unit": "px"
     }
   },
-  "space-8": {
+  "space-800": {
     "$type": "dimension",
     "$value": {
       "value": 32,
       "unit": "px"
     }
   },
-  "space-10": {
+  "space-1000": {
     "$type": "dimension",
     "$value": {
       "value": 40,
       "unit": "px"
     }
   },
-  "space-12": {
+  "space-1200": {
     "$type": "dimension",
     "$value": {
       "value": 48,
       "unit": "px"
     }
   },
-  "space-16": {
+  "space-1600": {
     "$type": "dimension",
     "$value": {
       "value": 64,
       "unit": "px"
     }
   },
-  "space-20": {
+  "space-2000": {
     "$type": "dimension",
     "$value": {
       "value": 80,
       "unit": "px"
     }
   },
-  "space-24": {
+  "space-2400": {
     "$type": "dimension",
     "$value": {
       "value": 96,
       "unit": "px"
     }
   },
-  "space-32": {
+  "space-2800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 112,
+      "unit": "px"
+    }
+  },
+  "space-3200": {
     "$type": "dimension",
     "$value": {
       "value": 128,
@@ -104,94 +132,360 @@
       "unit": "px"
     }
   },
-  "size-1": {
+  "depth-0": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0,
+      "unit": "px"
+    }
+  },
+  "depth-025": {
+    "$type": "dimension",
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    }
+  },
+  "depth-100": {
     "$type": "dimension",
     "$value": {
       "value": 4,
       "unit": "px"
     }
   },
-  "size-2": {
+  "depth-200": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     }
   },
-  "size-3": {
-    "$type": "dimension",
-    "$value": {
-      "value": 12,
-      "unit": "px"
-    }
-  },
-  "size-4": {
+  "depth-400": {
     "$type": "dimension",
     "$value": {
       "value": 16,
       "unit": "px"
     }
   },
-  "size-5": {
-    "$type": "dimension",
-    "$value": {
-      "value": 20,
-      "unit": "px"
-    }
-  },
-  "size-6": {
-    "$type": "dimension",
-    "$value": {
-      "value": 24,
-      "unit": "px"
-    }
-  },
-  "size-8": {
+  "depth-800": {
     "$type": "dimension",
     "$value": {
       "value": 32,
       "unit": "px"
     }
   },
-  "size-10": {
-    "$type": "dimension",
-    "$value": {
-      "value": 40,
-      "unit": "px"
-    }
-  },
-  "size-12": {
+  "depth-1200": {
     "$type": "dimension",
     "$value": {
       "value": 48,
       "unit": "px"
     }
   },
-  "size-14": {
+  "depth-negative-025": {
+    "$type": "dimension",
+    "$value": {
+      "value": -1,
+      "unit": "px"
+    }
+  },
+  "depth-negative-100": {
+    "$type": "dimension",
+    "$value": {
+      "value": -4,
+      "unit": "px"
+    }
+  },
+  "depth-negative-200": {
+    "$type": "dimension",
+    "$value": {
+      "value": -8,
+      "unit": "px"
+    }
+  },
+  "depth-negative-400": {
+    "$type": "dimension",
+    "$value": {
+      "value": -16,
+      "unit": "px"
+    }
+  },
+  "depth-negative-800": {
+    "$type": "dimension",
+    "$value": {
+      "value": -32,
+      "unit": "px"
+    }
+  },
+  "depth-negative-1200": {
+    "$type": "dimension",
+    "$value": {
+      "value": -48,
+      "unit": "px"
+    }
+  },
+  "size-025": {
+    "$type": "dimension",
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    }
+  },
+  "size-050": {
+    "$type": "dimension",
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    }
+  },
+  "size-100": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    }
+  },
+  "size-150": {
+    "$type": "dimension",
+    "$value": {
+      "value": 6,
+      "unit": "px"
+    }
+  },
+  "size-200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 8,
+      "unit": "px"
+    }
+  },
+  "size-300": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "size-400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    }
+  },
+  "size-500": {
+    "$type": "dimension",
+    "$value": {
+      "value": 20,
+      "unit": "px"
+    }
+  },
+  "size-600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    }
+  },
+  "size-700": {
+    "$type": "dimension",
+    "$value": {
+      "value": 28,
+      "unit": "px"
+    }
+  },
+  "size-800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 32,
+      "unit": "px"
+    }
+  },
+  "size-900": {
+    "$type": "dimension",
+    "$value": {
+      "value": 36,
+      "unit": "px"
+    }
+  },
+  "size-1000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 40,
+      "unit": "px"
+    }
+  },
+  "size-1200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 48,
+      "unit": "px"
+    }
+  },
+  "size-1400": {
     "$type": "dimension",
     "$value": {
       "value": 56,
       "unit": "px"
     }
   },
-  "size-16": {
+  "size-1600": {
     "$type": "dimension",
     "$value": {
       "value": 64,
       "unit": "px"
     }
   },
-  "size-20": {
+  "size-2000": {
     "$type": "dimension",
     "$value": {
       "value": 80,
       "unit": "px"
     }
   },
-  "size-24": {
+  "size-2400": {
     "$type": "dimension",
     "$value": {
       "value": 96,
+      "unit": "px"
+    }
+  },
+  "size-2800": {
+    "$type": "dimension",
+    "$value": {
+      "value": 112,
+      "unit": "px"
+    }
+  },
+  "size-3200": {
+    "$type": "dimension",
+    "$value": {
+      "value": 128,
+      "unit": "px"
+    }
+  },
+  "blur-default": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    }
+  },
+  "space-negative-25": {
+    "$type": "dimension",
+    "$value": {
+      "value": -1,
+      "unit": "px"
+    }
+  },
+  "space-negative-50": {
+    "$type": "dimension",
+    "$value": {
+      "value": -2,
+      "unit": "px"
+    }
+  },
+  "space-negative-100": {
+    "$type": "dimension",
+    "$value": {
+      "value": -4,
+      "unit": "px"
+    }
+  },
+  "space-negative-150": {
+    "$type": "dimension",
+    "$value": {
+      "value": -6,
+      "unit": "px"
+    }
+  },
+  "space-negative-200": {
+    "$type": "dimension",
+    "$value": {
+      "value": -8,
+      "unit": "px"
+    }
+  },
+  "space-negative-300": {
+    "$type": "dimension",
+    "$value": {
+      "value": -12,
+      "unit": "px"
+    }
+  },
+  "space-negative-400": {
+    "$type": "dimension",
+    "$value": {
+      "value": -16,
+      "unit": "px"
+    }
+  },
+  "space-negative-500": {
+    "$type": "dimension",
+    "$value": {
+      "value": -20,
+      "unit": "px"
+    }
+  },
+  "space-negative-600": {
+    "$type": "dimension",
+    "$value": {
+      "value": -24,
+      "unit": "px"
+    }
+  },
+  "space-negative-800": {
+    "$type": "dimension",
+    "$value": {
+      "value": -32,
+      "unit": "px"
+    }
+  },
+  "space-negative-1000": {
+    "$type": "dimension",
+    "$value": {
+      "value": -40,
+      "unit": "px"
+    }
+  },
+  "space-negative-1200": {
+    "$type": "dimension",
+    "$value": {
+      "value": -48,
+      "unit": "px"
+    }
+  },
+  "space-negative-1600": {
+    "$type": "dimension",
+    "$value": {
+      "value": -64,
+      "unit": "px"
+    }
+  },
+  "space-negative-2000": {
+    "$type": "dimension",
+    "$value": {
+      "value": -80,
+      "unit": "px"
+    }
+  },
+  "space-negative-2400": {
+    "$type": "dimension",
+    "$value": {
+      "value": -96,
+      "unit": "px"
+    }
+  },
+  "space-negative-2800": {
+    "$type": "dimension",
+    "$value": {
+      "value": -112,
+      "unit": "px"
+    }
+  },
+  "space-negative-3200": {
+    "$type": "dimension",
+    "$value": {
+      "value": -20,
       "unit": "px"
     }
   }

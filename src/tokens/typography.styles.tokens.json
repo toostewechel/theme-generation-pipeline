@@ -1,92 +1,258 @@
 {
-  "display-lg": {
+  "heading-display": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-display-large-font-family}",
-      "fontWeight": "{typography-display-large-font-weight}",
-      "fontSize": "{typography-display-large-font-size}",
-      "lineHeight": "{typography-display-large-line-height}",
-      "letterSpacing": "{typography-display-large-letter-spacing}"
-    }
-  },
-  "display-md": {
-    "$type": "typography",
-    "$value": {
-      "fontFamily": "{typography-display-medium-font-family}",
-      "fontWeight": "{typography-display-medium-font-weight}",
-      "fontSize": "{typography-display-medium-font-size}",
-      "lineHeight": "{typography-display-medium-line-height}",
-      "letterSpacing": "{typography-display-medium-letter-spacing}"
-    }
-  },
-  "display-sm": {
-    "$type": "typography",
-    "$value": {
-      "fontFamily": "{typography-display-small-font-family}",
-      "fontWeight": "{typography-display-small-font-weight}",
-      "fontSize": "{typography-display-small-font-size}",
-      "lineHeight": "{typography-display-small-line-height}",
-      "letterSpacing": "{typography-display-small-letter-spacing}"
+      "fontFamily": "{text-heading-display-font-family}",
+      "fontWeight": "{text-heading-display-font-weight}",
+      "fontSize": "{text-heading-display-font-size-max}",
+      "lineHeight": "{text-heading-display-font-line-height}",
+      "letterSpacing": "{text-heading-display-font-letter-spacing}"
     }
   },
   "heading-3xl": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-3xl-font-family}",
-      "fontWeight": "{typography-heading-3xl-font-weight}",
-      "fontSize": "{typography-heading-3xl-font-size}",
-      "lineHeight": "{typography-heading-3xl-line-height}",
-      "letterSpacing": "{typography-heading-3xl-letter-spacing}"
+      "fontFamily": "{text-heading-3xl-font-family}",
+      "fontWeight": "{text-heading-3xl-font-weight}",
+      "fontSize": "{text-heading-3xl-font-size}",
+      "lineHeight": "{text-heading-3xl-font-line-height}",
+      "letterSpacing": "{text-heading-3xl-font-letter-spacing}"
     }
   },
   "heading-2xl": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-2xl-font-family}",
-      "fontWeight": "{typography-heading-2xl-font-weight}",
-      "fontSize": "{typography-heading-2xl-font-size}",
-      "lineHeight": "{typography-heading-2xl-line-height}",
-      "letterSpacing": "{typography-heading-2xl-letter-spacing}"
+      "fontFamily": "{text-heading-2xl-font-family}",
+      "fontWeight": "{text-heading-2xl-font-weight}",
+      "fontSize": "{text-heading-2xl-font-size}",
+      "lineHeight": "{text-heading-2xl-font-line-height}",
+      "letterSpacing": "{text-heading-2xl-font-letter-spacing}"
     }
   },
   "heading-xl": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-xl-font-family}",
-      "fontWeight": "{typography-heading-xl-font-weight}",
-      "fontSize": "{typography-heading-xl-font-size}",
-      "lineHeight": "{typography-heading-xl-line-height}",
-      "letterSpacing": "{typography-heading-xl-letter-spacing}"
+      "fontFamily": "{text-heading-xl-font-family}",
+      "fontWeight": "{text-heading-xl-font-weight}",
+      "fontSize": "{text-heading-xl-font-size}",
+      "lineHeight": "{text-heading-xl-font-line-height}",
+      "letterSpacing": "{text-heading-xl-font-letter-spacing}"
     }
   },
   "heading-lg": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-lg-font-family}",
-      "fontWeight": "{typography-heading-lg-font-weight}",
-      "fontSize": "{typography-heading-lg-font-size}",
-      "lineHeight": "{typography-heading-lg-line-height}",
-      "letterSpacing": "{typography-heading-lg-letter-spacing}"
+      "fontFamily": "{text-heading-lg-font-family}",
+      "fontWeight": "{text-heading-lg-font-weight}",
+      "fontSize": "{text-heading-lg-font-size}",
+      "lineHeight": "{text-heading-lg-font-line-height}",
+      "letterSpacing": "{text-heading-lg-font-letter-spacing}"
     }
   },
   "heading-md": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-md-font-family}",
-      "fontWeight": "{typography-heading-md-font-weight}",
-      "fontSize": "{typography-heading-md-font-size}",
-      "lineHeight": "{typography-heading-md-line-height}",
-      "letterSpacing": "{typography-heading-md-letter-spacing}"
+      "fontFamily": "{text-heading-md-font-family}",
+      "fontWeight": "{text-heading-md-font-weight}",
+      "fontSize": "{text-heading-md-font-size}",
+      "lineHeight": "{text-heading-md-font-line-height}",
+      "letterSpacing": "{text-heading-md-font-letter-spacing}"
     }
   },
   "heading-sm": {
     "$type": "typography",
     "$value": {
-      "fontFamily": "{typography-heading-sm-font-family}",
-      "fontWeight": "{typography-heading-sm-font-weight}",
-      "fontSize": "{typography-heading-sm-font-size}",
-      "lineHeight": "{typography-heading-sm-line-height}",
-      "letterSpacing": "{typography-heading-sm-letter-spacing}"
+      "fontFamily": "{text-heading-sm-font-family}",
+      "fontWeight": "{text-heading-sm-font-weight}",
+      "fontSize": "{text-heading-sm-font-size}",
+      "lineHeight": "{text-heading-sm-font-line-height}",
+      "letterSpacing": "{text-heading-sm-font-letter-spacing}"
+    }
+  },
+  "body-lead": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-body-lead-font-family}",
+      "fontWeight": "{text-body-lead-font-weight}",
+      "fontSize": "{text-body-lead-font-size}",
+      "lineHeight": "{text-body-lead-font-line-height}",
+      "letterSpacing": "{text-body-lead-font-letter-spacing}"
+    }
+  },
+  "body-base": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-body-base-font-family}",
+      "fontWeight": "{text-body-base-font-weight}",
+      "fontSize": "{text-body-base-font-size}",
+      "lineHeight": "{text-body-base-font-line-height}",
+      "letterSpacing": "{text-body-base-font-letter-spacing}"
+    }
+  },
+  "body-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-body-sm-font-family}",
+      "fontWeight": "{text-body-sm-font-weight}",
+      "fontSize": "{text-body-sm-font-size}",
+      "lineHeight": "{text-body-sm-font-line-height}",
+      "letterSpacing": "{text-body-sm-font-letter-spacing}"
+    }
+  },
+  "ui-primary-lg": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-primary-lg-font-family}",
+      "fontWeight": "{text-ui-primary-lg-font-weight}",
+      "fontSize": "{text-ui-primary-lg-font-size}",
+      "lineHeight": "{text-ui-primary-lg-font-line-height}",
+      "letterSpacing": "{text-ui-primary-lg-font-letter-spacing}"
+    }
+  },
+  "ui-primary-md": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-primary-md-font-family}",
+      "fontWeight": "{text-ui-primary-md-font-weight}",
+      "fontSize": "{text-ui-primary-md-font-size}",
+      "lineHeight": "{text-ui-primary-md-font-line-height}",
+      "letterSpacing": "{text-ui-primary-md-font-letter-spacing}"
+    }
+  },
+  "ui-primary-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-primary-sm-font-family}",
+      "fontWeight": "{text-ui-primary-sm-font-weight}",
+      "fontSize": "{text-ui-primary-sm-font-size}",
+      "lineHeight": "{text-ui-primary-sm-font-line-height}",
+      "letterSpacing": "{text-ui-primary-sm-font-letter-spacing}"
+    }
+  },
+  "ui-primary-xs": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-primary-xs-font-family}",
+      "fontWeight": "{text-ui-primary-xs-font-weight}",
+      "fontSize": "{text-ui-primary-xs-font-size}",
+      "lineHeight": "{text-ui-primary-xs-font-line-height}",
+      "letterSpacing": "{text-ui-primary-xs-font-letter-spacing}"
+    }
+  },
+  "ui-secondary-lg": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-secondary-lg-font-family}",
+      "fontWeight": "{text-ui-secondary-lg-font-weight}",
+      "fontSize": "{text-ui-secondary-lg-font-size}",
+      "lineHeight": "{text-ui-secondary-lg-font-line-height}",
+      "letterSpacing": "{text-ui-secondary-lg-font-letter-spacing}"
+    }
+  },
+  "ui-secondary-md": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-secondary-md-font-family}",
+      "fontWeight": "{text-ui-secondary-md-font-weight}",
+      "fontSize": "{text-ui-secondary-md-font-size}",
+      "lineHeight": "{text-ui-secondary-md-font-line-height}",
+      "letterSpacing": "{text-ui-secondary-md-font-letter-spacing}"
+    }
+  },
+  "ui-secondary-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-secondary-sm-font-family}",
+      "fontWeight": "{text-ui-secondary-sm-font-weight}",
+      "fontSize": "{text-ui-secondary-sm-font-size}",
+      "lineHeight": "{text-ui-secondary-sm-font-line-height}",
+      "letterSpacing": "{text-ui-secondary-sm-font-letter-spacing}"
+    }
+  },
+  "ui-secondary-xs": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-secondary-xs-font-family}",
+      "fontWeight": "{text-ui-secondary-xs-font-weight}",
+      "fontSize": "{text-ui-secondary-xs-font-size}",
+      "lineHeight": "{text-ui-secondary-xs-font-line-height}",
+      "letterSpacing": "{text-ui-secondary-xs-font-letter-spacing}"
+    }
+  },
+  "ui-tertiary-lg": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-tertiary-lg-font-family}",
+      "fontWeight": "{text-ui-tertiary-lg-font-weight}",
+      "fontSize": "{text-ui-tertiary-lg-font-size}",
+      "lineHeight": "{text-ui-tertiary-lg-font-line-height}",
+      "letterSpacing": "{text-ui-tertiary-lg-font-letter-spacing}"
+    }
+  },
+  "ui-tertiary-md": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-tertiary-md-font-family}",
+      "fontWeight": "{text-ui-tertiary-md-font-weight}",
+      "fontSize": "{text-ui-tertiary-md-font-size}",
+      "lineHeight": "{text-ui-tertiary-md-font-line-height}",
+      "letterSpacing": "{text-ui-tertiary-md-font-letter-spacing}"
+    }
+  },
+  "ui-tertiary-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-tertiary-sm-font-family}",
+      "fontWeight": "{text-ui-tertiary-sm-font-weight}",
+      "fontSize": "{text-ui-tertiary-sm-font-size}",
+      "lineHeight": "{text-ui-tertiary-sm-font-line-height}",
+      "letterSpacing": "{text-ui-tertiary-sm-font-letter-spacing}"
+    }
+  },
+  "ui-tertiary-xs": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-ui-tertiary-xs-font-family}",
+      "fontWeight": "{text-ui-tertiary-xs-font-weight}",
+      "fontSize": "{text-ui-tertiary-xs-font-size}",
+      "lineHeight": "{text-ui-tertiary-xs-font-line-height}",
+      "letterSpacing": "{text-ui-tertiary-xs-font-letter-spacing}"
+    }
+  },
+  "ui-mono-body": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{font-family-mono}",
+      "fontWeight": "{font-weight-regular}",
+      "fontSize": "{font-size-400}",
+      "lineHeight": "{font-line-height-600}",
+      "letterSpacing": {
+        "value": 0,
+        "unit": "px"
+      }
+    }
+  },
+  "ui-mono-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{font-family-mono}",
+      "fontWeight": "{font-weight-regular}",
+      "fontSize": "{font-size-350}",
+      "lineHeight": "{font-line-height-500}",
+      "letterSpacing": {
+        "value": 0,
+        "unit": "px"
+      }
+    }
+  },
+  "eyebrow-heading-sm": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{text-eyebrow-heading-sm-font-family}",
+      "fontWeight": "{text-eyebrow-heading-sm-font-weight}",
+      "fontSize": "{text-eyebrow-heading-sm-font-size}",
+      "lineHeight": "{text-eyebrow-heading-sm-font-line-height}",
+      "letterSpacing": "{text-eyebrow-heading-sm-font-letter-spacing}"
     }
   }
 }
