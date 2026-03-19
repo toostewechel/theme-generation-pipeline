@@ -34,6 +34,18 @@ if (entries.length > 0) {
 
 const SAMPLE_TEXT = "The quick brown fox jumps over the lazy dog";
 
+// Palette for graph lines — distinct, accessible on dark background
+const STYLE_COLORS = [
+  "#a78bfa", // violet
+  "#34d399", // emerald
+  "#f472b6", // pink
+  "#fbbf24", // amber
+  "#60a5fa", // blue
+  "#f87171", // red
+  "#2dd4bf", // teal
+  "#fb923c", // orange
+];
+
 // ─── State ──────────────────────────────────────────────────────────
 
 let currentConfig: FluidTypographyConfig = defaultConfig as FluidTypographyConfig;
@@ -52,11 +64,181 @@ function tryResolve(): void {
   }
 }
 
+// ─── Graph ──────────────────────────────────────────────────────────
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function renderGraph(): void {
+  const container = document.getElementById("graph-container")!;
+  const legend = document.getElementById("graph-legend")!;
+  container.innerHTML = "";
+  legend.innerHTML = "";
+
+  if (!resolved || Object.keys(resolved.styles).length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text-muted);font-size:0.75rem;">No styles to graph</div>';
+    return;
+  }
+
+  const styleEntries = Object.entries(resolved.styles);
+  const vwMin = resolved.viewports.min;
+  const vwMax = resolved.viewports.max;
+
+  // Find the y-axis range across all styles
+  let yMin = Infinity;
+  let yMax = -Infinity;
+  for (const [, style] of styleEntries) {
+    yMin = Math.min(yMin, style.fontSize.minPx);
+    yMax = Math.max(yMax, style.fontSize.maxPx);
+  }
+  // Add padding
+  const yPad = (yMax - yMin) * 0.15 || 4;
+  yMin = Math.max(0, yMin - yPad);
+  yMax = yMax + yPad;
+
+  // SVG dimensions
+  const W = 320;
+  const H = 140;
+  const pad = { top: 12, right: 12, bottom: 22, left: 32 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  const toX = (vw: number) => pad.left + ((vw - vwMin) / (vwMax - vwMin)) * plotW;
+  const toY = (px: number) => pad.top + plotH - ((px - yMin) / (yMax - yMin)) * plotH;
+
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+  // Grid lines (horizontal)
+  const yTicks = niceSteps(yMin, yMax, 4);
+  for (const tick of yTicks) {
+    const y = toY(tick);
+    const line = document.createElementNS(SVG_NS, "line");
+    line.setAttribute("x1", String(pad.left));
+    line.setAttribute("x2", String(W - pad.right));
+    line.setAttribute("y1", String(y));
+    line.setAttribute("y2", String(y));
+    line.setAttribute("stroke", "#27272a");
+    line.setAttribute("stroke-width", "0.5");
+    svg.appendChild(line);
+
+    const label = document.createElementNS(SVG_NS, "text");
+    label.setAttribute("x", String(pad.left - 4));
+    label.setAttribute("y", String(y + 3));
+    label.setAttribute("text-anchor", "end");
+    label.setAttribute("fill", "#52525b");
+    label.setAttribute("font-size", "8");
+    label.setAttribute("font-family", "var(--font-mono)");
+    label.textContent = `${Math.round(tick)}`;
+    svg.appendChild(label);
+  }
+
+  // X-axis labels
+  const xLabels = [vwMin, Math.round((vwMin + vwMax) / 2), vwMax];
+  for (const vw of xLabels) {
+    const label = document.createElementNS(SVG_NS, "text");
+    label.setAttribute("x", String(toX(vw)));
+    label.setAttribute("y", String(H - 3));
+    label.setAttribute("text-anchor", "middle");
+    label.setAttribute("fill", "#52525b");
+    label.setAttribute("font-size", "8");
+    label.setAttribute("font-family", "var(--font-mono)");
+    label.textContent = `${vw}`;
+    svg.appendChild(label);
+  }
+
+  // Slope lines per style
+  styleEntries.forEach(([name, style], i) => {
+    const color = STYLE_COLORS[i % STYLE_COLORS.length];
+
+    // Flat segments outside the viewport range
+    const points = [
+      // Left flat
+      `${toX(vwMin)},${toY(style.fontSize.minPx)}`,
+      // Right end of slope
+      `${toX(vwMax)},${toY(style.fontSize.maxPx)}`,
+    ];
+
+    const line = document.createElementNS(SVG_NS, "polyline");
+    line.setAttribute("points", points.join(" "));
+    line.setAttribute("fill", "none");
+    line.setAttribute("stroke", color);
+    line.setAttribute("stroke-width", "1.5");
+    line.setAttribute("stroke-linecap", "round");
+    svg.appendChild(line);
+
+    // Min/max dots
+    for (const [vw, px] of [[vwMin, style.fontSize.minPx], [vwMax, style.fontSize.maxPx]] as const) {
+      const dot = document.createElementNS(SVG_NS, "circle");
+      dot.setAttribute("cx", String(toX(vw)));
+      dot.setAttribute("cy", String(toY(px)));
+      dot.setAttribute("r", "2.5");
+      dot.setAttribute("fill", color);
+      svg.appendChild(dot);
+    }
+
+    // Legend entry
+    const item = document.createElement("div");
+    item.className = "graph-legend-item";
+    item.innerHTML = `<span class="graph-legend-swatch" style="background:${color}"></span><span class="graph-legend-label">${name}</span>`;
+    legend.appendChild(item);
+  });
+
+  // Viewport indicator (vertical line)
+  const vwX = toX(viewportWidth);
+  const indicator = document.createElementNS(SVG_NS, "line");
+  indicator.setAttribute("x1", String(vwX));
+  indicator.setAttribute("x2", String(vwX));
+  indicator.setAttribute("y1", String(pad.top));
+  indicator.setAttribute("y2", String(pad.top + plotH));
+  indicator.setAttribute("stroke", "#fafafa");
+  indicator.setAttribute("stroke-width", "1");
+  indicator.setAttribute("stroke-dasharray", "3,3");
+  indicator.setAttribute("opacity", "0.4");
+  svg.appendChild(indicator);
+
+  // Dots on the indicator line per style
+  styleEntries.forEach(([, style], i) => {
+    const color = STYLE_COLORS[i % STYLE_COLORS.length];
+    const px = interpolateAtViewport(
+      style.fontSize.minPx,
+      style.fontSize.maxPx,
+      style.viewports.min,
+      style.viewports.max,
+      viewportWidth,
+    );
+    const dot = document.createElementNS(SVG_NS, "circle");
+    dot.setAttribute("cx", String(vwX));
+    dot.setAttribute("cy", String(toY(px)));
+    dot.setAttribute("r", "3.5");
+    dot.setAttribute("fill", color);
+    dot.setAttribute("stroke", "#0e0e10");
+    dot.setAttribute("stroke-width", "1.5");
+    svg.appendChild(dot);
+  });
+
+  container.appendChild(svg);
+}
+
+/** Generate nice round tick values for an axis. */
+function niceSteps(min: number, max: number, count: number): number[] {
+  const range = max - min;
+  const rough = range / count;
+  const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+  const nice = rough / mag >= 5 ? 10 * mag : rough / mag >= 2 ? 5 * mag : 2 * mag;
+
+  const ticks: number[] = [];
+  let tick = Math.ceil(min / nice) * nice;
+  while (tick <= max) {
+    ticks.push(tick);
+    tick += nice;
+  }
+  return ticks;
+}
+
 // ─── Render ─────────────────────────────────────────────────────────
 
 function render(): void {
-  const app = document.getElementById("app")!;
-
   // Viewport scrubber
   const scrubber = document.getElementById("viewport-scrubber") as HTMLInputElement;
   const vpLabel = document.getElementById("viewport-label")!;
@@ -78,7 +260,10 @@ function render(): void {
   const specimen = document.getElementById("specimen")!;
   specimen.innerHTML = "";
 
-  if (!resolved) return;
+  if (!resolved) {
+    renderGraph();
+    return;
+  }
 
   // Clamp output
   const clampOutput: string[] = [];
@@ -113,10 +298,8 @@ function render(): void {
 
     if (style.lineHeight !== undefined) {
       if (typeof style.lineHeight === "number") {
-        // Unitless line-height — apply directly
         text.style.lineHeight = String(style.lineHeight);
       } else {
-        // Range of unitless ratios — interpolate
         const computedLh = interpolateAtViewport(
           style.lineHeight.min,
           style.lineHeight.max,
@@ -133,7 +316,7 @@ function render(): void {
     // Size info
     const info = document.createElement("div");
     info.className = "specimen-info";
-    info.textContent = `${Math.round(computedFontSize)}px at ${viewportWidth}px viewport (${style.fontSize.minPx}px → ${style.fontSize.maxPx}px)`;
+    info.textContent = `${Math.round(computedFontSize)}px at ${viewportWidth}px viewport (${style.fontSize.minPx}px \u2192 ${style.fontSize.maxPx}px)`;
     block.appendChild(info);
 
     specimen.appendChild(block);
@@ -168,6 +351,9 @@ function render(): void {
   // Render clamp output
   const outputEl = document.getElementById("clamp-output")!;
   outputEl.textContent = clampOutput.join("\n\n");
+
+  // Render graph
+  renderGraph();
 }
 
 // ─── Event Handlers ─────────────────────────────────────────────────
@@ -193,7 +379,8 @@ function setupEvents(): void {
   });
 
   const resetBtn = document.getElementById("reset-btn")!;
-  resetBtn.addEventListener("click", () => {
+  resetBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent details toggle
     currentConfig = defaultConfig as FluidTypographyConfig;
     editor.value = JSON.stringify(currentConfig, null, 2);
     tryResolve();
@@ -201,7 +388,8 @@ function setupEvents(): void {
   });
 
   const copyBtn = document.getElementById("copy-btn")!;
-  copyBtn.addEventListener("click", () => {
+  copyBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent details toggle
     const output = document.getElementById("clamp-output")!.textContent ?? "";
     navigator.clipboard.writeText(output).then(() => {
       copyBtn.textContent = "Copied!";

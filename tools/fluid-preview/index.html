@@ -25,20 +25,29 @@
       </div>
 
       <aside class="sidebar">
-        <div class="sidebar-section">
+        <div class="sidebar-section sidebar-section--graph">
           <div class="sidebar-header">
+            <span class="sidebar-title">Scale Graph</span>
+          </div>
+          <div class="graph-container" id="graph-container"></div>
+          <div class="graph-legend" id="graph-legend"></div>
+        </div>
+
+        <details class="sidebar-section sidebar-section--collapsible" open>
+          <summary class="sidebar-header sidebar-summary">
             <span class="sidebar-title">Config</span>
             <button class="btn" id="reset-btn">Reset</button>
-          </div>
+          </summary>
           <textarea class="config-editor" id="config-editor" spellcheck="false"></textarea>
-        </div>
-        <div class="sidebar-section">
-          <div class="sidebar-header">
+        </details>
+
+        <details class="sidebar-section sidebar-section--collapsible" open>
+          <summary class="sidebar-header sidebar-summary">
             <span class="sidebar-title">SCSS Output</span>
             <button class="btn" id="copy-btn">Copy SCSS</button>
-          </div>
+          </summary>
           <pre class="clamp-output" id="clamp-output"></pre>
-        </div>
+        </details>
       </aside>
     </div>
   </div>
