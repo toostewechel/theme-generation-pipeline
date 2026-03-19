@@ -73,6 +73,12 @@ const sharedPlatformConfig = {
 // Handles token name collisions across modes by building separately and concatenating
 async function buildTokens() {
   try {
+    // Parse CLI flags
+    const showDescriptions = !process.argv.includes("--no-descriptions");
+    const formatting = showDescriptions
+      ? {}
+      : { commentStyle: "none" as const };
+
     // Read and parse manifest
     const manifestPath = "src/tokens/manifest.json";
     const manifestContent = readFileSync(manifestPath, "utf-8");
@@ -131,7 +137,7 @@ async function buildTokens() {
     console.log(`📦 Base files: ${baseFiles.length}`);
     console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
     console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
-    console.log(`📏 Border modes: ${Object.keys(borderModes).join(", ")}`);
+    console.log(`📏 Border modes: ${Object.keys(borderModes).length > 0 ? Object.keys(borderModes).join(", ") : "none"}`);
 
     // Create output directories
     mkdirSync("dist/css", { recursive: true });
@@ -163,6 +169,7 @@ async function buildTokens() {
               options: {
                 outputReferences: true,
                 selector: ":root",
+                formatting,
               },
             },
           ],
@@ -196,6 +203,7 @@ async function buildTokens() {
                 options: {
                   outputReferences: true,
                   selector: "[data-color-mode='dark']",
+                  formatting,
                 },
               },
             ],
@@ -232,6 +240,7 @@ async function buildTokens() {
                   options: {
                     outputReferences: true,
                     selector: `[data-radius-mode='${mode}']`,
+                    formatting,
                   },
                 },
               ],
@@ -269,6 +278,7 @@ async function buildTokens() {
                   options: {
                     outputReferences: true,
                     selector: `[data-border-mode='${mode}']`,
+                    formatting,
                   },
                 },
               ],
