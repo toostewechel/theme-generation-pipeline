@@ -1,6 +1,7 @@
 import { StyleDictionary } from "style-dictionary-utils";
 import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
 import { typographyMixinsFormat } from "../src/formatters/typographyMixins.js";
+import { buildFluidTypographyMixins } from "../src/fluid/buildFluidMixins.js";
 
 // Manifest structure matching src/tokens/manifest.json
 interface Manifest {
@@ -319,6 +320,14 @@ async function buildTokens() {
 
     await sdScss.buildAllPlatforms();
 
+    // Build: Fluid typography SCSS mixins (conditional on config existing)
+    await buildFluidTypographyMixins({
+      configPath: "src/fluid-typography.config.json",
+      primitivesGlob: "src/tokens/primitives-font.*.tokens.json",
+      typographyStylesPath: "src/tokens/typography.styles.tokens.json",
+      outputPath: "dist/scss/fluid-typography-mixins.scss",
+    });
+
     // Write final combined output files
     writeFileSync("dist/css/tokens.css", cssOutput, "utf-8");
 
@@ -334,6 +343,7 @@ async function buildTokens() {
     console.log("\n🎉 Build completed successfully");
     console.log("✅ dist/css/tokens.css");
     console.log("✅ dist/scss/typography-mixins.scss");
+    console.log("✅ dist/scss/fluid-typography-mixins.scss");
     process.exit(0);
   } catch (error) {
     console.error("Build failed:", error);

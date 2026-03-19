@@ -1,0 +1,41 @@
+{
+  "baseFontSize": 16,
+  "viewports": {
+    "min": 320,
+    "max": 1440
+  },
+  "styles": {
+    "display-lg": {
+      "fontFamily": "\"Test Signifier VF\", Georgia, serif",
+      "fontSize": {
+        "min": "{font-size-900}",
+        "max": "{font-size-1300}"
+      },
+      "lineHeight": 1.2
+    },
+    "heading-3xl": {
+      "fontFamily": "\"Test Signifier VF\", Georgia, serif",
+      "fontSize": {
+        "min": "{font-size-700}",
+        "max": "{font-size-1200}"
+      },
+      "lineHeight": 1.25
+    },
+    "heading-2xl": {
+      "fontFamily": "\"Test Signifier VF\", Georgia, serif",
+      "fontSize": {
+        "min": "{font-size-500}",
+        "max": "{font-size-900}"
+      },
+      "lineHeight": 1.3
+    },
+    "heading-xl": {
+      "fontFamily": "\"Test Signifier VF\", Georgia, serif",
+      "fontSize": {
+        "min": "{font-size-300}",
+        "max": "{font-size-700}"
+      },
+      "lineHeight": 1.35
+    }
+  }
+}

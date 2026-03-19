@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "build:tokens": "npx tsx scripts/buildTokens.ts"
+    "build:tokens": "npx tsx scripts/buildTokens.ts",
+    "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-description",
+    "preview:fluid": "cd tools/fluid-preview && npm run dev"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",

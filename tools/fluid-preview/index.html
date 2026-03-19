@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluid Typography Preview</title>
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1>Fluid Typography Preview</h1>
+      <p>Compose and preview fluid typography scales. Edit the config, scrub the viewport, copy the SCSS.</p>
+    </header>
+
+    <div class="scrubber-bar">
+      <label for="viewport-scrubber">Viewport</label>
+      <input type="range" id="viewport-scrubber" min="320" max="1440" value="960" />
+      <span class="viewport-label" id="viewport-label">960px</span>
+    </div>
+
+    <div class="main">
+      <div class="specimen-panel">
+        <div id="error-display" class="error-display"></div>
+        <div id="specimen"></div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Config</span>
+            <button class="btn" id="reset-btn">Reset</button>
+          </div>
+          <textarea class="config-editor" id="config-editor" spellcheck="false"></textarea>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-header">
+            <span class="sidebar-title">SCSS Output</span>
+            <button class="btn" id="copy-btn">Copy SCSS</button>
+          </div>
+          <pre class="clamp-output" id="clamp-output"></pre>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

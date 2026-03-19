@@ -1,0 +1,348 @@
+{
+  "color-background-surface-sunken": {
+    "$type": "color",
+    "$value": "{color-neutral-paper}",
+    "$description": "Recessed areas: wells, inset panels, table stripes, code blocks"
+  },
+  "color-background-surface-default": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Main page canvas"
+  },
+  "color-background-surface-raised": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Cards, elevated panels (pair with elevation shadow)"
+  },
+  "color-background-surface-overlay": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Modals, popovers, dropdowns, tooltips"
+  },
+  "color-background-surface-backdrop": {
+    "$type": "color",
+    "$value": "{color-black-alpha-48}",
+    "$description": "Scrim behind modals"
+  },
+  "color-background-surface-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "\"Dark surfaces for light content (e.g., toasts, tooltips)"
+  },
+  "color-background-surface-brand": {
+    "$type": "color",
+    "$value": "{color-brand-500}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-surface-white": {
+    "$type": "color",
+    "$value": "{color-neutral-0}"
+  },
+  "color-background-marker": {
+    "$type": "color",
+    "$value": "{color-sky-300}"
+  },
+  "color-background-navbar": {
+    "$type": "color",
+    "$value": "{color-white-alpha-48}"
+  },
+  "color-text-emphasis": {
+    "$type": "color",
+    "$value": "{color-neutral-950}",
+    "$description": "Headings, labels, key information"
+  },
+  "color-text-default": {
+    "$type": "color",
+    "$value": "{color-neutral-800}",
+    "$description": "Body copy, paragraphs"
+  },
+  "color-text-subtle": {
+    "$type": "color",
+    "$value": "{color-neutral-700}",
+    "$description": "Captions, metadata, timestamps"
+  },
+  "color-text-muted": {
+    "$type": "color",
+    "$value": "{color-neutral-600}",
+    "$description": "Placeholders, hints, disabled text"
+  },
+  "color-text-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Text on dark/inverse surfaces"
+  },
+  "color-text-brand": {
+    "$type": "color",
+    "$value": "{color-brand-700}",
+    "$description": "Branded text accents"
+  },
+  "color-text-on-brand": {
+    "$type": "color",
+    "$value": "{color-neutral-950}",
+    "$description": "Text on brand-colored surfaces"
+  },
+  "color-icon-black": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Important icons, paired with emphasis text"
+  },
+  "color-icon-emphasis": {
+    "$type": "color",
+    "$value": "{color-neutral-800}",
+    "$description": "Important icons, paired with emphasis text"
+  },
+  "color-icon-default": {
+    "$type": "color",
+    "$value": "{color-neutral-700}",
+    "$description": "Standard icons alongside body text"
+  },
+  "color-icon-subtle": {
+    "$type": "color",
+    "$value": "{color-neutral-500}",
+    "$description": "Decorative icons, lower importance"
+  },
+  "color-icon-muted": {
+    "$type": "color",
+    "$value": "{color-neutral-300}",
+    "$description": "Disabled icons, placeholders"
+  },
+  "color-icon-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Icons on dark surfaces"
+  },
+  "color-icon-brand": {
+    "$type": "color",
+    "$value": "{color-brand-600}",
+    "$description": "Branded/accent icons"
+  },
+  "color-icon-on-brand": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Icons on brand-colored surfaces"
+  },
+  "color-border-emphasis": {
+    "$type": "color",
+    "$value": "{color-black-alpha-16}",
+    "$description": "Default borders (cards, dividers)"
+  },
+  "color-border-default": {
+    "$type": "color",
+    "$value": "{color-black-alpha-12}",
+    "$description": "Default borders (cards, dividers)"
+  },
+  "color-border-subtle": {
+    "$type": "color",
+    "$value": "{color-black-alpha-8}",
+    "$description": "Subtle dividers, separators"
+  },
+  "color-border-gridlines": {
+    "$type": "color",
+    "$value": "{color-black-alpha-8}",
+    "$description": "Subtle dividers, separators"
+  },
+  "color-border-white": {
+    "$type": "color",
+    "$value": "{color-neutral-50}",
+    "$description": "Default borders (cards, dividers)"
+  },
+  "color-control-background": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Input fields, selects, textareas"
+  },
+  "color-control-background-tint": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Input fields, selects, textareas"
+  },
+  "color-control-background-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Disabled input fields"
+  },
+  "color-control-border": {
+    "$type": "color",
+    "$value": "{color-neutral-300}",
+    "$description": "Input fields, selects, textareas at rest"
+  },
+  "color-control-border-hover": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Input fields on hover"
+  },
+  "color-control-border-focus": {
+    "$type": "color",
+    "$value": "{color-brand-500}",
+    "$description": "Input fields when focused"
+  },
+  "color-control-border-error": {
+    "$type": "color",
+    "$value": "{color-red-500}",
+    "$description": "Input fields in error state"
+  },
+  "color-action-primary-background": {
+    "$type": "color",
+    "$value": "{color-brand-500}"
+  },
+  "color-action-primary-text": {
+    "$type": "color",
+    "$value": "{color-neutral-0}"
+  },
+  "color-action-primary-icon": {
+    "$type": "color",
+    "$value": "{color-brand-500}"
+  },
+  "color-action-primary-border": {
+    "$type": "color",
+    "$value": "{color-brand-500}"
+  },
+  "color-feedback-success-text": {
+    "$type": "color",
+    "$value": "{color-green-800}"
+  },
+  "color-feedback-success-icon": {
+    "$type": "color",
+    "$value": "{color-green-500}"
+  },
+  "color-feedback-success-border": {
+    "$type": "color",
+    "$value": "{color-green-300}"
+  },
+  "color-feedback-success-background": {
+    "$type": "color",
+    "$value": "{color-green-100}"
+  },
+  "color-feedback-warning-text": {
+    "$type": "color",
+    "$value": "{color-amber-800}"
+  },
+  "color-feedback-warning-icon": {
+    "$type": "color",
+    "$value": "{color-amber-500}"
+  },
+  "color-feedback-warning-border": {
+    "$type": "color",
+    "$value": "{color-amber-300}"
+  },
+  "color-feedback-warning-background": {
+    "$type": "color",
+    "$value": "{color-amber-100}"
+  },
+  "color-feedback-error-text": {
+    "$type": "color",
+    "$value": "{color-red-800}"
+  },
+  "color-feedback-error-icon": {
+    "$type": "color",
+    "$value": "{color-red-500}"
+  },
+  "color-feedback-error-border": {
+    "$type": "color",
+    "$value": "{color-red-300}"
+  },
+  "color-feedback-error-background": {
+    "$type": "color",
+    "$value": "{color-red-100}"
+  },
+  "color-feedback-info-text": {
+    "$type": "color",
+    "$value": "{color-blue-800}"
+  },
+  "color-feedback-info-icon": {
+    "$type": "color",
+    "$value": "{color-blue-500}"
+  },
+  "color-feedback-info-border": {
+    "$type": "color",
+    "$value": "{color-blue-300}"
+  },
+  "color-feedback-info-background": {
+    "$type": "color",
+    "$value": "{color-blue-100}"
+  },
+  "color-state-disabled-opacity": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.5,
+      "unit": "px"
+    },
+    "$description": "unitless"
+  },
+  "color-state-hover-intensity": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.9200000166893005,
+      "unit": "px"
+    },
+    "$description": "unitless"
+  },
+  "color-state-active-intensity": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.8500000238418579,
+      "unit": "px"
+    },
+    "$description": "unitless"
+  },
+  "color-state-focus-ring": {
+    "$type": "color",
+    "$value": "{color-brand-500}"
+  },
+  "color-state-focus-ring-offset": {
+    "$type": "color",
+    "$value": "{color-neutral-0}"
+  },
+  "color-state-checked": {
+    "$type": "color",
+    "$value": "{color-teal-500}"
+  },
+  "color-action-secondary-background": {
+    "$type": "color",
+    "$value": "{color-white-alpha-transparant}"
+  },
+  "color-action-secondary-text": {
+    "$type": "color",
+    "$value": "{color-neutral-700}"
+  },
+  "color-action-secondary-icon": {
+    "$type": "color",
+    "$value": "{color-neutral-900}"
+  },
+  "color-action-secondary-border": {
+    "$type": "color",
+    "$value": "{color-neutral-300}"
+  },
+  "color-action-tertiary-background": {
+    "$type": "color",
+    "$value": "{color-white-alpha-transparant}"
+  },
+  "color-action-tertiary-text": {
+    "$type": "color",
+    "$value": "{color-brand-600}"
+  },
+  "color-action-tertiary-icon": {
+    "$type": "color",
+    "$value": "{color-brand-600}"
+  },
+  "color-action-tertiary-border": {
+    "$type": "color",
+    "$value": "{color-white-alpha-transparant}"
+  },
+  "color-action-neutral-background": {
+    "$type": "color",
+    "$value": "{color-neutral-900}"
+  },
+  "color-action-neutral-text": {
+    "$type": "color",
+    "$value": "{color-neutral-50}"
+  },
+  "color-action-neutral-icon": {
+    "$type": "color",
+    "$value": "{color-neutral-50}"
+  },
+  "color-action-neutral-border": {
+    "$type": "color",
+    "$value": "{color-neutral-900}"
+  }
+}
