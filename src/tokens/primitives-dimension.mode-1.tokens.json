@@ -160,6 +160,13 @@
       "unit": "px"
     }
   },
+  "size-7": {
+    "$type": "dimension",
+    "$value": {
+      "value": 28,
+      "unit": "px"
+    }
+  },
   "size-8": {
     "$type": "dimension",
     "$value": {

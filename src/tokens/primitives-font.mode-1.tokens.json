@@ -1,11 +1,11 @@
 {
   "font-family-serif": {
     "$type": "fontFamily",
-    "$value": "Test Signifier VF"
+    "$value": "Signifier"
   },
   "font-family-sans": {
     "$type": "fontFamily",
-    "$value": "DM Sans"
+    "$value": "Innovator Grotesk"
   },
   "font-family-mono": {
     "$type": "fontFamily",
@@ -222,13 +222,6 @@
       "unit": "px"
     }
   },
-  "font-line-height-1400": {
-    "$type": "dimension",
-    "$value": {
-      "value": 56,
-      "unit": "px"
-    }
-  },
   "font-letter-spacing-wide": {
     "$type": "dimension",
     "$value": {
@@ -236,10 +229,10 @@
       "unit": "px"
     }
   },
-  "font-line-height-1600": {
+  "font-line-height-1400": {
     "$type": "dimension",
     "$value": {
-      "value": 64,
+      "value": 56,
       "unit": "px"
     }
   },
@@ -250,10 +243,10 @@
       "unit": "px"
     }
   },
-  "font-line-height-2000": {
+  "font-line-height-1600": {
     "$type": "dimension",
     "$value": {
-      "value": 80,
+      "value": 64,
       "unit": "px"
     }
   },
@@ -261,6 +254,13 @@
     "$type": "dimension",
     "$value": {
       "value": -0.25,
+      "unit": "px"
+    }
+  },
+  "font-line-height-2000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 80,
       "unit": "px"
     }
   },

@@ -1,25 +1,25 @@
 {
-  "spacing-component-gap-2xs": {
+  "spacing-component-gap-tight": {
     "$type": "dimension",
     "$value": "{space-1}"
   },
-  "spacing-component-gap-xs": {
+  "spacing-component-gap-base": {
     "$type": "dimension",
     "$value": "{space-2}"
   },
-  "spacing-layout-section-sm": {
+  "spacing-layout-section-compact": {
     "$type": "dimension",
     "$value": "{space-16}"
   },
-  "spacing-layout-section-md": {
+  "spacing-layout-section-base": {
     "$type": "dimension",
     "$value": "{space-20}"
   },
-  "spacing-layout-section-lg": {
+  "spacing-layout-section-spacious": {
     "$type": "dimension",
     "$value": "{space-32}"
   },
-  "spacing-layout-section-xl": {
+  "spacing-layout-section-expansive": {
     "$type": "dimension",
     "$value": "{space-40}"
   },
@@ -27,97 +27,84 @@
     "$type": "dimension",
     "$value": "{space-5}"
   },
-  "spacing-layout-stack-xxs": {
+  "spacing-layout-stack-tight": {
+    "$type": "dimension",
+    "$value": "{space-2}"
+  },
+  "spacing-layout-stack-snug": {
     "$type": "dimension",
     "$value": "{space-3}"
   },
-  "spacing-layout-stack-xs": {
+  "spacing-layout-stack-base": {
     "$type": "dimension",
     "$value": "{space-4}"
   },
-  "spacing-layout-stack-sm": {
+  "spacing-layout-stack-relaxed": {
     "$type": "dimension",
     "$value": "{space-5}"
   },
-  "spacing-layout-stack-md": {
-    "$type": "dimension",
-    "$value": "{space-8}"
-  },
-  "spacing-layout-stack-lg": {
-    "$type": "dimension",
-    "$value": "{space-10}"
-  },
-  "spacing-layout-stack-xl": {
-    "$type": "dimension",
-    "$value": "{space-20}"
-  },
-  "spacing-component-gap-sm": {
-    "$type": "dimension",
-    "$value": "{space-3}"
-  },
-  "spacing-component-gap-md": {
-    "$type": "dimension",
-    "$value": "{space-4}"
-  },
-  "spacing-component-gap-lg": {
-    "$type": "dimension",
-    "$value": "{space-5}"
-  },
-  "spacing-component-gap-xl": {
-    "$type": "dimension",
-    "$value": "{space-8}"
-  },
-  "spacing-component-padding-xxs": {
-    "$type": "dimension",
-    "$value": "{space-1}"
-  },
-  "spacing-component-padding-xs": {
-    "$type": "dimension",
-    "$value": "{space-3}"
-  },
-  "spacing-component-padding-sm": {
-    "$type": "dimension",
-    "$value": "{space-4}"
-  },
-  "spacing-component-padding-md": {
-    "$type": "dimension",
-    "$value": "{space-5}"
-  },
-  "spacing-component-padding-lg": {
+  "spacing-layout-stack-roomy": {
     "$type": "dimension",
     "$value": "{space-6}"
   },
-  "spacing-component-padding-xl": {
+  "spacing-layout-stack-open": {
     "$type": "dimension",
     "$value": "{space-10}"
   },
-  "spacing-component-padding-2xl": {
+  "spacing-component-gap-relaxed": {
+    "$type": "dimension",
+    "$value": "{space-3}"
+  },
+  "spacing-component-gap-loose": {
+    "$type": "dimension",
+    "$value": "{space-4}"
+  },
+  "spacing-component-padding-squish": {
+    "$type": "dimension",
+    "$value": "{space-1}"
+  },
+  "spacing-component-padding-snug": {
+    "$type": "dimension",
+    "$value": "{space-2}"
+  },
+  "spacing-component-padding-tight": {
+    "$type": "dimension",
+    "$value": "{space-3}"
+  },
+  "spacing-component-padding-base": {
+    "$type": "dimension",
+    "$value": "{space-4}"
+  },
+  "spacing-component-padding-relaxed": {
+    "$type": "dimension",
+    "$value": "{space-5}"
+  },
+  "spacing-component-padding-roomy": {
+    "$type": "dimension",
+    "$value": "{space-6}"
+  },
+  "spacing-component-padding-open": {
     "$type": "dimension",
     "$value": "{space-12}"
   },
   "sizing-icon-xs": {
     "$type": "dimension",
-    "$value": "{size-3}",
+    "$value": "{size-4}",
     "$description": "Icon dimensions (width & height)"
   },
   "sizing-icon-sm": {
     "$type": "dimension",
-    "$value": "{size-4}",
+    "$value": "{size-5}",
     "$description": "Icon dimensions (width & height)"
   },
   "sizing-icon-md": {
     "$type": "dimension",
-    "$value": "{size-5}",
+    "$value": "{size-6}",
     "$description": "Icon dimensions (width & height)"
   },
   "sizing-icon-lg": {
     "$type": "dimension",
-    "$value": "{size-6}",
-    "$description": "Icon dimensions (width & height)"
-  },
-  "sizing-icon-xl": {
-    "$type": "dimension",
-    "$value": "{size-8}",
+    "$value": "{size-7}",
     "$description": "Icon dimensions (width & height)"
   },
   "sizing-control-xxs": {
