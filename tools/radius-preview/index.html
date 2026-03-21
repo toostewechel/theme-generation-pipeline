@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radius Scale Configurator</title>
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1>Radius Scale Configurator</h1>
+      <p>Explore how radius parameters affect component appearance across modes.</p>
+    </header>
+
+    <div class="toolbar">
+      <span class="toolbar-label">Modes</span>
+      <label class="mode-toggle"><input type="checkbox" data-mode="sharp" checked /><span>Sharp</span></label>
+      <label class="mode-toggle"><input type="checkbox" data-mode="default" checked /><span>Default</span></label>
+      <label class="mode-toggle"><input type="checkbox" data-mode="rounded" checked /><span>Rounded</span></label>
+      <label class="mode-toggle"><input type="checkbox" data-mode="pill" checked /><span>Pill</span></label>
+    </div>
+
+    <div class="main">
+      <div class="specimen-panel">
+        <div id="error-display" class="error-display"></div>
+
+        <section class="section">
+          <h2 class="section-title">Component Previews</h2>
+          <div class="mode-columns" id="mode-columns"></div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Computed Values</h2>
+          <div id="values-table-container"></div>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-section sidebar-section--graph">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Scale Graph</span>
+          </div>
+          <div class="graph-container" id="graph-container"></div>
+          <div class="graph-legend" id="graph-legend"></div>
+        </div>
+
+        <details class="sidebar-section sidebar-section--collapsible" open>
+          <summary class="sidebar-header sidebar-summary">
+            <span class="sidebar-title">Parameters</span>
+            <button class="btn" id="reset-btn">Reset</button>
+          </summary>
+          <div class="params-form" id="params-form">
+            <!-- Base Unit -->
+            <div class="param-group">
+              <label class="param-label">Radius Unit (px)</label>
+              <div class="param-row">
+                <input type="range" class="param-slider" id="param-unit-slider" min="1" max="16" step="0.5" />
+                <input type="number" class="param-input" id="param-unit" min="0" step="0.5" />
+              </div>
+            </div>
+
+            <!-- Mode Intensities -->
+            <div class="param-group">
+              <label class="param-label">Mode Intensities</label>
+              <div class="param-grid">
+                <div class="param-grid-item">
+                  <span class="param-sub-label">Sharp</span>
+                  <input type="number" class="param-input" id="param-mode-sharp" min="0" step="0.05" />
+                </div>
+                <div class="param-grid-item">
+                  <span class="param-sub-label">Default</span>
+                  <input type="number" class="param-input" id="param-mode-default" min="0" step="0.05" />
+                </div>
+                <div class="param-grid-item">
+                  <span class="param-sub-label">Rounded</span>
+                  <input type="number" class="param-input" id="param-mode-rounded" min="0" step="0.05" />
+                </div>
+                <div class="param-grid-item">
+                  <span class="param-sub-label">Pill</span>
+                  <input type="number" class="param-input" id="param-mode-pill" min="0" step="1" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Scale Multipliers -->
+            <div class="param-group">
+              <label class="param-label">Scale Multipliers</label>
+              <div class="param-grid">
+                <div class="param-grid-item"><span class="param-sub-label">XS</span><input type="number" class="param-input" id="param-scale-xs" min="0" step="0.05" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">SM</span><input type="number" class="param-input" id="param-scale-sm" min="0" step="0.05" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">MD</span><input type="number" class="param-input" id="param-scale-md" min="0" step="0.05" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">LG</span><input type="number" class="param-input" id="param-scale-lg" min="0" step="0.05" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">XL</span><input type="number" class="param-input" id="param-scale-xl" min="0" step="0.05" /></div>
+              </div>
+            </div>
+
+            <!-- Geometric Caps -->
+            <div class="param-group">
+              <label class="param-label">Geometric Caps (px)</label>
+              <div class="param-grid">
+                <div class="param-grid-item"><span class="param-sub-label">XS</span><input type="number" class="param-input" id="param-cap-xs" min="0" step="1" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">SM</span><input type="number" class="param-input" id="param-cap-sm" min="0" step="1" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">MD</span><input type="number" class="param-input" id="param-cap-md" min="0" step="1" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">LG</span><input type="number" class="param-input" id="param-cap-lg" min="0" step="1" /></div>
+                <div class="param-grid-item"><span class="param-sub-label">XL</span><input type="number" class="param-input" id="param-cap-xl" min="0" step="1" /></div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="sidebar-section sidebar-section--collapsible" open>
+          <summary class="sidebar-header sidebar-summary">
+            <span class="sidebar-title">CSS Output</span>
+            <button class="btn" id="copy-btn">Copy CSS</button>
+          </summary>
+          <pre class="css-output" id="css-output"></pre>
+        </details>
+      </aside>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

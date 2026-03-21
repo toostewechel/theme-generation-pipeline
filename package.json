@@ -3,7 +3,8 @@
   "scripts": {
     "build:tokens": "npx tsx scripts/buildTokens.ts",
     "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-description",
-    "preview:fluid": "cd tools/fluid-preview && npm run dev"
+    "preview:fluid": "cd tools/fluid-preview && npm run dev",
+    "preview:radius": "cd tools/radius-preview && npm run dev"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",

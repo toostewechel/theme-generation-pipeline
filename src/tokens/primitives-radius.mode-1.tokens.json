@@ -23,7 +23,7 @@
   "radius-scale-xs": {
     "$type": "dimension",
     "$value": {
-      "value": 0.25,
+      "value": 0.5,
       "unit": "px"
     },
     "$description": "unitless"
@@ -31,7 +31,7 @@
   "radius-scale-sm": {
     "$type": "dimension",
     "$value": {
-      "value": 0.5,
+      "value": 0.75,
       "unit": "px"
     },
     "$description": "unitless"
@@ -47,7 +47,7 @@
   "radius-scale-lg": {
     "$type": "dimension",
     "$value": {
-      "value": 1.5,
+      "value": 1.25,
       "unit": "px"
     },
     "$description": "unitless"
@@ -55,7 +55,7 @@
   "radius-scale-xl": {
     "$type": "dimension",
     "$value": {
-      "value": 2,
+      "value": 1.5,
       "unit": "px"
     },
     "$description": "unitless"

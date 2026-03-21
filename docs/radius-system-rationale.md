@@ -1,0 +1,222 @@
+# Radius System — Design Rationale
+
+## Problem
+
+Border radius is one of the strongest visual signals of a product's personality — sharp corners feel precise and technical, rounded corners feel friendly and approachable. Most design systems treat radius as a set of static values (e.g., `4px`, `8px`, `16px`). This works until you need to offer multiple visual modes or support theming, at which point every component needs manual radius overrides.
+
+**The core tension**: designers want to quickly explore how "sharp" or "soft" a product feels, but the relationship between a radius value and its visual impact depends on the element's size. A 12px radius on a small badge looks like a pill; the same 12px on a card barely registers. You can't evaluate a radius scale in isolation — it only makes sense in the context of the components that consume it.
+
+**Figma can't model this**. Figma variables can store static radius values, but they can't express the computation that produces them — the multiplier chain of unit × intensity × scale, or the geometric capping that prevents small elements from distorting. Designers end up manually calculating values in a spreadsheet, then eyeballing the results in Figma, with no way to see all modes side-by-side.
+
+## Solution Overview
+
+A three-part system:
+
+1. **Token primitives** (`src/tokens/primitives-radius.*.tokens.json`) — the raw parameters: unit, scale multipliers, and geometric caps
+2. **Mode tokens** (`src/tokens/radius.{mode}.tokens.json`) — a single intensity multiplier per mode
+3. **Preview tool** (`tools/radius-preview/`) — visual configurator for designers to explore the parameter space
+
+The computation happens at runtime in CSS via `calc()` and `min()`, not at build time. This means a single set of components can switch between modes by changing one CSS custom property.
+
+```
+primitives (unit, scales, caps)  ──→  CSS custom properties
+                                         │
+mode tokens (intensity)          ──→  [data-radius-mode] selectors
+                                         │
+                                         ▼
+                              runtime: calc(unit × intensity × scale)
+                                       min(calc(...), cap)
+```
+
+### Benefits for Designers
+
+- **Side-by-side mode comparison** — see how sharp, default, rounded, and pill affect real component specimens simultaneously, without switching between Figma pages or frames
+- **Direct manipulation** — adjust the intensity slider and watch every component update instantly; no spreadsheet calculations or manual Figma overrides
+- **Geometric cap visibility** — the computed values table highlights where caps are active, making an invisible constraint visible
+- **Proportional reasoning** — instead of picking absolute pixel values, designers work with relative parameters (scales, intensities) that produce harmonious progressions automatically
+
+### Benefits for Developers
+
+- **One codebase, four modes** — components don't need radius overrides per mode; switching `data-radius-mode` on a parent element cascades through the entire tree
+- **Predictable scaling** — the radius of any element is derivable from three variables: `unit`, `intensity`, and the element's scale tier (xs–xl). No magic numbers
+- **Two token categories for different needs** — `adaptive` tokens scale freely (buttons, badges), `geometric` tokens are capped to preserve shape (cards, containers). Components choose which to consume
+- **Theme-safe** — new themes adjust `unit` and `intensity` values; the scale multipliers and caps rarely change, keeping the proportional relationships stable
+
+## The Computation
+
+### Adaptive radius (for interactive elements)
+
+```css
+--radius-base: calc(var(--radius-unit) * var(--radius-intensity));
+--radius-adaptive-md: calc(var(--radius-base) * var(--radius-scale-md));
+```
+
+Adaptive tokens scale without limit. For pill mode (intensity: 9999), this produces values like `39,996px` — CSS naturally clamps `border-radius` to half the element's dimensions, creating a true capsule shape. This is intentional: buttons and badges use adaptive tokens so pill mode works without special-casing.
+
+### Geometric radius (for containers)
+
+```css
+--radius-geometric-md: min(
+  calc(var(--radius-base) * var(--radius-scale-md)),
+  var(--radius-cap-md)
+);
+```
+
+Geometric tokens add a ceiling. A card with `geometric-lg` in rounded mode gets `min(9px, 16px) = 9px` instead of scaling unbounded. Without caps, high-intensity modes would turn rectangular containers into ovals.
+
+### Component override slot
+
+```css
+border-radius: var(--radius-button, var(--_radius));
+```
+
+Components define a named override slot (e.g., `--radius-button`) that defaults to their scale-appropriate token. This lets themes override a specific component's radius without disrupting the system — for example, forcing all buttons to `--radius-full` for a pill-button theme while leaving cards unaffected.
+
+## Key Design Decisions
+
+### 1. Intensity-based modes, not per-token overrides
+
+Each mode is defined by a single number — `radius-intensity`. Sharp is `0`, default is `1`, rounded is `1.5`, pill is `9999`.
+
+This is simpler than the alternative (storing a separate set of radius values per mode) because:
+
+- **One variable controls the entire feel** — easier to explore and reason about
+- **Modes compose with scale** — changing a scale multiplier or cap affects all modes proportionally
+- **New modes are trivial** — add a new intensity value, get a complete radius scale instantly
+- **Token files are minimal** — each mode file contains only `{ "radius-intensity": { "$value": 1.5 } }`
+
+### 2. Tighter scale progression (0.5–1.5, not 0.25–2)
+
+The scale multipliers use a 3x range (`0.5, 0.75, 1, 1.25, 1.5`) rather than the original 8x range (`0.25, 0.5, 1, 1.5, 2`).
+
+Rationale:
+
+- **Small sizes stay visible** — with the original 0.25 multiplier, xs badges had `1px` radius in default mode and `1.5px` in rounded mode. The difference between modes was imperceptible.
+- **Large sizes stay restrained** — the original xl at `20px` in rounded mode was 42% of a 48px button's height, encroaching on pill territory. The new xl at `9px` is 19% — clearly rounded, distinctly below pill.
+- **The spread still differentiates** — the 3x range produces enough visual contrast between xs and xl while keeping every tier meaningful across all modes.
+
+### 3. Geometric caps as a safety net, not a design lever
+
+Caps exist to prevent containers from distorting at high intensities. They are set high enough that they rarely activate in default or rounded modes — only at extreme values.
+
+| Size | Cap  | Activates when base × scale exceeds... |
+|------|------|----------------------------------------|
+| xs   | 4px  | intensity > 2 (at unit=4, scale=0.5)  |
+| sm   | 6px  | intensity > 2 (at unit=4, scale=0.75) |
+| md   | 10px | intensity > 2.5 (at unit=4, scale=1)  |
+| lg   | 16px | intensity > 3.2 (at unit=4, scale=1.25) |
+| xl   | 24px | intensity > 4 (at unit=4, scale=1.5)  |
+
+Designers shouldn't need to think about caps in normal use. They're a guardrail for the system, not a tuning surface.
+
+### 4. Adaptive vs geometric is a component-level choice
+
+The system provides both token types. Components declare which one they use based on their visual role:
+
+- **Adaptive** (`--radius-adaptive-*`): buttons, badges, avatars, tags, chips — elements where pill mode should produce a fully rounded shape
+- **Geometric** (`--radius-geometric-*`): cards, dialogs, containers, dropdowns — elements where shape preservation matters more than mode fidelity
+
+This is a component authoring decision, not a theme decision. A button always uses adaptive; a card always uses geometric. The mode intensity changes the values, but the token category stays fixed.
+
+### 5. Standalone preview tool
+
+The preview tool lives in `tools/radius-preview/` with its own `package.json` and Vite config, following the same pattern as the fluid typography preview. It reads token files directly via `import.meta.glob`, so changes to token values are reflected immediately on reload.
+
+The tool is designed for designers, not developers:
+
+- Sliders and number inputs (not raw JSON editing)
+- Component specimens that match real UI patterns (buttons across sizes, cards, inputs)
+- Specimens labeled with which token type they use (adaptive vs geometric)
+- Computed values table showing where caps activate
+
+## Token Values
+
+### Primitives (`primitives-radius.mode-1.tokens.json`)
+
+| Token | Value | Purpose |
+|-------|-------|---------|
+| `radius-unit` | 4px | Base unit — the fundamental scaling atom |
+| `radius-scale-xs` | 0.5 | Scale multiplier for extra-small elements |
+| `radius-scale-sm` | 0.75 | Scale multiplier for small elements |
+| `radius-scale-md` | 1 | Scale multiplier for medium elements (identity) |
+| `radius-scale-lg` | 1.25 | Scale multiplier for large elements |
+| `radius-scale-xl` | 1.5 | Scale multiplier for extra-large elements |
+| `radius-cap-xs` | 4px | Geometric ceiling for xs |
+| `radius-cap-sm` | 6px | Geometric ceiling for sm |
+| `radius-cap-md` | 10px | Geometric ceiling for md |
+| `radius-cap-lg` | 16px | Geometric ceiling for lg |
+| `radius-cap-xl` | 24px | Geometric ceiling for xl |
+| `radius-none` | 0px | Explicit zero for overrides |
+| `radius-full` | 9999px | Full rounding for circles/pills |
+
+### Modes
+
+| Mode | Intensity | Visual character |
+|------|-----------|-----------------|
+| `sharp` | 0 | Square corners everywhere — technical, editorial |
+| `default` | 1 | Subtle rounding — professional, neutral |
+| `rounded` | 1.5 | Pronounced rounding — friendly, approachable |
+| `pill` | 9999 | Fully rounded — playful, bold |
+
+## File Structure
+
+```
+src/tokens/
+  primitives-radius.mode-1.tokens.json   # Unit, scales, caps
+  radius.sharp.tokens.json               # intensity: 0
+  radius.default.tokens.json             # intensity: 1
+  radius.rounded.tokens.json             # intensity: 1.5
+  radius.pill.tokens.json                # intensity: 9999
+tools/
+  radius-preview/
+    src/
+      compute.ts                         # Pure computation engine
+      render.ts                          # DOM rendering (specimens, table, graph)
+      main.ts                            # State, events, token loading
+      styles.css                         # Preview UI styles
+    index.html
+    package.json
+    vite.config.ts
+dist/css/
+  tokens.css                             # Generated — includes radius custom properties
+```
+
+## Usage
+
+### Build tokens
+
+```bash
+npm run build:tokens
+# Produces --radius-* custom properties in dist/css/tokens.css
+```
+
+### Preview tool
+
+```bash
+npm run preview:radius
+# Opens visual configurator at http://localhost:5173
+```
+
+### Consuming in components
+
+```css
+/* Button — uses adaptive (pill mode produces capsule shapes) */
+.button {
+  --_radius: var(--radius-adaptive-md);
+  border-radius: var(--radius-button, var(--_radius));
+}
+
+.button-sm {
+  --_radius: var(--radius-adaptive-sm);
+}
+
+/* Card — uses geometric (caps prevent container distortion) */
+.card {
+  border-radius: var(--radius-geometric-lg);
+}
+
+/* Switching modes — one attribute, cascading effect */
+<div data-radius-mode="rounded">
+  <!-- All components inside inherit rounded intensity -->
+</div>
+```
