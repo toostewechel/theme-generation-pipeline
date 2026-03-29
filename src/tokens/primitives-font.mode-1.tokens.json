@@ -1,15 +1,23 @@
 {
-  "font-family-serif": {
+  "font-family-heading": {
     "$type": "fontFamily",
     "$value": "Signifier"
   },
-  "font-family-sans": {
+  "font-family-body": {
     "$type": "fontFamily",
-    "$value": "Innovator Grotesk"
+    "$value": "Signifier"
+  },
+  "font-family-ui": {
+    "$type": "fontFamily",
+    "$value": "Martian Grotesk"
   },
   "font-family-mono": {
     "$type": "fontFamily",
     "$value": "Berkeley Mono"
+  },
+  "font-family-handwritten": {
+    "$type": "fontFamily",
+    "$value": "Caveat"
   },
   "font-weight-thin": {
     "$type": "fontWeight",
@@ -75,80 +83,87 @@
       "unit": "px"
     }
   },
-  "font-size-300": {
+  "font-size-275": {
     "$type": "dimension",
     "$value": {
       "value": 18,
       "unit": "px"
     }
   },
-  "font-size-400": {
+  "font-size-300": {
+    "$type": "dimension",
+    "$value": {
+      "value": 19,
+      "unit": "px"
+    }
+  },
+  "font-size-350": {
     "$type": "dimension",
     "$value": {
       "value": 20,
       "unit": "px"
     }
   },
-  "font-size-500": {
+  "font-size-400": {
     "$type": "dimension",
     "$value": {
       "value": 22,
       "unit": "px"
     }
   },
-  "font-size-600": {
+  "font-size-500": {
     "$type": "dimension",
     "$value": {
-      "value": 25,
+      "value": 24,
       "unit": "px"
     }
   },
-  "font-size-700": {
+  "font-size-600": {
     "$type": "dimension",
     "$value": {
       "value": 28,
       "unit": "px"
     }
   },
-  "font-size-800": {
+  "font-size-700": {
     "$type": "dimension",
     "$value": {
       "value": 32,
       "unit": "px"
     }
   },
-  "font-size-900": {
+  "font-size-800": {
     "$type": "dimension",
     "$value": {
       "value": 36,
       "unit": "px"
     }
   },
-  "font-size-1000": {
-    "$type": "dimension",
-    "$value": {
-      "value": 40,
-      "unit": "px"
-    }
-  },
-  "font-size-1100": {
+  "font-size-900": {
     "$type": "dimension",
     "$value": {
       "value": 45,
       "unit": "px"
     }
   },
-  "font-size-1200": {
+  "font-size-950": {
     "$type": "dimension",
     "$value": {
       "value": 50,
       "unit": "px"
     }
   },
-  "font-size-1300": {
+  "font-size-1000": {
     "$type": "dimension",
     "$value": {
       "value": 54,
+      "unit": "px"
+    }
+  },
+  "font-size-1100": {
+    "$type": "dimension",
+    "$value": {
+      "value": 80,
       "unit": "px"
     }
   },
@@ -208,13 +223,6 @@
       "unit": "px"
     }
   },
-  "font-letter-spacing-wider": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0.3499999940395355,
-      "unit": "px"
-    }
-  },
   "font-line-height-1200": {
     "$type": "dimension",
     "$value": {
@@ -222,12 +230,21 @@
       "unit": "px"
     }
   },
-  "font-letter-spacing-wide": {
+  "font-letter-spacing-widest": {
     "$type": "dimension",
     "$value": {
-      "value": 0.25,
+      "value": 0.47999998927116394,
       "unit": "px"
-    }
+    },
+    "$description": "em"
+  },
+  "font-letter-spacing-wider": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.4000000059604645,
+      "unit": "px"
+    },
+    "$description": "em"
   },
   "font-line-height-1400": {
     "$type": "dimension",
@@ -236,12 +253,21 @@
       "unit": "px"
     }
   },
+  "font-letter-spacing-wide": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.23999999463558197,
+      "unit": "px"
+    },
+    "$description": "em"
+  },
   "font-letter-spacing-normal": {
     "$type": "dimension",
     "$value": {
       "value": 0,
       "unit": "px"
-    }
+    },
+    "$description": "em"
   },
   "font-line-height-1600": {
     "$type": "dimension",
@@ -250,10 +276,10 @@
       "unit": "px"
     }
   },
-  "font-letter-spacing-tight": {
+  "font-line-height-1800": {
     "$type": "dimension",
     "$value": {
-      "value": -0.25,
+      "value": 72,
       "unit": "px"
     }
   },
@@ -264,10 +290,18 @@
       "unit": "px"
     }
   },
+  "font-letter-spacing-tight": {
+    "$type": "dimension",
+    "$value": {
+      "value": -0.23999999463558197,
+      "unit": "px"
+    },
+    "$description": "em"
+  },
   "font-line-height-2400": {
     "$type": "dimension",
     "$value": {
-      "value": 96,
+      "value": 88,
       "unit": "px"
     }
   },
@@ -288,8 +322,25 @@
   "font-letter-spacing-tighter": {
     "$type": "dimension",
     "$value": {
-      "value": -0.3499999940395355,
+      "value": -0.4000000059604645,
       "unit": "px"
-    }
+    },
+    "$description": "em"
+  },
+  "font-letter-spacing-tightest": {
+    "$type": "dimension",
+    "$value": {
+      "value": -0.5600000023841858,
+      "unit": "px"
+    },
+    "$description": "em"
+  },
+  "font-letter-spacing-ultra-tight": {
+    "$type": "dimension",
+    "$value": {
+      "value": -0.7200000286102295,
+      "unit": "px"
+    },
+    "$description": "em"
   }
 }

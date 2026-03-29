@@ -35,8 +35,31 @@ StyleDictionary.registerTransform({
   },
 });
 
+// Register custom transform for em dimensions
+// Tokens with $description: 'em' will output values in em units (px / basePxFontSize)
+StyleDictionary.registerTransform({
+  name: "dimension/em",
+  type: "value",
+  transitive: true,
+  filter: (token) =>
+    token.$type === "dimension" && token.$description === "em",
+  transform: (token, config) => {
+    const baseFontSize = config?.basePxFontSize ?? 16;
+    const pxValue =
+      typeof token.$value === "object" && token.$value.value !== undefined
+        ? Number(token.$value.value)
+        : parseFloat(String(token.$value));
+    const emValue = Math.round((pxValue / baseFontSize) * 1000) / 1000;
+    return `${emValue}em`;
+  },
+});
+
 // Register custom format for SCSS typography mixins
 StyleDictionary.registerFormat(typographyMixinsFormat);
+
+// Natural sort for CSS output: groups tokens by name and sorts numeric suffixes correctly
+const naturalSort = (a: { name: string }, b: { name: string }) =>
+  a.name.localeCompare(b.name, undefined, { numeric: true });
 
 // Shared platform configuration for consistent transforms applied to all 7 builds
 // Transform order matters: dimension/unitless must come before dimension/css to ensure unitless tokens are processed correctly
@@ -46,6 +69,7 @@ const sharedPlatformConfig = {
     "name/kebab",
     "time/seconds",
     "html/icon",
+    "dimension/em",
     "size/rem",
     "asset/url",
     "fontFamily/css",
@@ -75,7 +99,10 @@ const sharedPlatformConfig = {
 async function buildTokens() {
   try {
     // Parse CLI flags
-    const showDescriptions = !process.argv.includes("--no-descriptions");
+    const suppressDescriptions =
+      process.argv.includes("--no-description") ||
+      process.argv.includes("--no-descriptions");
+    const showDescriptions = !suppressDescriptions;
     const formatting = showDescriptions
       ? {}
       : { commentStyle: "none" as const };
@@ -138,7 +165,9 @@ async function buildTokens() {
     console.log(`📦 Base files: ${baseFiles.length}`);
     console.log(`🎨 Color modes: ${Object.keys(colorModes).join(", ")}`);
     console.log(`⭕ Radius modes: ${Object.keys(radiusModes).join(", ")}`);
-    console.log(`📏 Border modes: ${Object.keys(borderModes).length > 0 ? Object.keys(borderModes).join(", ") : "none"}`);
+    console.log(
+      `📏 Border modes: ${Object.keys(borderModes).length > 0 ? Object.keys(borderModes).join(", ") : "none"}`,
+    );
 
     // Create output directories
     mkdirSync("dist/css", { recursive: true });
@@ -171,6 +200,7 @@ async function buildTokens() {
                 outputReferences: true,
                 selector: ":root",
                 formatting,
+                sort: naturalSort,
               },
             },
           ],
@@ -205,6 +235,7 @@ async function buildTokens() {
                   outputReferences: true,
                   selector: "[data-color-mode='dark']",
                   formatting,
+                  sort: naturalSort,
                 },
               },
             ],
@@ -242,6 +273,7 @@ async function buildTokens() {
                     outputReferences: true,
                     selector: `[data-radius-mode='${mode}']`,
                     formatting,
+                    sort: naturalSort,
                   },
                 },
               ],
@@ -280,6 +312,7 @@ async function buildTokens() {
                     outputReferences: true,
                     selector: `[data-border-mode='${mode}']`,
                     formatting,
+                    sort: naturalSort,
                   },
                 },
               ],

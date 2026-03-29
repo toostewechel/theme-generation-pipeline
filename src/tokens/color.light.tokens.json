@@ -29,18 +29,13 @@
     "$value": "{color-neutral-900}",
     "$description": "\"Dark surfaces for light content (e.g., toasts, tooltips)"
   },
-  "color-background-surface-brand": {
-    "$type": "color",
-    "$value": "{color-blue-500}",
-    "$description": "Brand-colored surfaces (hero sections, CTAs)"
-  },
   "color-background-surface-white": {
     "$type": "color",
     "$value": "{color-neutral-0}"
   },
   "color-background-marker": {
     "$type": "color",
-    "$value": "{color-sky-300}"
+    "$value": "{color-amber-300}"
   },
   "color-background-navbar": {
     "$type": "color",
@@ -48,12 +43,12 @@
   },
   "color-text-emphasis": {
     "$type": "color",
-    "$value": "{color-neutral-950}",
+    "$value": "{color-amber-950}",
     "$description": "Headings, labels, key information"
   },
   "color-text-default": {
     "$type": "color",
-    "$value": "{color-neutral-800}",
+    "$value": "{color-amber-900}",
     "$description": "Body copy, paragraphs"
   },
   "color-text-subtle": {
@@ -63,7 +58,7 @@
   },
   "color-text-muted": {
     "$type": "color",
-    "$value": "{color-neutral-600}",
+    "$value": "{color-neutral-650}",
     "$description": "Placeholders, hints, disabled text"
   },
   "color-text-inverse": {
@@ -73,7 +68,7 @@
   },
   "color-text-accent": {
     "$type": "color",
-    "$value": "{color-blue-700}",
+    "$value": "{color-indigo-700}",
     "$description": "Branded text accents"
   },
   "color-text-on-brand": {
@@ -93,7 +88,7 @@
   },
   "color-icon-default": {
     "$type": "color",
-    "$value": "{color-neutral-700}",
+    "$value": "{color-neutral-650}",
     "$description": "Standard icons alongside body text"
   },
   "color-icon-subtle": {
@@ -103,7 +98,7 @@
   },
   "color-icon-muted": {
     "$type": "color",
-    "$value": "{color-neutral-300}",
+    "$value": "{color-neutral-400}",
     "$description": "Disabled icons, placeholders"
   },
   "color-icon-inverse": {
@@ -113,7 +108,7 @@
   },
   "color-icon-brand": {
     "$type": "color",
-    "$value": "{color-blue-600}",
+    "$value": "{color-indigo-500}",
     "$description": "Branded/accent icons"
   },
   "color-icon-on-brand": {
@@ -178,7 +173,7 @@
   },
   "color-control-border-focus": {
     "$type": "color",
-    "$value": "{color-blue-500}",
+    "$value": "{color-indigo-500}",
     "$description": "Input fields when focused"
   },
   "color-control-border-error": {
@@ -188,43 +183,59 @@
   },
   "color-action-primary-background": {
     "$type": "color",
-    "$value": "{color-purple-700}"
+    "$value": "{color-indigo-500}"
   },
   "color-action-primary-on-bg": {
     "$type": "color",
-    "$value": "{color-purple-50}"
+    "$value": "{color-indigo-950}"
   },
   "color-action-primary-text": {
     "$type": "color",
-    "$value": "{color-purple-700}"
+    "$value": "{color-indigo-700}"
   },
   "color-action-primary-icon": {
     "$type": "color",
-    "$value": "{color-purple-700}"
+    "$value": "{color-indigo-700}"
   },
   "color-action-primary-border": {
     "$type": "color",
-    "$value": "{color-purple-600}"
+    "$value": "{color-indigo-600}"
+  },
+  "color-feedback-success-text": {
+    "$type": "color",
+    "$value": "{color-violet-700}"
+  },
+  "color-feedback-success-icon": {
+    "$type": "color",
+    "$value": "{color-violet-500}"
+  },
+  "color-feedback-success-border": {
+    "$type": "color",
+    "$value": "{color-violet-300}"
+  },
+  "color-feedback-success-background": {
+    "$type": "color",
+    "$value": "{color-violet-50}"
   },
   "color-feedback-warning-text": {
     "$type": "color",
-    "$value": "{color-amber-800}"
+    "$value": "{color-purple-800}"
   },
   "color-feedback-warning-icon": {
     "$type": "color",
-    "$value": "{color-amber-500}"
+    "$value": "{color-purple-500}"
   },
   "color-feedback-warning-border": {
     "$type": "color",
-    "$value": "{color-amber-300}"
+    "$value": "{color-purple-300}"
   },
   "color-feedback-warning-background": {
     "$type": "color",
-    "$value": "{color-amber-100}"
+    "$value": "{color-purple-50}"
   },
   "color-feedback-error-text": {
     "$type": "color",
-    "$value": "{color-red-800}"
+    "$value": "{color-red-700}"
   },
   "color-feedback-error-icon": {
     "$type": "color",
@@ -236,7 +247,23 @@
   },
   "color-feedback-error-background": {
     "$type": "color",
-    "$value": "{color-red-100}"
+    "$value": "{color-red-50}"
+  },
+  "color-feedback-info-text": {
+    "$type": "color",
+    "$value": "{color-yellow-700}"
+  },
+  "color-feedback-info-icon": {
+    "$type": "color",
+    "$value": "{color-yellow-500}"
+  },
+  "color-feedback-info-border": {
+    "$type": "color",
+    "$value": "{color-yellow-300}"
+  },
+  "color-feedback-info-background": {
+    "$type": "color",
+    "$value": "{color-yellow-50}"
   },
   "color-state-disabled-opacity": {
     "$type": "dimension",
@@ -264,7 +291,7 @@
   },
   "color-state-focus-ring": {
     "$type": "color",
-    "$value": "{color-blue-500}"
+    "$value": "{color-indigo-500}"
   },
   "color-state-focus-ring-offset": {
     "$type": "color",
@@ -272,35 +299,35 @@
   },
   "color-state-checked": {
     "$type": "color",
-    "$value": "{color-teal-500}"
+    "$value": "{color-indigo-500}"
   },
   "color-action-secondary-background": {
     "$type": "color",
-    "$value": "{color-blue-700}"
+    "$value": "{color-amber-500}"
   },
   "color-action-secondary-on-bg": {
     "$type": "color",
-    "$value": "{color-blue-50}"
+    "$value": "{color-amber-950}"
   },
   "color-action-secondary-text": {
     "$type": "color",
-    "$value": "{color-blue-700}"
+    "$value": "{color-amber-700}"
   },
   "color-action-secondary-icon": {
     "$type": "color",
-    "$value": "{color-blue-700}"
+    "$value": "{color-amber-700}"
   },
   "color-action-secondary-border": {
     "$type": "color",
-    "$value": "{color-blue-600}"
+    "$value": "{color-amber-600}"
   },
   "color-action-tertiary-background": {
     "$type": "color",
-    "$value": "{color-sky-700}"
+    "$value": "{color-sky-500}"
   },
   "color-action-tertiary-on-bg": {
     "$type": "color",
-    "$value": "{color-sky-50}"
+    "$value": "{color-sky-950}"
   },
   "color-action-tertiary-text": {
     "$type": "color",
@@ -332,7 +359,7 @@
   },
   "color-action-neutral-border": {
     "$type": "color",
-    "$value": "{color-neutral-600}"
+    "$value": "{color-neutral-700}"
   },
   "color-action-white-background": {
     "$type": "color",
@@ -353,5 +380,44 @@
   "color-action-white-border": {
     "$type": "color",
     "$value": "{color-neutral-0}"
+  },
+  "color-circled-marker": {
+    "$type": "color",
+    "$value": "{color-amber-300}"
+  },
+  "color-action-danger-background": {
+    "$type": "color",
+    "$value": "{color-red-500}"
+  },
+  "color-action-danger-on-bg": {
+    "$type": "color",
+    "$value": "{color-red-950}"
+  },
+  "color-action-danger-text": {
+    "$type": "color",
+    "$value": "{color-red-700}"
+  },
+  "color-action-danger-icon": {
+    "$type": "color",
+    "$value": "{color-red-700}"
+  },
+  "color-action-danger-border": {
+    "$type": "color",
+    "$value": "{color-red-600}"
+  },
+  "color-background-brand-primary": {
+    "$type": "color",
+    "$value": "{color-indigo-500}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-brand-secondary": {
+    "$type": "color",
+    "$value": "{color-indigo-100}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-brand-tertiary": {
+    "$type": "color",
+    "$value": "{color-indigo-50}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
   }
 }

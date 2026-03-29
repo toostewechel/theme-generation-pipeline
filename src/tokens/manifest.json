@@ -39,6 +39,13 @@
         ]
       }
     },
+    "typography": {
+      "modes": {
+        "mode-1": [
+          "typography.mode-1.tokens.json"
+        ]
+      }
+    },
     "primitives-radius": {
       "modes": {
         "mode-1": [
@@ -59,13 +66,6 @@
         ],
         "pill": [
           "radius.pill.tokens.json"
-        ]
-      }
-    },
-    "typography": {
-      "modes": {
-        "mode-1": [
-          "typography.mode-1.tokens.json"
         ]
       }
     }

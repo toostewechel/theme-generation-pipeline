@@ -6,20 +6,6 @@
       "unit": "px"
     }
   },
-  "radius-none": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0,
-      "unit": "px"
-    }
-  },
-  "radius-full": {
-    "$type": "dimension",
-    "$value": {
-      "value": 9999,
-      "unit": "px"
-    }
-  },
   "radius-scale-xs": {
     "$type": "dimension",
     "$value": {
@@ -35,6 +21,20 @@
       "unit": "px"
     },
     "$description": "unitless"
+  },
+  "radius-none": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0,
+      "unit": "px"
+    }
+  },
+  "radius-full": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9999,
+      "unit": "px"
+    }
   },
   "radius-scale-md": {
     "$type": "dimension",
@@ -65,39 +65,34 @@
     "$value": {
       "value": 2,
       "unit": "px"
-    },
-    "$description": "Geometric Caps (maximum radius to preserve shape)"
+    }
   },
   "radius-cap-sm": {
     "$type": "dimension",
     "$value": {
       "value": 4,
       "unit": "px"
-    },
-    "$description": "Geometric Caps (maximum radius to preserve shape)"
+    }
   },
   "radius-cap-md": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
-    },
-    "$description": "Geometric Caps (maximum radius to preserve shape)"
+    }
   },
   "radius-cap-lg": {
     "$type": "dimension",
     "$value": {
       "value": 16,
       "unit": "px"
-    },
-    "$description": "Geometric Caps (maximum radius to preserve shape)"
+    }
   },
   "radius-cap-xl": {
     "$type": "dimension",
     "$value": {
       "value": 24,
       "unit": "px"
-    },
-    "$description": "Geometric Caps (maximum radius to preserve shape)"
+    }
   }
 }

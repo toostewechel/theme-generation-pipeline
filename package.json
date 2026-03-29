@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "build:tokens": "npx tsx scripts/buildTokens.ts",
-    "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-description",
+    "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-descriptions",
     "preview:fluid": "cd tools/fluid-preview && npm run dev",
     "preview:radius": "cd tools/radius-preview && npm run dev"
   },
