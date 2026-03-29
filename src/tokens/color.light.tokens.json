@@ -48,7 +48,7 @@
   },
   "color-text-default": {
     "$type": "color",
-    "$value": "{color-amber-900}",
+    "$value": "{color-amber-875}",
     "$description": "Body copy, paragraphs"
   },
   "color-text-subtle": {
@@ -183,11 +183,11 @@
   },
   "color-action-primary-background": {
     "$type": "color",
-    "$value": "{color-indigo-500}"
+    "$value": "{color-indigo-700}"
   },
   "color-action-primary-on-bg": {
     "$type": "color",
-    "$value": "{color-indigo-950}"
+    "$value": "{color-indigo-50}"
   },
   "color-action-primary-text": {
     "$type": "color",
@@ -299,7 +299,7 @@
   },
   "color-state-checked": {
     "$type": "color",
-    "$value": "{color-indigo-500}"
+    "$value": "{color-indigo-600}"
   },
   "color-action-secondary-background": {
     "$type": "color",

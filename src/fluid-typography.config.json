@@ -57,7 +57,7 @@
     },
     "body-lg": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "18px", "max": "20px" },
+      "fontSize": { "min": "17px", "max": "19px" },
       "lineHeight": 1.55
     },
     "body-default": {

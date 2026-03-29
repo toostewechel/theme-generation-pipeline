@@ -549,6 +549,17 @@
       ]
     }
   },
+  "color-amber-875": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.3135000169277191,
+        0.20571820437908173,
+        0.06650000065565109
+      ]
+    }
+  },
   "color-amber-900": {
     "$type": "color",
     "$value": {
