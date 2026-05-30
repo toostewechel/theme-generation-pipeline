@@ -35,7 +35,7 @@
   },
   "color-background-marker": {
     "$type": "color",
-    "$value": "{color-amber-700}"
+    "$value": "{color-accent-700}"
   },
   "color-background-navbar": {
     "$type": "color",
@@ -48,12 +48,12 @@
   },
   "color-text-default": {
     "$type": "color",
-    "$value": "{color-neutral-200}",
+    "$value": "{color-neutral-300}",
     "$description": "Body copy, paragraphs"
   },
   "color-text-subtle": {
     "$type": "color",
-    "$value": "{color-neutral-300}",
+    "$value": "{color-neutral-400}",
     "$description": "Captions, metadata, timestamps"
   },
   "color-text-muted": {
@@ -63,18 +63,32 @@
   },
   "color-text-inverse": {
     "$type": "color",
-    "$value": "{color-neutral-0}",
+    "$value": "{color-neutral-950}",
     "$description": "Text on dark/inverse surfaces"
   },
   "color-text-accent": {
     "$type": "color",
-    "$value": "{color-indigo-300}",
+    "$value": "{color-accent-500}",
+    "$description": "Branded text accents"
+  },
+  "color-text-link": {
+    "$type": "color",
+    "$value": "{color-sky-500}",
+    "$description": "Branded text accents"
+  },
+  "color-text-annotation": {
+    "$type": "color",
+    "$value": "{color-sky-500}",
     "$description": "Branded text accents"
   },
   "color-text-on-brand": {
     "$type": "color",
     "$value": "{color-neutral-950}",
     "$description": "Text on brand-colored surfaces"
+  },
+  "color-text-on-white": {
+    "$type": "color",
+    "$value": "{color-neutral-800}"
   },
   "color-icon-black": {
     "$type": "color",
@@ -106,29 +120,29 @@
     "$value": "{color-neutral-0}",
     "$description": "Icons on dark surfaces"
   },
-  "color-icon-brand": {
+  "color-icon-accent": {
     "$type": "color",
-    "$value": "{color-indigo-500}",
+    "$value": "{color-accent-500}",
     "$description": "Branded/accent icons"
   },
   "color-icon-on-brand": {
     "$type": "color",
-    "$value": "{color-neutral-0}",
+    "$value": "{color-accent-900}",
     "$description": "Icons on brand-colored surfaces"
   },
   "color-border-emphasis": {
     "$type": "color",
-    "$value": "{color-neutral-600}",
+    "$value": "{color-white-alpha-32}",
     "$description": "Default borders (cards, dividers)"
   },
   "color-border-default": {
     "$type": "color",
-    "$value": "{color-neutral-700}",
+    "$value": "{color-white-alpha-24}",
     "$description": "Default borders (cards, dividers)"
   },
   "color-border-subtle": {
     "$type": "color",
-    "$value": "{color-neutral-900}",
+    "$value": "{color-white-alpha-12}",
     "$description": "Subtle dividers, separators"
   },
   "color-border-gridlines": {
@@ -141,6 +155,18 @@
     "$value": "{color-neutral-50}",
     "$description": "Default borders (cards, dividers)"
   },
+  "color-border-interactive-frame": {
+    "$type": "color",
+    "$value": "{color-sky-500}"
+  },
+  "color-border-brand-primary": {
+    "$type": "color",
+    "$value": "{color-accent-500}"
+  },
+  "color-border-brand-secondary": {
+    "$type": "color",
+    "$value": "{color-accent-700}"
+  },
   "color-control-background-default": {
     "$type": "color",
     "$value": "{color-neutral-0}",
@@ -149,6 +175,11 @@
   "color-control-background-tinted": {
     "$type": "color",
     "$value": "{color-neutral-800}",
+    "$description": "Input fields, selects, textareas"
+  },
+  "color-control-background-tintent-brand": {
+    "$type": "color",
+    "$value": "{color-accent-900}",
     "$description": "Input fields, selects, textareas"
   },
   "color-control-background-translucent": {
@@ -173,97 +204,113 @@
   },
   "color-control-border-focus": {
     "$type": "color",
-    "$value": "{color-indigo-500}",
+    "$value": "{color-accent-400}",
     "$description": "Input fields when focused"
   },
   "color-control-border-error": {
     "$type": "color",
-    "$value": "{color-red-400}",
+    "$value": "{color-swiss-red-64}",
     "$description": "Input fields in error state"
   },
   "color-action-primary-background": {
     "$type": "color",
-    "$value": "{color-indigo-500}"
+    "$value": "{color-accent-500}"
   },
   "color-action-primary-on-bg": {
     "$type": "color",
-    "$value": "{color-indigo-950}"
+    "$value": "{color-accent-900}"
   },
   "color-action-primary-text": {
     "$type": "color",
-    "$value": "{color-indigo-300}"
+    "$value": "{color-accent-500}"
   },
   "color-action-primary-icon": {
     "$type": "color",
-    "$value": "{color-indigo-300}"
+    "$value": "{color-accent-500}"
   },
   "color-action-primary-border": {
     "$type": "color",
-    "$value": "{color-indigo-400}"
-  },
-  "color-feedback-success-text": {
-    "$type": "color",
-    "$value": "{color-violet-200}"
-  },
-  "color-feedback-success-icon": {
-    "$type": "color",
-    "$value": "{color-violet-500}"
-  },
-  "color-feedback-success-border": {
-    "$type": "color",
-    "$value": "{color-violet-700}"
+    "$value": "{color-accent-500}"
   },
   "color-feedback-success-background": {
     "$type": "color",
-    "$value": "{color-violet-900}"
+    "$value": "{color-lime-500}"
   },
-  "color-feedback-warning-text": {
+  "color-feedback-success-on-bg": {
     "$type": "color",
-    "$value": "{color-purple-200}"
+    "$value": "{color-lime-900}"
   },
-  "color-feedback-warning-icon": {
+  "color-feedback-success-text": {
     "$type": "color",
-    "$value": "{color-purple-500}"
+    "$value": "{color-lime-500}"
   },
-  "color-feedback-warning-border": {
+  "color-feedback-success-icon": {
     "$type": "color",
-    "$value": "{color-purple-700}"
+    "$value": "{color-lime-500}"
+  },
+  "color-feedback-success-border": {
+    "$type": "color",
+    "$value": "{color-lime-500}"
   },
   "color-feedback-warning-background": {
     "$type": "color",
-    "$value": "{color-purple-900}"
+    "$value": "{color-vermillion-100}"
   },
-  "color-feedback-error-text": {
+  "color-feedback-warning-on-bg": {
     "$type": "color",
-    "$value": "{color-red-300}"
+    "$value": "{color-neutral-950}"
   },
-  "color-feedback-error-icon": {
+  "color-feedback-warning-text": {
     "$type": "color",
-    "$value": "{color-red-500}"
+    "$value": "{color-vermillion-64}"
   },
-  "color-feedback-error-border": {
+  "color-feedback-warning-icon": {
     "$type": "color",
-    "$value": "{color-red-700}"
+    "$value": "{color-vermillion-64}"
+  },
+  "color-feedback-warning-border": {
+    "$type": "color",
+    "$value": "{color-vermillion-64}"
   },
   "color-feedback-error-background": {
     "$type": "color",
-    "$value": "{color-red-900}"
+    "$value": "{color-swiss-red-100}"
   },
-  "color-feedback-info-text": {
+  "color-feedback-error-on-bg": {
     "$type": "color",
-    "$value": "{color-yellow-200}"
+    "$value": "{color-neutral-0}"
   },
-  "color-feedback-info-icon": {
+  "color-feedback-error-text": {
     "$type": "color",
-    "$value": "{color-yellow-500}"
+    "$value": "{color-swiss-red-64}"
   },
-  "color-feedback-info-border": {
+  "color-feedback-error-icon": {
     "$type": "color",
-    "$value": "{color-yellow-700}"
+    "$value": "{color-swiss-red-64}"
+  },
+  "color-feedback-error-border": {
+    "$type": "color",
+    "$value": "{color-swiss-red-64-alpha}"
   },
   "color-feedback-info-background": {
     "$type": "color",
-    "$value": "{color-yellow-900}"
+    "$value": "{color-sky-500}"
+  },
+  "color-feedback-info-on-bg": {
+    "$type": "color",
+    "$value": "{color-sky-900}"
+  },
+  "color-feedback-info-text": {
+    "$type": "color",
+    "$value": "{color-sky-500}"
+  },
+  "color-feedback-info-icon": {
+    "$type": "color",
+    "$value": "{color-sky-500}"
+  },
+  "color-feedback-info-border": {
+    "$type": "color",
+    "$value": "{color-sky-500}"
   },
   "color-state-disabled-opacity": {
     "$type": "dimension",
@@ -291,7 +338,7 @@
   },
   "color-state-focus-ring": {
     "$type": "color",
-    "$value": "{color-indigo-500}"
+    "$value": "{color-accent-400}"
   },
   "color-state-focus-ring-offset": {
     "$type": "color",
@@ -299,47 +346,47 @@
   },
   "color-state-checked": {
     "$type": "color",
-    "$value": "{color-indigo-500}"
+    "$value": "{color-accent-500}"
   },
   "color-action-secondary-background": {
     "$type": "color",
-    "$value": "{color-amber-500}"
+    "$value": "{color-sky-500}"
   },
   "color-action-secondary-on-bg": {
     "$type": "color",
-    "$value": "{color-amber-950}"
+    "$value": "{color-sky-900}"
   },
   "color-action-secondary-text": {
     "$type": "color",
-    "$value": "{color-amber-200}"
+    "$value": "{color-sky-500}"
   },
   "color-action-secondary-icon": {
     "$type": "color",
-    "$value": "{color-amber-200}"
+    "$value": "{color-sky-500}"
   },
   "color-action-secondary-border": {
     "$type": "color",
-    "$value": "{color-amber-200}"
+    "$value": "{color-sky-500}"
   },
   "color-action-tertiary-background": {
     "$type": "color",
-    "$value": "{color-sky-500}"
+    "$value": "{color-lime-500}"
   },
   "color-action-tertiary-on-bg": {
     "$type": "color",
-    "$value": "{color-sky-950}"
+    "$value": "{color-lime-900}"
   },
   "color-action-tertiary-text": {
     "$type": "color",
-    "$value": "{color-sky-300}"
+    "$value": "{color-lime-500}"
   },
   "color-action-tertiary-icon": {
     "$type": "color",
-    "$value": "{color-sky-300}"
+    "$value": "{color-lime-500}"
   },
   "color-action-tertiary-border": {
     "$type": "color",
-    "$value": "{color-sky-400}"
+    "$value": "{color-lime-500}"
   },
   "color-action-neutral-background": {
     "$type": "color",
@@ -383,41 +430,96 @@
   },
   "color-circled-marker": {
     "$type": "color",
-    "$value": "{color-amber-700}"
+    "$value": "{color-retro-yellow}"
   },
   "color-action-danger-background": {
     "$type": "color",
-    "$value": "{color-red-500}"
+    "$value": "{color-swiss-red-100}"
   },
   "color-action-danger-on-bg": {
     "$type": "color",
-    "$value": "{color-red-950}"
+    "$value": "{color-neutral-0}"
   },
   "color-action-danger-text": {
     "$type": "color",
-    "$value": "{color-red-300}"
+    "$value": "{color-swiss-red-64}"
   },
   "color-action-danger-icon": {
     "$type": "color",
-    "$value": "{color-red-300}"
+    "$value": "{color-swiss-red-64}"
   },
   "color-action-danger-border": {
     "$type": "color",
-    "$value": "{color-red-200}"
+    "$value": "{color-swiss-red-64-alpha}"
   },
   "color-background-brand-primary": {
     "$type": "color",
-    "$value": "{color-indigo-500}",
+    "$value": "{color-accent-500}",
     "$description": "Brand-colored surfaces (hero sections, CTAs)"
   },
   "color-background-brand-secondary": {
     "$type": "color",
-    "$value": "{color-indigo-900}",
+    "$value": "{color-sky-500}",
     "$description": "Brand-colored surfaces (hero sections, CTAs)"
   },
   "color-background-brand-tertiary": {
     "$type": "color",
-    "$value": "{color-indigo-950}",
+    "$value": "{color-lime-500}",
     "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-neutral-primary": {
+    "$type": "color",
+    "$value": "{color-neutral-100}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-neutral-secondary": {
+    "$type": "color",
+    "$value": "{color-neutral-800}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-background-neutral-tertiary": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Brand-colored surfaces (hero sections, CTAs)"
+  },
+  "color-retro-green": {
+    "$type": "color",
+    "$value": "{color-prism-green}",
+    "$description": "Headings, labels, key information"
+  },
+  "color-retro-yellow": {
+    "$type": "color",
+    "$value": "{color-prism-yellow}",
+    "$description": "Body copy, paragraphs"
+  },
+  "color-retro-orange": {
+    "$type": "color",
+    "$value": "{color-prism-orange}",
+    "$description": "Captions, metadata, timestamps"
+  },
+  "color-retro-red": {
+    "$type": "color",
+    "$value": "{color-prism-red}",
+    "$description": "Placeholders, hints, disabled text"
+  },
+  "color-retro-magenta": {
+    "$type": "color",
+    "$value": "{color-prism-magenta}",
+    "$description": "Text on dark/inverse surfaces"
+  },
+  "color-retro-purple": {
+    "$type": "color",
+    "$value": "{color-prism-purple}",
+    "$description": "Branded text accents"
+  },
+  "color-retro-blue": {
+    "$type": "color",
+    "$value": "{color-prism-blue}",
+    "$description": "Branded text accents"
+  },
+  "color-retro-cyan": {
+    "$type": "color",
+    "$value": "{color-prism-cyan}",
+    "$description": "Text on brand-colored surfaces"
   }
 }

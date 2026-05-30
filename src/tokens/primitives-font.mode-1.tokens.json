@@ -5,15 +5,15 @@
   },
   "font-family-body": {
     "$type": "fontFamily",
-    "$value": "Signifier"
+    "$value": "IBM Plex Sans"
   },
   "font-family-ui": {
     "$type": "fontFamily",
-    "$value": "Martian Grotesk"
+    "$value": "IBM Plex Sans"
   },
   "font-family-mono": {
     "$type": "fontFamily",
-    "$value": "Berkeley Mono"
+    "$value": "IBM Plex Mono"
   },
   "font-family-handwritten": {
     "$type": "fontFamily",
@@ -54,6 +54,13 @@
   "font-weight-black": {
     "$type": "fontWeight",
     "$value": 900
+  },
+  "font-size-25": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9,
+      "unit": "px"
+    }
   },
   "font-size-50": {
     "$type": "dimension",
@@ -261,6 +268,13 @@
     },
     "$description": "em"
   },
+  "font-line-height-1600": {
+    "$type": "dimension",
+    "$value": {
+      "value": 64,
+      "unit": "px"
+    }
+  },
   "font-letter-spacing-normal": {
     "$type": "dimension",
     "$value": {
@@ -269,24 +283,10 @@
     },
     "$description": "em"
   },
-  "font-line-height-1600": {
-    "$type": "dimension",
-    "$value": {
-      "value": 64,
-      "unit": "px"
-    }
-  },
   "font-line-height-1800": {
     "$type": "dimension",
     "$value": {
       "value": 72,
-      "unit": "px"
-    }
-  },
-  "font-line-height-2000": {
-    "$type": "dimension",
-    "$value": {
-      "value": 80,
       "unit": "px"
     }
   },
@@ -297,6 +297,13 @@
       "unit": "px"
     },
     "$description": "em"
+  },
+  "font-line-height-2000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 80,
+      "unit": "px"
+    }
   },
   "font-line-height-2400": {
     "$type": "dimension",

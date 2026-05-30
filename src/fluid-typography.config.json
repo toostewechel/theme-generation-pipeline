@@ -37,37 +37,37 @@
     },
     "heading-xl": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "24px", "max": "28px" },
+      "fontSize": { "min": "24px", "max": "29px" },
       "lineHeight": 1.1
     },
     "heading-lg": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "22px", "max": "24px" },
+      "fontSize": { "min": "23px", "max": "27px" },
       "lineHeight": 1.25
     },
     "heading-md": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "20px", "max": "22px" },
+      "fontSize": { "min": "20px", "max": "23px" },
       "lineHeight": 1.4
     },
     "heading-sm": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "17px", "max": "19px" },
+      "fontSize": { "min": "17px", "max": "20px" },
       "lineHeight": 1.45
     },
     "body-lg": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "17px", "max": "19px" },
+      "fontSize": { "min": "16px", "max": "18px" },
       "lineHeight": 1.55
     },
     "body-default": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "16px", "max": "18px" },
+      "fontSize": { "min": "15px", "max": "17px" },
       "lineHeight": 1.55
     },
     "body-sm": {
       "fontFamily": "Signifier",
-      "fontSize": { "min": "14px", "max": "16px" },
+      "fontSize": { "min": "13px", "max": "15px" },
       "lineHeight": 1.55
     },
     "body-xs": {
