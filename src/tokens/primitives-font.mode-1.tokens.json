@@ -245,6 +245,13 @@
     },
     "$description": "em"
   },
+  "font-line-height-1400": {
+    "$type": "dimension",
+    "$value": {
+      "value": 56,
+      "unit": "px"
+    }
+  },
   "font-letter-spacing-wider": {
     "$type": "dimension",
     "$value": {
@@ -253,17 +260,18 @@
     },
     "$description": "em"
   },
-  "font-line-height-1400": {
-    "$type": "dimension",
-    "$value": {
-      "value": 56,
-      "unit": "px"
-    }
-  },
   "font-letter-spacing-wide": {
     "$type": "dimension",
     "$value": {
       "value": 0.23999999463558197,
+      "unit": "px"
+    },
+    "$description": "em"
+  },
+  "font-letter-spacing-normal": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0,
       "unit": "px"
     },
     "$description": "em"
@@ -275,18 +283,17 @@
       "unit": "px"
     }
   },
-  "font-letter-spacing-normal": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0,
-      "unit": "px"
-    },
-    "$description": "em"
-  },
   "font-line-height-1800": {
     "$type": "dimension",
     "$value": {
       "value": 72,
+      "unit": "px"
+    }
+  },
+  "font-line-height-2000": {
+    "$type": "dimension",
+    "$value": {
+      "value": 80,
       "unit": "px"
     }
   },
@@ -297,13 +304,6 @@
       "unit": "px"
     },
     "$description": "em"
-  },
-  "font-line-height-2000": {
-    "$type": "dimension",
-    "$value": {
-      "value": 80,
-      "unit": "px"
-    }
   },
   "font-line-height-2400": {
     "$type": "dimension",
