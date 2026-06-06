@@ -28,10 +28,15 @@ StyleDictionary.registerTransform({
     return token.$type === "dimension" && token.$description === "unitless";
   },
   transform: (token) => {
-    if (typeof token.$value === "object" && token.$value.value !== undefined) {
-      return String(token.$value.value);
+    // Read from the ORIGINAL DTCG value so this is immune to any earlier
+    // dimension transform (dimension/css, size/rem) that may have already
+    // stringified the value with a unit. This transform must run LAST so
+    // nothing re-appends a unit afterwards.
+    const source = token.original?.$value ?? token.$value;
+    if (typeof source === "object" && source.value !== undefined) {
+      return String(source.value);
     }
-    return String(token.$value);
+    return String(source).replace(/(px|rem|em)$/, "");
   },
 });
 
@@ -62,7 +67,8 @@ const naturalSort = (a: { name: string }, b: { name: string }) =>
   a.name.localeCompare(b.name, undefined, { numeric: true });
 
 // Shared platform configuration for consistent transforms applied to all 7 builds
-// Transform order matters: dimension/unitless must come before dimension/css to ensure unitless tokens are processed correctly
+// Transform order matters: dimension/unitless must come LAST so no other
+// dimension transform (dimension/css, size/rem) re-appends a unit afterwards
 const sharedPlatformConfig = {
   transforms: [
     "attribute/cti",
@@ -79,7 +85,6 @@ const sharedPlatformConfig = {
     "typography/css/shorthand",
     "transition/css/shorthand",
     "w3c-color/css",
-    "dimension/unitless",
     "dimension/css",
     "duration/css",
     "shadow/css",
@@ -89,6 +94,9 @@ const sharedPlatformConfig = {
     "fontWeight/css",
     "w3c-border/css",
     "gradient/css",
+    // Must run LAST: strips the unit from dimension tokens marked
+    // $description: "unitless" so later transforms can't re-append a unit.
+    "dimension/unitless",
   ],
   outputUnit: "rem",
   basePxFontSize: 16,
