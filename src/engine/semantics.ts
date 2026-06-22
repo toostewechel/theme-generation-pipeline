@@ -24,16 +24,27 @@ export type TargetSpec = {
  * Used for:
  *   - color-neutral-dark-surface-{1..5}  (Task 7 derivations)
  *   - color-prism-*  (static passthrough)
- *   - dimension/opacity tokens whose key starts with "color-" (state tokens)
  */
 export type PassthroughSpec = {
   kind: "passthrough";
   name: string;
 };
 
-export type SemanticSpec = RefSpec | TargetSpec | PassthroughSpec;
+/**
+ * Raw: emits a complete DTCG token object verbatim (no ref resolution).
+ * Used for dimension/non-color tokens with mode-specific literal values:
+ *   - color-state-disabled-opacity
+ *   - color-state-hover-intensity
+ *   - color-state-active-intensity
+ */
+export type RawSpec = {
+  kind: "raw";
+  token: object;
+};
 
-export type ResolvedToken = { ref: string } | { value: Oklch };
+export type SemanticSpec = RefSpec | TargetSpec | PassthroughSpec | RawSpec;
+
+export type ResolvedToken = { ref: string } | { value: Oklch } | { raw: object };
 
 // ─── Spec helpers ──────────────────────────────────────────────────────────
 
@@ -49,6 +60,11 @@ const target = (
 
 const pass = (name: string): PassthroughSpec =>
   ({ kind: "passthrough", name });
+
+const raw = (value: number): RawSpec => ({
+  kind: "raw",
+  token: { $type: "dimension", $value: { value, unit: "px" }, $description: "unitless" },
+});
 
 // ─── nameFor ──────────────────────────────────────────────────────────────
 
@@ -244,10 +260,10 @@ export const SEMANTICS_LIGHT: Record<string, SemanticSpec> = {
   "color-state-focus-ring":             ref("accent", "300"),
   "color-state-focus-ring-offset":      ref("neutral", "0"),
   "color-state-checked":                ref("accent", "500"),
-  // Dimension/opacity passthroughs — not colors, carried as-is
-  "color-state-disabled-opacity":       pass("color-state-disabled-opacity"),
-  "color-state-hover-intensity":        pass("color-state-hover-intensity"),
-  "color-state-active-intensity":       pass("color-state-active-intensity"),
+  // Dimension/numeric tokens — emitted as literal DTCG objects (not color refs)
+  "color-state-disabled-opacity":       raw(0.5),
+  "color-state-hover-intensity":        raw(0.9200000166893005),
+  "color-state-active-intensity":       raw(0.8500000238418579),
 
   // ── Retro / prism (static passthrough) ───────────────────────────────
   "color-retro-green":                  pass("color-prism-green"),
@@ -409,10 +425,10 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = {
   "color-state-focus-ring":             ref("accent", "400"),
   "color-state-focus-ring-offset":      ref("neutral", "0"),
   "color-state-checked":                ref("accent", "500"),
-  // Dimension/opacity passthroughs
-  "color-state-disabled-opacity":       pass("color-state-disabled-opacity"),
-  "color-state-hover-intensity":        pass("color-state-hover-intensity"),
-  "color-state-active-intensity":       pass("color-state-active-intensity"),
+  // Dimension/numeric tokens — emitted as literal DTCG objects (not color refs)
+  "color-state-disabled-opacity":       raw(0.5),
+  "color-state-hover-intensity":        raw(1.0499999523162842),
+  "color-state-active-intensity":       raw(1.100000023841858),
 
   // ── Retro / prism (static passthrough) ───────────────────────────────
   "color-retro-green":                  pass("color-prism-green"),
@@ -440,7 +456,9 @@ export function resolveSemantics(
   const out: Record<string, ResolvedToken> = {};
 
   for (const [name, spec] of Object.entries(table)) {
-    if (spec.kind === "passthrough") {
+    if (spec.kind === "raw") {
+      out[name] = { raw: spec.token };
+    } else if (spec.kind === "passthrough") {
       out[name] = { ref: spec.name };
     } else if (spec.kind === "ref") {
       out[name] = { ref: nameFor(spec.ramp, spec.step) };
