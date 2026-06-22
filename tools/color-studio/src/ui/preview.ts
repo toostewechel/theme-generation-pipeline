@@ -55,20 +55,40 @@ function semanticVars(state: ThemeInputs, set: RampSet, mode: "light" | "dark"):
   return decls.join(";");
 }
 
+// WCAG grade of a contrast ratio: AAA >=7, AA >=4.5 (normal text),
+// L >=3 (large text / UI components). Below 3 has no badge.
+function grade(ratio: number): { label: string; tier: string } | null {
+  if (ratio >= 7) return { label: "AAA", tier: "aaa" };
+  if (ratio >= 4.5) return { label: "AA", tier: "aa" };
+  if (ratio >= 3) return { label: "L", tier: "large" };
+  return null;
+}
+
 function renderRamps(set: RampSet, surface: Oklch): string {
   const rows = Object.entries(set).map(([name, ramp]) => {
     const chips = Object.entries(ramp as Record<string, Oklch>)
       .map(([step, color]) => {
-        const ratio = contrastRatio(color, surface).toFixed(2);
-        return `<div class="chip" title="${name}-${step} · ${ratio}:1 vs surface" style="background:${css(color)}">
-          <span class="step" style="color:${readableOn(color, set)}">${step}</span>
+        const ink = readableOn(color, set);
+        const r = contrastRatio(color, surface);
+        const ratio = r.toFixed(2);
+        const g = grade(r);
+        const meta = showContrast
+          ? `<span class="cr" style="color:${ink}">${ratio}${g ? ` <b class="g-${g.tier}">${g.label}</b>` : ""}</span>`
+          : "";
+        return `<div class="chip${showContrast ? " tall" : ""}" title="${name}-${step} · ${ratio}:1 vs surface" style="background:${css(color)}">
+          <span class="step" style="color:${ink}">${step}</span>${meta}
         </div>`;
       })
       .join("");
     return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div></div>`;
   });
-  return `<div class="pv-section"><div class="pv-section-title">Ramps</div>${rows.join("")}</div>`;
+  const legend = showContrast
+    ? ` <span class="pv-legend">contrast vs ${surfaceLabel} · AA ≥ 4.5 · AAA ≥ 7 · L ≥ 3</span>`
+    : "";
+  return `<div class="pv-section"><div class="pv-section-title">Ramps${legend}</div>${rows.join("")}</div>`;
 }
+
+let surfaceLabel = "surface";
 
 // The sample consumes only semantic tokens (var(--color-*)), never raw ramp
 // steps — it is the proof that the semantic layer holds up in context.
@@ -91,9 +111,16 @@ function renderSample(vars: string): string {
     </div></div>`;
 }
 
+let showContrast = true;
+let lastState: ThemeInputs | null = null;
+let lastMode: "light" | "dark" = "light";
+
 export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void {
+  lastState = state;
+  lastMode = mode;
   const set = buildRamps(state);
   const surface = mode === "light" ? set.neutral["0"] : set.neutral["950"];
+  surfaceLabel = mode === "light" ? "neutral-0" : "dark surface";
   const vars = semanticVars(state, set, mode);
 
   const root = document.getElementById("preview")!;
@@ -102,9 +129,17 @@ export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void 
   let body = document.getElementById("pv-body");
   if (!body) {
     root.innerHTML = `<h3 class="pv-title">Preview</h3>
-      <p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>
+      <div class="pv-head-row">
+        <p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>
+        <label class="pv-toggle"><input type="checkbox" id="contrast-toggle" checked /> Contrast</label>
+      </div>
       <div id="pv-body"></div>`;
     body = document.getElementById("pv-body")!;
+    const cb = document.getElementById("contrast-toggle") as HTMLInputElement;
+    cb.addEventListener("change", () => {
+      showContrast = cb.checked;
+      if (lastState) renderPreview(lastState, lastMode);
+    });
   } else {
     const sub = root.querySelector(".pv-sub");
     if (sub) sub.textContent = `Generated ${Object.keys(set).length} ramps · ${mode} surface`;
