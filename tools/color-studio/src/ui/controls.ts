@@ -75,25 +75,31 @@ function range(min: number, max: number, step: number, value: number): HTMLInput
   return r;
 }
 
-/** A single labeled scalar slider (no swatch) with a live numeric readout. */
-function scalarRow(
-  label: string,
+/** A scalar slider with a name, a one-line description, and a human-readable
+ * value readout (e.g. a percentage) — for self-explanatory designer controls. */
+function paramControl(
+  name: string,
+  description: string,
   value: number,
   min: number,
   max: number,
   stepSize: number,
+  format: (v: number) => string,
   onInput: (v: number) => void,
 ): HTMLElement {
-  const row = el("div", "slider-row");
+  const wrap = el("div", "param");
+  const head = el("div", "param-head");
+  const val = el("span", "param-val", format(value));
+  head.append(el("span", "param-name", name), val);
+  wrap.append(head, el("p", "param-desc", description));
   const slider = range(min, max, stepSize, value);
-  const val = el("span", "val", value.toFixed(3));
   slider.addEventListener("input", () => {
     const v = Number(slider.value);
-    val.textContent = v.toFixed(3);
+    val.textContent = format(v);
     onInput(v);
   });
-  row.append(el("span", "lbl", label), slider, val);
-  return row;
+  wrap.appendChild(slider);
+  return wrap;
 }
 
 /** A labeled hue + chroma control for one seed. Updates its own swatch + values
@@ -170,9 +176,10 @@ function seedControl(
   return wrap;
 }
 
-function group(title: string, children: HTMLElement[]): HTMLElement {
+function group(title: string, description: string, children: HTMLElement[]): HTMLElement {
   const g = el("div", "group");
   g.appendChild(el("h2", "group-title", title));
+  if (description) g.appendChild(el("p", "group-desc", description));
   for (const c of children) g.appendChild(c);
   return g;
 }
@@ -210,7 +217,9 @@ export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
   });
   contrastRow.append(el("span", "lbl", "ctr"), contrast, contrastVal);
 
-  root.appendChild(group("Foundation", [neutral, contrastRow]));
+  root.appendChild(
+    group("Foundation", "The gray and overall contrast everything derives from.", [neutral, contrastRow]),
+  );
 
   // Accents — each also records its verbatim source as the brand token.
   const accentControls = (["primary", "secondary", "tertiary"] as const).map((key) =>
@@ -223,7 +232,7 @@ export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
       onChange(current);
     }),
   );
-  root.appendChild(group("Accents", accentControls));
+  root.appendChild(group("Accents", "Brand hues — each seeds a full ramp.", accentControls));
 
   // Status (no brand token)
   const statusControls = (["success", "error", "warning", "info"] as const).map((key) =>
@@ -232,17 +241,31 @@ export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
       onChange(current);
     }),
   );
-  root.appendChild(group("Status", statusControls));
+  root.appendChild(group("Status", "Feedback hues: success, error, warning, info.", statusControls));
 
-  // Dark surfaces — base lightness + per-elevation step (dark mode only)
+  // Dark surfaces — designer-facing dials for dark-mode depth + elevation.
   const ds = current.darkSurfaces!;
-  const dsBase = scalarRow("base", ds.base, 0.05, 0.4, 0.005, (v) => {
-    current = { ...current, darkSurfaces: { ...current.darkSurfaces!, base: v } };
-    onChange(current);
-  });
-  const dsStep = scalarRow("step", ds.step, 0, 0.08, 0.002, (v) => {
-    current = { ...current, darkSurfaces: { ...current.darkSurfaces!, step: v } };
-    onChange(current);
-  });
-  root.appendChild(group("Dark surfaces", [dsBase, dsStep]));
+  const dsBase = paramControl(
+    "Base depth",
+    "Lightness of the darkest surface (the page background). Lower is darker.",
+    ds.base, 0.05, 0.4, 0.005,
+    (v) => `${Math.round(v * 100)}% light`,
+    (v) => {
+      current = { ...current, darkSurfaces: { ...current.darkSurfaces!, base: v } };
+      onChange(current);
+    },
+  );
+  const dsStep = paramControl(
+    "Elevation step",
+    "Lightness added per raised layer. Higher means more separation between surfaces.",
+    ds.step, 0, 0.08, 0.002,
+    (v) => `+${(v * 100).toFixed(1)}% / level`,
+    (v) => {
+      current = { ...current, darkSurfaces: { ...current.darkSurfaces!, step: v } };
+      onChange(current);
+    },
+  );
+  root.appendChild(
+    group("Dark surfaces", "Dark-mode background depth and how raised layers separate.", [dsBase, dsStep]),
+  );
 }
