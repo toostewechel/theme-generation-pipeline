@@ -110,6 +110,30 @@ html, body {
   font-weight: 550;
   color: var(--ink);
 }
+.hex {
+  margin-left: auto;
+  width: 82px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: lowercase;
+  color: var(--ink-soft);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  text-align: right;
+  transition: border-color 0.12s var(--ease), color 0.12s var(--ease);
+}
+.hex:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  color: var(--ink);
+}
+.hex--bad {
+  border-color: oklch(0.62 0.19 25);
+  color: oklch(0.55 0.19 25);
+}
 
 .slider-row {
   display: grid;

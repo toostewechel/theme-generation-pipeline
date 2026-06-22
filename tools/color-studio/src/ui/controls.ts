@@ -1,6 +1,29 @@
+import { oklch, formatHex } from "culori";
 import type { ThemeInputs, HueSeed } from "@project/src/engine/index.js";
 
 type OnChange = (next: ThemeInputs) => void;
+
+// Representative lightness for the swatch + hex field. The seed only carries
+// hue + chroma; the ramp generates every lightness step, so we show the seed's
+// character at one fixed lightness.
+const REP_L = 0.62;
+const CHROMA_MAX = 0.3;
+const CHROMA_STEP = 0.005;
+
+function hexOf(hue: number, chroma: number): string {
+  return formatHex({ mode: "oklch", l: REP_L, c: chroma, h: hue });
+}
+
+/** Parse a pasted hex into a seed. Keeps hue + chroma, discards lightness
+ * (the ramp generates lightness). Returns null if unparseable. */
+function parseHex(input: string): HueSeed | null {
+  const c = oklch(input.trim());
+  if (!c) return null;
+  const hue = Math.round((((c.h ?? 0) % 360) + 360) % 360);
+  const raw = Math.min(CHROMA_MAX, Math.max(0, c.c ?? 0));
+  const chroma = Math.round(raw / CHROMA_STEP) * CHROMA_STEP;
+  return { hue, chroma };
+}
 
 // Representative hue spectrum for a hue-slider track (fixed chroma/lightness).
 function hueTrack(): string {
@@ -53,7 +76,12 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
   const head = el("div", "seed-head");
   const swatch = el("span", "swatch");
   swatch.style.background = swatchColor(seed);
-  head.append(swatch, el("span", "seed-name", name));
+  const hex = el("input", "hex") as HTMLInputElement;
+  hex.type = "text";
+  hex.spellcheck = false;
+  hex.value = hexOf(seed.hue, seed.chroma);
+  hex.title = "Paste a brand hex — its hue & chroma seed the ramp; lightness is generated";
+  head.append(swatch, el("span", "seed-name", name), hex);
   wrap.appendChild(head);
 
   // hue row
@@ -78,10 +106,26 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
     hueVal.textContent = `${next.hue}°`;
     chrVal.textContent = next.chroma.toFixed(3);
     chr.style.backgroundImage = chromaTrack(next.hue); // keep chroma track in this hue
+    hex.value = hexOf(next.hue, next.chroma);
+    hex.classList.remove("hex--bad");
     onSeed(next);
   };
   hue.addEventListener("input", emit);
   chr.addEventListener("input", emit);
+
+  // Paste / type a brand hex to seed this accent.
+  hex.addEventListener("change", () => {
+    const parsed = parseHex(hex.value);
+    if (!parsed) {
+      hex.classList.add("hex--bad");
+      hex.value = hexOf(Number(hue.value), Number(chr.value));
+      setTimeout(() => hex.classList.remove("hex--bad"), 900);
+      return;
+    }
+    hue.value = String(parsed.hue);
+    chr.value = String(parsed.chroma);
+    emit();
+  });
 
   return wrap;
 }
