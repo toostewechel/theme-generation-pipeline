@@ -13,7 +13,8 @@ The export is **lossless and identical to what `build:theme` writes**: colors st
 - No Figma import code ships in this feature. Importing is done by the Figma MCP (today, via an agent workflow) or a future custom plugin. This spec documents the ingestion mapping but builds no importer.
 - No Tokens Studio (or other vendor) dialect. The export is the project's own DTCG format.
 - No hex/sRGB conversion in the exporter. oklch values are emitted verbatim.
-- No non-color collections (radius, dimension, typography, effects) and no static prism palette. Color only — the part the studio generates. The bundle shape is designed to extend to these later.
+- No non-color collections (radius, dimension, typography, effects). Color only — the part the studio generates. The bundle shape is designed to extend to these later.
+- **Amended during implementation:** the static prism palette (`primitives-color.static.tokens.json`) IS carried in the bundle as a verbatim passthrough. It was originally out of scope, but the semantic `color-retro-*` and `color-circled-marker` tokens alias `{color-prism-*}`, so the bundle must include prism for every alias to resolve (the self-contained-bundle constraint). It is carried as-is, not generated; pipeline output is unchanged.
 - No file download. Clipboard only.
 
 ## Background
