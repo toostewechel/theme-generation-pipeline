@@ -56,3 +56,74 @@ A dictionary makes you look up every word someone already wrote down. If a word 
 ## In one sentence
 
 > We turned color from a hand-maintained list into a generated system: three inputs produce a complete, accessible, light-and-dark palette, so re-theming is instant, dark mode and accessibility come for free, and a whole class of contrast bugs disappears.
+
+---
+
+# Technical Appendix: How It Works (and Why)
+
+For engineers. The jargon is intentional here.
+
+## Color space
+
+Everything is computed in **OKLCH** (`L` perceptual lightness 0–1, `C` chroma, `H` hue in degrees). It's perceptually uniform, so equal `L` steps read as even, and it's CSS-native (`oklch()`, and `oklch(from … l c h)` for runtime state shifts). All output is emitted as `oklch(L C H)` custom properties, gamut-clamped to Display-P3 via `culori`'s `clampChroma(color, "oklch", "p3")`.
+
+## Inputs
+
+`theme.config.ts` holds the entire design intent:
+
+```ts
+{
+  neutral:  { hue, chroma },                 // the gray, tinted toward brand
+  contrast: 0..1 | "low" | "default" | "high",
+  accents:  { primary, secondary, tertiary },// each { hue, chroma }
+  status:   { success, error, warning, info },
+  brand?:   { primary?, secondary?, tertiary? } // verbatim source colors (exact)
+}
+```
+
+## Ramp synthesis (the core)
+
+Each hue seed becomes an 11-step ramp (50…950). Two curves drive it:
+
+**Lightness = a per-hue quadratic.** `L(t) = a·t² + b·t + c` over normalized step index `t ∈ [0,1]`, fitted through three anchors: a near-white light end, the **fill step (500) solved for contrast**, and a near-black dark end. Only the fill anchor differs per hue, so each hue gets its own quadratic.
+
+**Why per-hue, not one shared curve:** OKLCH `L` is *perceptual* lightness, not WCAG *relative luminance* `Y`. Two hues at the same `L` have different `Y`, so a single shared lightness array yields inconsistent contrast across hues (measured spread on the old shared curve: white-on-fill ranged 2.39–2.70 at identical `L`). Solving each hue's fill in luminance space removes that.
+
+**The fill solve:** binary search `L` so `wcagContrast(white, fill@hue) == target`. Contrast against white decreases monotonically as `L` rises, so the search converges. Result: white-on-fill lands on the target (default 4.6:1) for **every** hue, `±0` spread. The `contrast` knob raises the target toward 7 via `targetFor()`, which also darkens fills in lockstep.
+
+**Chroma = a skewed gaussian.** `C(t) = peak · exp(−(t−μ)² / 2σ²)` with separate `σ` for the light and dark sides, `peak` = seed chroma, `μ` near the fill. Saturation peaks asymmetrically around mid-ramp in reality; flattening that into one symmetric multiplier makes some hues read flat and others oversaturated. After both curves, every step is P3 gamut-clamped, a monotonic-lightness pass (`EPSILON` nudge) guarantees strictly descending `L`, and a test asserts adjacent steps differ by ≥ 0.025 `L` (no near-collisions).
+
+## Contrast model
+
+WCAG 2.x relative-luminance ratios via `culori`'s `wcagContrast`, deliberately, so the engine's targets equal what a Lighthouse/axe audit measures. `targetFor(base, k)` holds the AA floor (4.5) at/below default contrast and ramps to ~7 as `k → 1`; it never returns below the floor, so generated text is never sub-AA.
+
+## Semantic resolution (hybrid)
+
+One declarative table per mode resolves names to either:
+- **fixed-step refs** (e.g. `bg → {color-neutral-0}`), or
+- **contrast-targeted** specs: `resolveOnSurface(ramp, surface, minRatio, steps)` walks the ramp and returns the *lowest-contrast step that still clears* `minRatio` against its surface (the most subtle accessible option). Light vs. dark is the same table with the surface end flipped; dark text resolves against the dark surface.
+
+Tokens emit as `$value: "{ref}"` references so Style Dictionary keeps the `var()` graph intact; non-color dimension tokens (state intensities) emit as literal DTCG objects.
+
+## The lean semantic layer
+
+The role × intent matrices were collapsed to `fg-*` / `bg-*` roles (~36 tokens). Intent is a swapped CSS variable (`--fill` points at a ramp), not a token per (intent × slot). A single `fg-on-accent` (white) works on every solid fill *because* fills are WCAG-anchored. Primitive ramps are named by **role** (`secondary`, `tertiary`), not value (`sky`, `pink`), so retuning a hue never makes a name lie. `color-brand-*` carries the verbatim source color (full precision) for exact-match needs, separate from the derived ramp (the ramp seeds from the brand's hue + chroma and discards its lightness, since the ramp generates lightness).
+
+## Pipeline seam
+
+The engine is a **pre-step**, not a rewrite. `build:theme` runs the engine → writes DTCG JSON (`primitives-color`, `color.light`, `color.dark`) into `src/tokens/`. The existing Style Dictionary build (`build:tokens`) consumes them unchanged except for one new `oklch/css` value transform (`culori` → `oklch(L C H[/a])`, P3-clamped) swapped in for `w3c-color/css`. Output is the same `dist/css/tokens.css`: `:root` + `[data-color-mode='dark']` + radius-mode selectors, now with `oklch()` variables. `prism-*` (data-viz palette) stays a static passthrough.
+
+## Isomorphic engine + studio
+
+The engine modules (`ramps`, `contrast`, `semantics`, `derived`, `steps`, `contrast-input`, `types`) are pure TypeScript with zero Node imports; only the I/O shell (`emit-dtcg`, `scripts/buildTheme`) touches the filesystem. That isomorphism lets the **same engine** run in the Node build and in the browser studio (Vite app), so what a designer previews is byte-identical to what ships. A test greps the pure modules for `fs`/`path`/`node:` imports to keep it that way.
+
+## Test surface (the guarantees, enforced)
+
+- ramp invariants: strictly monotonic `L`, in-P3 after clamp, neutral chroma below a ceiling;
+- spacing guard: adjacent steps ≥ 0.025 `L`;
+- **WCAG-fill invariant**: white-on-fill ≥ target and near-constant across all hue ramps; contrast knob darkens fills;
+- contrast resolver, semantics-pass-WCAG-in-both-modes, DTCG emission, the `oklch/css` transform, and the isomorphism guard.
+
+## Why it works, in one line
+
+Solving fill lightness per hue *in WCAG-luminance space* turns contrast from a per-color accident into a constant, provable property of the system: pass the check once, it holds for the whole palette.
