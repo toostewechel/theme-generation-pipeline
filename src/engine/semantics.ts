@@ -69,6 +69,8 @@ const LEAN_LIGHT: Record<string, SemanticSpec> = {
   "color-fg-subtle": ref("neutral", "500"),
   "color-fg-emphasis": ref("accent", "900"),
   "color-fg-accent": ref("accent", "700"),
+  "color-fg-secondary": ref("secondary", "700"),
+  "color-fg-tertiary": ref("tertiary", "700"),
   "color-fg-link": ref("secondary", "700"),
   "color-fg-inverse": ref("neutral", "50"),
   "color-fg-on-accent": ref("neutral", "0"),
@@ -86,6 +88,10 @@ const LEAN_LIGHT: Record<string, SemanticSpec> = {
   "color-bg-backdrop": ref("black-alpha", "48"),
   "color-bg-accent": ref("accent", "500"),
   "color-bg-accent-subtle": ref("accent", "100"),
+  "color-bg-secondary": ref("secondary", "500"),
+  "color-bg-secondary-subtle": ref("secondary", "100"),
+  "color-bg-tertiary": ref("tertiary", "500"),
+  "color-bg-tertiary-subtle": ref("tertiary", "100"),
   "color-bg-neutral": ref("neutral", "900"),
   "color-bg-success": ref("success", "500"),
   "color-bg-success-subtle": ref("success", "100"),
@@ -103,6 +109,8 @@ const LEAN_DARK: Record<string, SemanticSpec> = {
   "color-fg-subtle": ref("neutral", "500"),
   "color-fg-emphasis": ref("neutral", "50"),
   "color-fg-accent": ref("accent", "500"),
+  "color-fg-secondary": ref("secondary", "400"),
+  "color-fg-tertiary": ref("tertiary", "400"),
   "color-fg-link": ref("secondary", "500"),
   "color-fg-inverse": ref("neutral", "950"),
   "color-fg-on-accent": ref("neutral", "0"),
@@ -119,6 +127,10 @@ const LEAN_DARK: Record<string, SemanticSpec> = {
   "color-bg-backdrop": ref("black-alpha", "48"),
   "color-bg-accent": ref("accent", "500"),
   "color-bg-accent-subtle": ref("accent", "900"),
+  "color-bg-secondary": ref("secondary", "500"),
+  "color-bg-secondary-subtle": ref("secondary", "900"),
+  "color-bg-tertiary": ref("tertiary", "500"),
+  "color-bg-tertiary-subtle": ref("tertiary", "900"),
   "color-bg-neutral": ref("neutral", "50"),
   "color-bg-success": ref("success", "500"),
   "color-bg-success-subtle": ref("success", "900"),
@@ -130,80 +142,6 @@ const LEAN_DARK: Record<string, SemanticSpec> = {
   "color-bg-info-subtle": ref("info", "900"),
 };
 
-// ─── Legacy aliases (preserved names → lean tokens) ──────────────────────────
-//
-// Every legacy name keeps emitting, now as a reference to a lean token, so the
-// site keeps working during migration. Mode-independent: the lean token it
-// points at resolves per mode. A handful of inconsistent legacy values are
-// normalized to the lean value (noted): text-on-brand / icon-on-brand /
-// icon-inverse become the white on-accent label; action/feedback borders point
-// at the fill (the lean "border = fill" pattern).
-
-const ALIASES: Record<string, string> = {
-  // text-* → fg-*
-  "color-text-default": "color-fg",
-  "color-text-subtle": "color-fg",
-  "color-text-muted": "color-fg-muted",
-  "color-text-emphasis": "color-fg-emphasis",
-  "color-text-inverse": "color-fg-inverse",
-  "color-text-accent": "color-fg-accent",
-  "color-text-link": "color-fg-link",
-  "color-text-annotation": "color-fg-link",
-  "color-text-on-brand": "color-fg-on-accent",
-  "color-text-on-white": "color-fg",
-  // icon-* → fg-* (icons share text color)
-  "color-icon-black": "color-fg",
-  "color-icon-emphasis": "color-fg",
-  "color-icon-default": "color-fg-muted",
-  "color-icon-subtle": "color-fg-subtle",
-  "color-icon-muted": "color-fg-subtle",
-  "color-icon-inverse": "color-fg-on-accent",
-  "color-icon-accent": "color-fg-accent",
-  "color-icon-on-brand": "color-fg-on-accent",
-  // surfaces → bg-*
-  "color-background-surface-default": "color-bg",
-  "color-background-surface-sunken": "color-bg-subtle",
-  "color-background-surface-raised": "color-bg-raised",
-  "color-background-surface-overlay": "color-bg-overlay",
-  "color-background-surface-backdrop": "color-bg-backdrop",
-  "color-background-surface-inverse": "color-bg-inverse",
-  // action – primary → accent fill
-  "color-action-primary-background": "color-bg-accent",
-  "color-action-primary-on-bg": "color-fg-on-accent",
-  "color-action-primary-text": "color-fg-accent",
-  "color-action-primary-icon": "color-fg-accent",
-  "color-action-primary-border": "color-bg-accent",
-  // action – danger → error fill
-  "color-action-danger-background": "color-bg-error",
-  "color-action-danger-on-bg": "color-fg-on-accent",
-  "color-action-danger-text": "color-fg-error",
-  "color-action-danger-icon": "color-fg-error",
-  "color-action-danger-border": "color-bg-error",
-  // feedback – success
-  "color-feedback-success-background": "color-bg-success",
-  "color-feedback-success-on-bg": "color-fg-on-accent",
-  "color-feedback-success-text": "color-fg-success",
-  "color-feedback-success-icon": "color-fg-success",
-  "color-feedback-success-border": "color-bg-success",
-  // feedback – warning (background is a tint)
-  "color-feedback-warning-background": "color-bg-warning-subtle",
-  "color-feedback-warning-on-bg": "color-fg-warning",
-  "color-feedback-warning-text": "color-fg-warning",
-  "color-feedback-warning-icon": "color-fg-warning",
-  "color-feedback-warning-border": "color-bg-warning",
-  // feedback – error (background is a tint)
-  "color-feedback-error-background": "color-bg-error-subtle",
-  "color-feedback-error-on-bg": "color-fg-error",
-  "color-feedback-error-text": "color-fg-error",
-  "color-feedback-error-icon": "color-fg-error",
-  "color-feedback-error-border": "color-bg-error",
-  // feedback – info
-  "color-feedback-info-background": "color-bg-info",
-  "color-feedback-info-on-bg": "color-fg-on-accent",
-  "color-feedback-info-text": "color-fg-info",
-  "color-feedback-info-icon": "color-fg-info",
-  "color-feedback-info-border": "color-bg-info",
-};
 
 // ─── Kept legacy tokens (not yet collapsed) ──────────────────────────────────
 //
@@ -239,26 +177,6 @@ const KEEP_LIGHT: Record<string, SemanticSpec> = {
   "color-control-border-hover": ref("neutral", "400"),
   "color-control-border-focus": ref("accent", "400"),
   "color-control-border-error": ref("error", "500"),
-  "color-action-secondary-background": ref("secondary", "500"),
-  "color-action-secondary-on-bg": ref("neutral", "0"),
-  "color-action-secondary-text": ref("secondary", "700"),
-  "color-action-secondary-icon": ref("secondary", "500"),
-  "color-action-secondary-border": ref("secondary", "500"),
-  "color-action-tertiary-background": ref("tertiary", "500"),
-  "color-action-tertiary-on-bg": ref("neutral", "0"),
-  "color-action-tertiary-text": ref("tertiary", "700"),
-  "color-action-tertiary-icon": ref("tertiary", "500"),
-  "color-action-tertiary-border": ref("tertiary", "500"),
-  "color-action-neutral-background": ref("neutral", "900"),
-  "color-action-neutral-on-bg": ref("neutral", "50"),
-  "color-action-neutral-text": ref("neutral", "800"),
-  "color-action-neutral-icon": ref("neutral", "800"),
-  "color-action-neutral-border": ref("neutral", "700"),
-  "color-action-white-background": ref("neutral", "0"),
-  "color-action-white-on-bg": ref("neutral", "900"),
-  "color-action-white-text": ref("neutral", "0"),
-  "color-action-white-icon": ref("neutral", "0"),
-  "color-action-white-border": ref("neutral", "0"),
   "color-state-focus-ring": ref("accent", "300"),
   "color-state-focus-ring-offset": ref("neutral", "0"),
   "color-state-checked": ref("accent", "500"),
@@ -303,26 +221,6 @@ const KEEP_DARK: Record<string, SemanticSpec> = {
   "color-control-border-hover": ref("neutral", "400"),
   "color-control-border-focus": ref("accent", "400"),
   "color-control-border-error": ref("error", "400"),
-  "color-action-secondary-background": ref("secondary", "500"),
-  "color-action-secondary-on-bg": ref("neutral", "0"),
-  "color-action-secondary-text": ref("secondary", "500"),
-  "color-action-secondary-icon": ref("secondary", "500"),
-  "color-action-secondary-border": ref("secondary", "500"),
-  "color-action-tertiary-background": ref("tertiary", "500"),
-  "color-action-tertiary-on-bg": ref("neutral", "0"),
-  "color-action-tertiary-text": ref("tertiary", "500"),
-  "color-action-tertiary-icon": ref("tertiary", "500"),
-  "color-action-tertiary-border": ref("tertiary", "500"),
-  "color-action-neutral-background": ref("neutral", "50"),
-  "color-action-neutral-on-bg": ref("neutral", "900"),
-  "color-action-neutral-text": ref("neutral", "200"),
-  "color-action-neutral-icon": ref("neutral", "200"),
-  "color-action-neutral-border": ref("neutral", "400"),
-  "color-action-white-background": ref("neutral", "0"),
-  "color-action-white-on-bg": ref("neutral", "900"),
-  "color-action-white-text": ref("neutral", "0"),
-  "color-action-white-icon": ref("neutral", "0"),
-  "color-action-white-border": ref("neutral", "0"),
   "color-state-focus-ring": ref("accent", "400"),
   "color-state-focus-ring-offset": ref("neutral", "0"),
   "color-state-checked": ref("accent", "500"),
@@ -369,10 +267,6 @@ export function resolveSemantics(
 
   for (const [name, spec] of Object.entries(table)) {
     out[name] = resolveSpec(spec, ramps, k);
-  }
-  // Legacy names alias to lean tokens (same in both modes).
-  for (const [legacy, leanName] of Object.entries(ALIASES)) {
-    out[legacy] = { ref: leanName };
   }
   return out;
 }

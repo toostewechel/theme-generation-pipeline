@@ -9,14 +9,17 @@ import themeInputs from "../../theme.config.js";
 
 const ramps = buildRamps(themeInputs);
 
-describe("resolveSemantics — lean tokens + legacy aliases", () => {
+describe("resolveSemantics — lean tokens", () => {
   const light = resolveSemantics(ramps, themeInputs, "light");
   it("resolves a fixed-step lean token to a primitive", () => {
     expect(light["color-bg"]).toEqual({ ref: "color-neutral-0" });
+    expect(light["color-bg-accent"]).toEqual({ ref: "color-accent-500" });
   });
-  it("aliases a legacy token to its lean equivalent", () => {
-    expect(light["color-background-surface-default"]).toEqual({ ref: "color-bg" });
-    expect(light["color-action-primary-on-bg"]).toEqual({ ref: "color-fg-on-accent" });
+  it("no longer emits the dropped legacy families", () => {
+    expect(light["color-background-surface-default"]).toBeUndefined();
+    expect(light["color-action-primary-background"]).toBeUndefined();
+    expect(light["color-text-default"]).toBeUndefined();
+    expect(light["color-feedback-success-text"]).toBeUndefined();
   });
 });
 
