@@ -26,8 +26,8 @@ Instead of curating hundreds of swatches, a designer chooses a neutral tone, how
 **2. Accessibility stops being a recurring bug.**
 This is the big one. The engine tunes every colored button so that white text on it clears the accessibility contrast standard, on *every* intent at once: blue, green, red, amber, whatever. You verify contrast one time and it holds for the entire palette, forever. A whole category of "this label is hard to read" defects simply stops appearing. That matters more every year, because increasingly the thing assembling the interface (a teammate moving fast, or an AI tool) can't eyeball contrast for itself, so the system has to be right by default.
 
-**3. Light and dark for free.**
-Dark mode is not a separate project to design and maintain. It comes out of the same engine as a second output. Change the brand color and both modes update in lockstep.
+**3. Light and dark for free, with controllable depth.**
+Dark mode is not a separate project to design and maintain. It comes out of the same engine as a second output. Change the brand color and both modes update in lockstep. A designer also controls the *feel* of dark mode with two simple dials, "how dark is the background" and "how much do raised cards separate from it," and the five elevation layers derive from those, staying readable by construction.
 
 **4. Rebranding takes seconds, not weeks.**
 Paste a client's brand hex and the entire system re-derives around it: ramps, buttons, states, dark mode. This is what makes white-labeling and "the same product in a different brand" cheap instead of a rebuild. For the exact brand color itself (a logo, a hero), we also keep a verbatim copy so it always matches precisely.
@@ -77,7 +77,8 @@ Everything is computed in **OKLCH** (`L` perceptual lightness 0–1, `C` chroma,
   contrast: 0..1 | "low" | "default" | "high",
   accents:  { primary, secondary, tertiary },// each { hue, chroma }
   status:   { success, error, warning, info },
-  brand?:   { primary?, secondary?, tertiary? } // verbatim source colors (exact)
+  brand?:   { primary?, secondary?, tertiary? }, // verbatim source colors (exact)
+  darkSurfaces?: { base, step }              // dark-mode elevation: base L + per-level step
 }
 ```
 
@@ -92,6 +93,10 @@ Each hue seed becomes an 11-step ramp (50…950). Two curves drive it:
 **The fill solve:** binary search `L` so `wcagContrast(white, fill@hue) == target`. Contrast against white decreases monotonically as `L` rises, so the search converges. Result: white-on-fill lands on the target (default 4.6:1) for **every** hue, `±0` spread. The `contrast` knob raises the target toward 7 via `targetFor()`, which also darkens fills in lockstep.
 
 **Chroma = a skewed gaussian.** `C(t) = peak · exp(−(t−μ)² / 2σ²)` with separate `σ` for the light and dark sides, `peak` = seed chroma, `μ` near the fill. Saturation peaks asymmetrically around mid-ramp in reality; flattening that into one symmetric multiplier makes some hues read flat and others oversaturated. After both curves, every step is P3 gamut-clamped, a monotonic-lightness pass (`EPSILON` nudge) guarantees strictly descending `L`, and a test asserts adjacent steps differ by ≥ 0.025 `L` (no near-collisions).
+
+## Dark surface elevation
+
+Dark-mode surfaces are a generated elevation ramp, not a hardcoded ladder: `surfaceN = base + (n−1)·step` for five levels (deepest → highest), tinted with the neutral hue and a capped chroma. `base` and `step` are inputs (`darkSurfaces`), so a designer sets the dark background depth and the elevation separation directly; the ramp is part of the `RampSet` like any other. Dark body-text contrast (`fg`, `fg-muted`) anchors against the **actual** `dark-surface-2` (the default dark `bg`), not a fixed `neutral-950` proxy, so the WCAG guarantee re-resolves to stay ≥ AA when the base is tuned.
 
 ## Contrast model
 
