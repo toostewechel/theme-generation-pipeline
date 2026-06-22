@@ -1,6 +1,7 @@
 import { clampChroma, wcagContrast } from "culori";
 import type { HueSeed, Oklch, Ramp, RampSet, ThemeInputs } from "./types.js";
 import { resolveContrast, targetFor } from "./contrast-input.js";
+import { buildDarkSurfaces } from "./derived.js";
 import {
   NEUTRAL_STEPS, HUE_STEPS, NEUTRAL_LIGHTNESS, CHROMA_CURVE,
   HUE_L_LIGHT, HUE_L_DARK, FILL_STEP, LABEL_ON_FILL_TARGET,
@@ -107,6 +108,12 @@ export function buildRamps(inputs: ThemeInputs): RampSet {
     error: hue(inputs.status.error),
     warning: hue(inputs.status.warning),
     info: hue(inputs.status.info),
+    darkSurface: buildDarkSurfaces(
+      inputs.neutral.hue,
+      inputs.neutral.chroma,
+      inputs.darkSurfaces?.base,
+      inputs.darkSurfaces?.step,
+    ),
   };
 }
 

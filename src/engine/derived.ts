@@ -22,15 +22,25 @@ export function buildAlphas(): { black: Ramp; white: Ramp } {
   return { black, white };
 }
 
-// Dark-mode surface lightnesses (today: #0a0a0a..#242424 → l ≈ 0.13..0.30).
-export const DARK_SURFACE_LIGHTNESS: Record<string, number> = {
-  "1": 0.13, "2": 0.16, "3": 0.2, "4": 0.24, "5": 0.3,
-};
+// Dark-mode surface elevation ramp. Five solid surfaces derived from a base
+// lightness (the deepest surface) plus a per-level step, so a designer controls
+// "how dark is dark mode" (base) and "how separated are raised layers" (step).
+// Defaults approximate the previous fixed ladder (~0.13 .. 0.30).
+export const DARK_SURFACE_BASE = 0.13;
+export const DARK_SURFACE_STEP = 0.042;
+export const DARK_SURFACE_LEVELS = 5;
+const DARK_SURFACE_CHROMA_CAP = 0.01; // keep surfaces near-neutral
 
-export function buildDarkSurfaces(hue: number, chroma: number): Ramp {
+export function buildDarkSurfaces(
+  hue: number,
+  chroma: number,
+  base: number = DARK_SURFACE_BASE,
+  step: number = DARK_SURFACE_STEP,
+): Ramp {
   const out: Ramp = {};
-  for (const [step, l] of Object.entries(DARK_SURFACE_LIGHTNESS)) {
-    out[step] = { l, c: Math.min(chroma, 0.01), h: hue };
+  for (let n = 1; n <= DARK_SURFACE_LEVELS; n++) {
+    const l = Math.min(1, Math.max(0, base + (n - 1) * step));
+    out[String(n)] = { l, c: Math.min(chroma, DARK_SURFACE_CHROMA_CAP), h: hue };
   }
   return out;
 }

@@ -106,8 +106,10 @@ const LEAN_LIGHT: Record<string, SemanticSpec> = {
 };
 
 const LEAN_DARK: Record<string, SemanticSpec> = {
-  "color-fg": target("neutral", "950", "neutral", 4.5),
-  "color-fg-muted": target("neutral", "950", "neutral", 3),
+  // Anchored to the actual dark surface (the default bg = dark-surface-2), not a
+  // fixed neutral step, so the contrast guarantee tracks a designer-tuned base.
+  "color-fg": target("darkSurface", "2", "neutral", 4.5),
+  "color-fg-muted": target("darkSurface", "2", "neutral", 3),
   "color-fg-subtle": ref("neutral", "500"),
   "color-fg-emphasis": ref("neutral", "50"),
   "color-fg-accent": ref("accent", "500"),

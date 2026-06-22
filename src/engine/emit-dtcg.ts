@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { HueSeed, Oklch, ThemeInputs } from "./types.js";
 import { buildRamps } from "./ramps.js";
-import { buildAlphas, buildDarkSurfaces } from "./derived.js";
+import { buildAlphas } from "./derived.js";
 import { resolveSemantics } from "./semantics.js";
 import { BRAND_DEFAULT_L } from "./steps.js";
 
@@ -46,8 +46,7 @@ export function buildPrimitivesDtcg(inputs: ThemeInputs): Record<string, object>
   for (const [step, color] of Object.entries(black)) out[`color-black-alpha-${step}`] = oklchToDtcg(color);
   for (const [step, color] of Object.entries(white)) out[`color-white-alpha-${step}`] = oklchToDtcg(color);
 
-  const darkSurf = buildDarkSurfaces(inputs.neutral.hue, inputs.neutral.chroma);
-  for (const [step, color] of Object.entries(darkSurf)) {
+  for (const [step, color] of Object.entries(ramps.darkSurface)) {
     out[`color-neutral-dark-surface-${step}`] = oklchToDtcg(color);
   }
 

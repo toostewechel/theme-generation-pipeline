@@ -57,7 +57,10 @@ function colorForToken(
 function semanticVars(state: ThemeInputs, set: RampSet, mode: "light" | "dark"): string {
   const resolved = resolveSemantics(set, state, mode) as Resolved;
   const alphas = buildAlphas();
-  const darkSurf = buildDarkSurfaces(state.neutral.hue, state.neutral.chroma);
+  const darkSurf = buildDarkSurfaces(
+    state.neutral.hue, state.neutral.chroma,
+    state.darkSurfaces?.base, state.darkSurfaces?.step,
+  );
   const decls: string[] = [];
   for (const [name, tok] of Object.entries(resolved)) {
     if ("raw" in tok) {
@@ -123,6 +126,21 @@ function renderLabelOnFill(set: RampSet): string {
   return `<div class="pv-section">
     <div class="pv-section-title">Label on fill <span class="pv-legend">white label clears ${ratio}:1 on every intent — one check, whole palette</span></div>
     <div class="fill-row">${pills}</div>
+  </div>`;
+}
+
+// Dark-mode surface elevation ramp, from the darkSurfaces base + step inputs.
+function renderDarkSurfaces(state: ThemeInputs): string {
+  const surfaces = buildDarkSurfaces(
+    state.neutral.hue, state.neutral.chroma,
+    state.darkSurfaces?.base, state.darkSurfaces?.step,
+  );
+  const chips = Object.entries(surfaces).map(([n, c]) =>
+    `<div class="ds-chip" title="dark-surface-${n} · L ${c.l.toFixed(3)}" style="background:${css(c)}">${n}</div>`,
+  ).join("");
+  return `<div class="pv-section">
+    <div class="pv-section-title">Dark surfaces <span class="pv-legend">elevation: base + step (deepest → highest)</span></div>
+    <div class="ds-row">${chips}</div>
   </div>`;
 }
 
@@ -201,5 +219,6 @@ export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void 
     if (sub) sub.textContent = `Generated ${Object.keys(set).length} ramps · ${mode} surface`;
   }
   body.innerHTML =
-    renderRamps(set, surface) + renderLabelOnFill(set) + renderBrand(state) + renderSample(vars);
+    renderRamps(set, surface) + renderLabelOnFill(set) + renderDarkSurfaces(state) +
+    renderBrand(state) + renderSample(vars);
 }

@@ -19,6 +19,13 @@ export interface ThemeInputs {
    * accent at a representative lightness.
    */
   brand?: { primary?: Oklch; secondary?: Oklch; tertiary?: Oklch };
+  /**
+   * Dark-mode surface elevation ramp. `base` is the lightness of the deepest
+   * surface (the app background); `step` is the per-elevation lightness
+   * increment. The five `neutral-dark-surface-*` tokens derive as
+   * base + (n-1)·step. Omitted → engine defaults.
+   */
+  darkSurfaces?: { base: number; step: number };
 }
 
 /** A single resolved color. l in 0..1, h in degrees, alpha in 0..1. */
@@ -41,4 +48,6 @@ export interface RampSet {
   error: Ramp;
   warning: Ramp;
   info: Ramp;
+  /** Dark-mode surface elevation ramp, steps "1".."5" (deepest → highest). */
+  darkSurface: Ramp;
 }

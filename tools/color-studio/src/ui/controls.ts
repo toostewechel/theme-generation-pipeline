@@ -75,6 +75,27 @@ function range(min: number, max: number, step: number, value: number): HTMLInput
   return r;
 }
 
+/** A single labeled scalar slider (no swatch) with a live numeric readout. */
+function scalarRow(
+  label: string,
+  value: number,
+  min: number,
+  max: number,
+  stepSize: number,
+  onInput: (v: number) => void,
+): HTMLElement {
+  const row = el("div", "slider-row");
+  const slider = range(min, max, stepSize, value);
+  const val = el("span", "val", value.toFixed(3));
+  slider.addEventListener("input", () => {
+    const v = Number(slider.value);
+    val.textContent = v.toFixed(3);
+    onInput(v);
+  });
+  row.append(el("span", "lbl", label), slider, val);
+  return row;
+}
+
 /** A labeled hue + chroma control for one seed. Updates its own swatch + values
  * in place on input (never rebuilt), then emits the new seed AND its verbatim
  * source color (exact on paste) upward. */
@@ -164,7 +185,11 @@ function group(title: string, children: HTMLElement[]): HTMLElement {
 export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
   const root = document.getElementById("controls")!;
   root.innerHTML = "";
-  let current: ThemeInputs = { ...initial, brand: { ...(initial.brand ?? {}) } };
+  let current: ThemeInputs = {
+    ...initial,
+    brand: { ...(initial.brand ?? {}) },
+    darkSurfaces: { ...(initial.darkSurfaces ?? { base: 0.13, step: 0.042 }) },
+  };
 
   // Foundation: neutral seed + contrast (neutral has no brand token)
   const neutral = seedControl("neutral", current.neutral, (s) => {
@@ -208,4 +233,16 @@ export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
     }),
   );
   root.appendChild(group("Status", statusControls));
+
+  // Dark surfaces — base lightness + per-elevation step (dark mode only)
+  const ds = current.darkSurfaces!;
+  const dsBase = scalarRow("base", ds.base, 0.05, 0.4, 0.005, (v) => {
+    current = { ...current, darkSurfaces: { ...current.darkSurfaces!, base: v } };
+    onChange(current);
+  });
+  const dsStep = scalarRow("step", ds.step, 0, 0.08, 0.002, (v) => {
+    current = { ...current, darkSurfaces: { ...current.darkSurfaces!, step: v } };
+    onChange(current);
+  });
+  root.appendChild(group("Dark surfaces", [dsBase, dsStep]));
 }
