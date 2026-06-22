@@ -19,7 +19,7 @@ describe("buildPrimitivesDtcg", () => {
   it("includes generated ramp, alpha and dark-surface tokens with frozen names", () => {
     expect(prims["color-neutral-0"]).toBeDefined();
     expect(prims["color-accent-500"]).toBeDefined();
-    expect(prims["color-sky-500"]).toBeDefined();
+    expect(prims["color-secondary-500"]).toBeDefined();
     expect(prims["color-success-500"]).toBeDefined();
     expect(prims["color-black-alpha-12"]).toBeDefined();
     expect(prims["color-white-alpha-transparant"]).toBeDefined();

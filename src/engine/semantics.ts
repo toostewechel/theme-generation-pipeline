@@ -46,8 +46,10 @@ function nameFor(ramp: RefSpec["ramp"], step: string): string {
   if (ramp === "black-alpha") return `color-black-alpha-${step}`;
   if (ramp === "white-alpha") return `color-white-alpha-${step}`;
   if (ramp === "accent") return `color-accent-${step}`;
-  if (ramp === "secondary") return `color-sky-${step}`;
-  if (ramp === "tertiary") return `color-pink-${step}`;
+  // Role-based names (hue-agnostic) so retuning the hue in the studio never
+  // makes the primitive name lie — secondary used to be "sky", tertiary "pink".
+  if (ramp === "secondary") return `color-secondary-${step}`;
+  if (ramp === "tertiary") return `color-tertiary-${step}`;
   return `color-${ramp}-${step}`; // neutral, success, error, warning, info
 }
 

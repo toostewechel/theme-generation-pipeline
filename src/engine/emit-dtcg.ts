@@ -25,8 +25,8 @@ function round(n: number, dp = 4): number {
 const rampNamePrefix: Record<string, string> = {
   neutral: "color-neutral",
   accent: "color-accent",
-  secondary: "color-sky",
-  tertiary: "color-pink",
+  secondary: "color-secondary",
+  tertiary: "color-tertiary",
   success: "color-success",
   error: "color-error",
   warning: "color-warning",

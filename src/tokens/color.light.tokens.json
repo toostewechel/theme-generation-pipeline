@@ -22,15 +22,15 @@
   },
   "color-fg-secondary": {
     "$type": "color",
-    "$value": "{color-sky-700}"
+    "$value": "{color-secondary-700}"
   },
   "color-fg-tertiary": {
     "$type": "color",
-    "$value": "{color-pink-700}"
+    "$value": "{color-tertiary-700}"
   },
   "color-fg-link": {
     "$type": "color",
-    "$value": "{color-sky-700}"
+    "$value": "{color-secondary-700}"
   },
   "color-fg-inverse": {
     "$type": "color",
@@ -94,19 +94,19 @@
   },
   "color-bg-secondary": {
     "$type": "color",
-    "$value": "{color-sky-500}"
+    "$value": "{color-secondary-500}"
   },
   "color-bg-secondary-subtle": {
     "$type": "color",
-    "$value": "{color-sky-100}"
+    "$value": "{color-secondary-100}"
   },
   "color-bg-tertiary": {
     "$type": "color",
-    "$value": "{color-pink-500}"
+    "$value": "{color-tertiary-500}"
   },
   "color-bg-tertiary-subtle": {
     "$type": "color",
-    "$value": "{color-pink-100}"
+    "$value": "{color-tertiary-100}"
   },
   "color-bg-neutral": {
     "$type": "color",
@@ -154,11 +154,11 @@
   },
   "color-background-brand-secondary": {
     "$type": "color",
-    "$value": "{color-sky-500}"
+    "$value": "{color-secondary-500}"
   },
   "color-background-brand-tertiary": {
     "$type": "color",
-    "$value": "{color-pink-500}"
+    "$value": "{color-tertiary-500}"
   },
   "color-background-neutral-primary": {
     "$type": "color",
@@ -202,7 +202,7 @@
   },
   "color-border-interactive-frame": {
     "$type": "color",
-    "$value": "{color-sky-500}"
+    "$value": "{color-secondary-500}"
   },
   "color-border-brand-primary": {
     "$type": "color",
