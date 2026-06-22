@@ -1,19 +1,60 @@
-import type { ThemeInputs } from "./src/engine/types.js";
+type ThemeInputs = import("./src/engine/types.js").ThemeInputs;
 
 const themeInputs: ThemeInputs = {
-  neutral: { hue: 81, chroma: 0.010 }, // warm near-gray, calibrated to today's paper-ish tint (hue ~81.8, chroma ~0.010)
-  contrast: "default",
-  accents: {
-    primary: { hue: 136, chroma: 0.128 }, // green (today's accent-500 ≈ #7db664, hue ~136.7)
-    secondary: { hue: 220, chroma: 0.11 }, // sky/blue
-    tertiary: { hue: 330, chroma: 0.1 }, // pink
+  "neutral": {
+    "hue": 75,
+    "chroma": 0.015
   },
-  status: {
-    success: { hue: 150, chroma: 0.12 },
-    error: { hue: 25, chroma: 0.17 },
-    warning: { hue: 70, chroma: 0.15 },
-    info: { hue: 240, chroma: 0.12 },
+  "contrast": 0.5,
+  "accents": {
+    "primary": {
+      "hue": 151,
+      "chroma": 0.19
+    },
+    "secondary": {
+      "hue": 70,
+      "chroma": 0.135
+    },
+    "tertiary": {
+      "hue": 211,
+      "chroma": 0.055
+    }
   },
+  "status": {
+    "success": {
+      "hue": 159,
+      "chroma": 0.19
+    },
+    "error": {
+      "hue": 37,
+      "chroma": 0.19
+    },
+    "warning": {
+      "hue": 81,
+      "chroma": 0.19
+    },
+    "info": {
+      "hue": 229,
+      "chroma": 0.19
+    }
+  },
+  "brand": {
+    "primary": {
+      "l": 0.7310174280259285,
+      "c": 0.1899270724898951,
+      "h": 151.20412619096845
+    },
+    "secondary": {
+      "l": 0.8233495775263661,
+      "c": 0.1328181454650469,
+      "h": 69.92945706761948
+    },
+    "tertiary": {
+      "l": 0.7338003346291935,
+      "c": 0.056416291146257055,
+      "h": 210.81794300425463
+    }
+  }
 };
 
 export default themeInputs;
