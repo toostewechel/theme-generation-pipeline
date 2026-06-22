@@ -2,55 +2,143 @@ import type { ThemeInputs, HueSeed } from "@project/src/engine/index.js";
 
 type OnChange = (next: ThemeInputs) => void;
 
-function seedControl(
-  label: string,
-  seed: HueSeed,
-  onInput: (s: HueSeed) => void,
-): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.style.margin = "8px 0";
-  const title = document.createElement("div");
-  title.textContent = label;
-  title.style.fontSize = "12px";
-  wrap.appendChild(title);
+// Representative hue spectrum for a hue-slider track (fixed chroma/lightness).
+function hueTrack(): string {
+  const stops: string[] = [];
+  for (let h = 0; h <= 360; h += 30) stops.push(`oklch(0.72 0.15 ${h})`);
+  return `linear-gradient(90deg, ${stops.join(", ")})`;
+}
+// Gray -> saturated at a given hue, for a chroma-slider track.
+function chromaTrack(hue: number): string {
+  return `linear-gradient(90deg, oklch(0.72 0 ${hue}), oklch(0.72 0.3 ${hue}))`;
+}
+// A mid-lightness sample of the seed, for the swatch.
+function swatchColor(seed: HueSeed): string {
+  return `oklch(0.62 ${seed.chroma} ${seed.hue})`;
+}
 
-  const hue = document.createElement("input");
-  hue.type = "range"; hue.min = "0"; hue.max = "360"; hue.step = "1";
-  hue.value = String(seed.hue);
-  const chroma = document.createElement("input");
-  chroma.type = "range"; chroma.min = "0"; chroma.max = "0.3"; chroma.step = "0.005";
-  chroma.value = String(seed.chroma);
+const CONTRAST_ALIASES: [string, number][] = [["low", 0.25], ["default", 0.5], ["high", 0.85]];
+function nearestAlias(v: number): string {
+  let best = CONTRAST_ALIASES[0];
+  for (const a of CONTRAST_ALIASES) if (Math.abs(a[1] - v) < Math.abs(best[1] - v)) best = a;
+  return best[0];
+}
 
-  const emit = () => onInput({ hue: Number(hue.value), chroma: Number(chroma.value) });
+function el<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  cls?: string,
+  text?: string,
+): HTMLElementTagNameMap[K] {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function range(min: number, max: number, step: number, value: number): HTMLInputElement {
+  const r = el("input", "rng");
+  r.type = "range";
+  r.min = String(min);
+  r.max = String(max);
+  r.step = String(step);
+  r.value = String(value);
+  return r;
+}
+
+/** A labeled hue + chroma control for one seed. Updates its own swatch + values
+ * in place on input (never rebuilt), then emits the new seed upward. */
+function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void): HTMLElement {
+  const wrap = el("div", "seed");
+
+  const head = el("div", "seed-head");
+  const swatch = el("span", "swatch");
+  swatch.style.background = swatchColor(seed);
+  head.append(swatch, el("span", "seed-name", name));
+  wrap.appendChild(head);
+
+  // hue row
+  const hueRow = el("div", "slider-row");
+  const hue = range(0, 360, 1, seed.hue);
+  hue.style.backgroundImage = hueTrack();
+  const hueVal = el("span", "val", `${seed.hue}°`);
+  hueRow.append(el("span", "lbl", "hue"), hue, hueVal);
+
+  // chroma row
+  const chrRow = el("div", "slider-row");
+  const chr = range(0, 0.3, 0.005, seed.chroma);
+  chr.style.backgroundImage = chromaTrack(seed.hue);
+  const chrVal = el("span", "val", seed.chroma.toFixed(3));
+  chrRow.append(el("span", "lbl", "chr"), chr, chrVal);
+
+  wrap.append(hueRow, chrRow);
+
+  const emit = () => {
+    const next: HueSeed = { hue: Number(hue.value), chroma: Number(chr.value) };
+    swatch.style.background = swatchColor(next);
+    hueVal.textContent = `${next.hue}°`;
+    chrVal.textContent = next.chroma.toFixed(3);
+    chr.style.backgroundImage = chromaTrack(next.hue); // keep chroma track in this hue
+    onSeed(next);
+  };
   hue.addEventListener("input", emit);
-  chroma.addEventListener("input", emit);
-  wrap.append(hue, chroma);
+  chr.addEventListener("input", emit);
+
   return wrap;
 }
 
-export function renderControls(state: ThemeInputs, onChange: OnChange): void {
+function group(title: string, children: HTMLElement[]): HTMLElement {
+  const g = el("div", "group");
+  g.appendChild(el("h2", "group-title", title));
+  for (const c of children) g.appendChild(c);
+  return g;
+}
+
+/**
+ * Build the controls DOM ONCE. Holds an internal `current` copy of the inputs;
+ * each control mutates only its own DOM on drag and emits the full next state
+ * through `onChange`. The control DOM is never rebuilt, so dragging stays smooth.
+ */
+export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
   const root = document.getElementById("controls")!;
-  root.innerHTML = "<h2 style='font-size:14px'>Inputs</h2>";
+  root.innerHTML = "";
+  let current = initial;
 
-  root.appendChild(seedControl("neutral", state.neutral, (s) => onChange({ ...state, neutral: s })));
+  // Foundation: neutral seed + contrast
+  const neutral = seedControl("neutral", current.neutral, (s) => {
+    current = { ...current, neutral: s };
+    onChange(current);
+  });
 
-  const contrast = document.createElement("input");
-  contrast.type = "range"; contrast.min = "0"; contrast.max = "1"; contrast.step = "0.01";
-  contrast.value = String(typeof state.contrast === "number" ? state.contrast : 0.5);
-  contrast.addEventListener("input", () => onChange({ ...state, contrast: Number(contrast.value) }));
-  const cl = document.createElement("div"); cl.textContent = "contrast"; cl.style.fontSize = "12px";
-  root.append(cl, contrast);
+  const contrastRow = el("div", "slider-row wide");
+  const contrastVal0 = typeof current.contrast === "number" ? current.contrast : 0.5;
+  const contrast = range(0, 1, 0.01, contrastVal0);
+  contrast.classList.add("rng-plain");
+  const contrastVal = el("span", "val", `${contrastVal0.toFixed(2)} · ${nearestAlias(contrastVal0)}`);
+  contrast.addEventListener("input", () => {
+    const v = Number(contrast.value);
+    contrastVal.textContent = `${v.toFixed(2)} · ${nearestAlias(v)}`;
+    current = { ...current, contrast: v };
+    onChange(current);
+  });
+  contrastRow.append(el("span", "lbl", "ctr"), contrast, contrastVal);
 
-  for (const key of ["primary", "secondary", "tertiary"] as const) {
-    root.appendChild(
-      seedControl(`accent.${key}`, state.accents[key], (s) =>
-        onChange({ ...state, accents: { ...state.accents, [key]: s } })),
-    );
-  }
-  for (const key of ["success", "error", "warning", "info"] as const) {
-    root.appendChild(
-      seedControl(`status.${key}`, state.status[key], (s) =>
-        onChange({ ...state, status: { ...state.status, [key]: s } })),
-    );
-  }
+  root.appendChild(group("Foundation", [neutral, contrastRow]));
+
+  // Accents
+  const accentControls = (["primary", "secondary", "tertiary"] as const).map((key) =>
+    seedControl(key, current.accents[key], (s) => {
+      current = { ...current, accents: { ...current.accents, [key]: s } };
+      onChange(current);
+    }),
+  );
+  root.appendChild(group("Accents", accentControls));
+
+  // Status
+  const statusControls = (["success", "error", "warning", "info"] as const).map((key) =>
+    seedControl(key, current.status[key], (s) => {
+      current = { ...current, status: { ...current.status, [key]: s } };
+      onChange(current);
+    }),
+  );
+  root.appendChild(group("Status", statusControls));
 }

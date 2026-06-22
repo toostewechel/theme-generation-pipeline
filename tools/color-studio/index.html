@@ -3,21 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
     <title>Color Studio</title>
   </head>
   <body>
-    <main id="app">
-      <aside id="controls"></aside>
-      <section id="preview">
-        <div id="mode-bar">
-          <button id="mode-toggle" type="button">Mode: light</button>
-          <button id="save-btn" type="button">Save to theme.config.ts</button>
-        </div>
-        <section id="ramps"></section>
-        <section id="semantics"></section>
-        <section id="sample"></section>
-      </section>
-    </main>
+    <div id="app">
+      <aside id="sidebar">
+        <header id="sidebar-head">
+          <h1>Color Studio</h1>
+          <p>Generative OKLCH theme — tune the seeds, see it live</p>
+        </header>
+        <div id="controls"></div>
+        <footer id="sidebar-foot">
+          <button id="mode-toggle" class="btn" type="button">☀ Light</button>
+          <button id="save-btn" class="btn btn--primary" type="button">Save to config</button>
+        </footer>
+      </aside>
+      <main id="preview"></main>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
