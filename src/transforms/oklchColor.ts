@@ -28,7 +28,7 @@ export function formatOklch(value: DtcgColorValue): string {
   const l = r(c.l);
   const ch = r(c.c ?? 0);
   const h = r(c.h ?? 0, 2);
-  const alpha = value.alpha;
+  const alpha = value.alpha === undefined ? undefined : r(value.alpha);
   return alpha === undefined
     ? `oklch(${l} ${ch} ${h})`
     : `oklch(${l} ${ch} ${h} / ${alpha})`;

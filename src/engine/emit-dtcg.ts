@@ -58,8 +58,7 @@ export function buildSemanticDtcg(inputs: ThemeInputs, mode: "light" | "dark"): 
   const out: Record<string, any> = {};
   for (const [name, token] of Object.entries(resolved)) {
     if ("ref" in token) out[name] = { $type: "color", $value: `{${token.ref}}` };
-    else if ("raw" in token) out[name] = token.raw;          // emit the literal DTCG token (e.g. state dimension tokens) verbatim
-    else out[name] = oklchToDtcg(token.value);
+    else out[name] = token.raw;          // emit the literal DTCG token (e.g. state dimension tokens) verbatim
   }
   return out;
 }
@@ -74,10 +73,10 @@ export function writeGeneratedTokens(inputs: ThemeInputs, tokensDir: string): vo
   );
   writeFileSync(
     join(tokensDir, "color.light.tokens.json"),
-    JSON.stringify(buildSemanticDtcg(inputs, "light"), null, 2) + "\n",
+    JSON.stringify(withBanner(buildSemanticDtcg(inputs, "light")), null, 2) + "\n",
   );
   writeFileSync(
     join(tokensDir, "color.dark.tokens.json"),
-    JSON.stringify(buildSemanticDtcg(inputs, "dark"), null, 2) + "\n",
+    JSON.stringify(withBanner(buildSemanticDtcg(inputs, "dark")), null, 2) + "\n",
   );
 }

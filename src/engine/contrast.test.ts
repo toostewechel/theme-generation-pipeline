@@ -29,4 +29,18 @@ describe("resolveOnSurface", () => {
     const step = resolveOnSurface(set.neutral, surface, 4.5, NEUTRAL_STEPS);
     expect(contrastRatio(set.neutral[step], surface)).toBeGreaterThanOrEqual(4.5);
   });
+  it("returns the minimal qualifying step (no lower-contrast step also clears minRatio)", () => {
+    const minRatio = 4.5;
+    const surface = set.neutral["0"];
+    const step = resolveOnSurface(set.neutral, surface, minRatio, NEUTRAL_STEPS);
+    const chosenContrast = contrastRatio(set.neutral[step], surface);
+    expect(chosenContrast).toBeGreaterThanOrEqual(minRatio);
+    // No other qualifying step should have strictly lower contrast than the chosen step.
+    const otherQualifying = NEUTRAL_STEPS.filter(
+      (s) => s !== step && contrastRatio(set.neutral[s], surface) >= minRatio,
+    );
+    for (const other of otherQualifying) {
+      expect(contrastRatio(set.neutral[other], surface)).toBeGreaterThanOrEqual(chosenContrast);
+    }
+  });
 });

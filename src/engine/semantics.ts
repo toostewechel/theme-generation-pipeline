@@ -1,4 +1,4 @@
-import type { Oklch, RampSet, ThemeInputs } from "./types.js";
+import type { RampSet, ThemeInputs } from "./types.js";
 import { resolveOnSurface } from "./contrast.js";
 import { resolveContrast, targetFor } from "./contrast-input.js";
 import { NEUTRAL_STEPS, HUE_STEPS } from "./steps.js";
@@ -44,7 +44,7 @@ export type RawSpec = {
 
 export type SemanticSpec = RefSpec | TargetSpec | PassthroughSpec | RawSpec;
 
-export type ResolvedToken = { ref: string } | { value: Oklch } | { raw: object };
+export type ResolvedToken = { ref: string } | { raw: object };
 
 // ─── Spec helpers ──────────────────────────────────────────────────────────
 
