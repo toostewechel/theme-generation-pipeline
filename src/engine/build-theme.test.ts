@@ -23,8 +23,9 @@ describe("writeGeneratedTokens (the core of build:theme)", () => {
     expect(prims["color-accent-500"].$value.colorSpace).toBe("oklch");
   });
 
-  it("light semantics reference primitives", () => {
+  it("light semantics reference tokens (lean + legacy alias)", () => {
     const light = JSON.parse(readFileSync(join(dir, "color.light.tokens.json"), "utf-8"));
-    expect(light["color-background-surface-default"].$value).toBe("{color-neutral-0}");
+    expect(light["color-bg"].$value).toBe("{color-neutral-0}"); // lean → primitive
+    expect(light["color-background-surface-default"].$value).toBe("{color-bg}"); // legacy → lean
   });
 });

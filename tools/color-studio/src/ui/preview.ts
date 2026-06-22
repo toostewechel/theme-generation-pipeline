@@ -37,21 +37,36 @@ function refToColor(
   return null; // prism (static passthrough) or unknown — not resolvable in-engine
 }
 
+type Resolved = Record<string, { ref: string } | { raw: object }>;
+
+// Follow a token's ref chain (legacy → lean → primitive) until a primitive
+// resolves. Legacy tokens now alias lean tokens, so resolution can be 2+ hops.
+function colorForToken(
+  name: string, resolved: Resolved, set: RampSet,
+  alphas: ReturnType<typeof buildAlphas>, darkSurf: Record<string, Oklch>, depth = 0,
+): Oklch | null {
+  const tok = resolved[name];
+  if (!tok || "raw" in tok || depth > 8) return null;
+  const direct = refToColor(tok.ref, set, alphas, darkSurf);
+  if (direct) return direct;
+  return colorForToken(tok.ref, resolved, set, alphas, darkSurf, depth + 1);
+}
+
 /** All semantic tokens as a CSS-variable declaration block, so the sample is
  * driven by the resolved theme (re-resolves on mode flip, contrast change, …). */
 function semanticVars(state: ThemeInputs, set: RampSet, mode: "light" | "dark"): string {
-  const resolved = resolveSemantics(set, state, mode);
+  const resolved = resolveSemantics(set, state, mode) as Resolved;
   const alphas = buildAlphas();
   const darkSurf = buildDarkSurfaces(state.neutral.hue, state.neutral.chroma);
   const decls: string[] = [];
   for (const [name, tok] of Object.entries(resolved)) {
-    if ("ref" in tok) {
-      const color = refToColor(tok.ref, set, alphas, darkSurf);
-      if (color) decls.push(`--${name}:${css(color)}`);
-    } else if ("raw" in tok) {
+    if ("raw" in tok) {
       const v = (tok.raw as { $value?: { value?: number } })?.$value?.value;
       if (typeof v === "number") decls.push(`--${name}:${v}`);
+      continue;
     }
+    const color = colorForToken(name, resolved, set, alphas, darkSurf);
+    if (color) decls.push(`--${name}:${css(color)}`);
   }
   return decls.join(";");
 }

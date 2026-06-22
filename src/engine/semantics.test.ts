@@ -9,10 +9,14 @@ import themeInputs from "../../theme.config.js";
 
 const ramps = buildRamps(themeInputs);
 
-describe("resolveSemantics — fixed-step refs", () => {
+describe("resolveSemantics — lean tokens + legacy aliases", () => {
   const light = resolveSemantics(ramps, themeInputs, "light");
-  it("emits a reference for a fixed-step token", () => {
-    expect(light["color-background-surface-default"]).toEqual({ ref: "color-neutral-0" });
+  it("resolves a fixed-step lean token to a primitive", () => {
+    expect(light["color-bg"]).toEqual({ ref: "color-neutral-0" });
+  });
+  it("aliases a legacy token to its lean equivalent", () => {
+    expect(light["color-background-surface-default"]).toEqual({ ref: "color-bg" });
+    expect(light["color-action-primary-on-bg"]).toEqual({ ref: "color-fg-on-accent" });
   });
 });
 

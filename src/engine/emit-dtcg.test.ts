@@ -52,9 +52,10 @@ describe("buildPrimitivesDtcg — brand tokens", () => {
 });
 
 describe("buildSemanticDtcg", () => {
-  it("emits reference values for semantic tokens", () => {
+  it("emits reference values for semantic tokens (lean + legacy alias)", () => {
     const light = buildSemanticDtcg(themeInputs, "light");
-    expect(light["color-background-surface-default"].$value).toBe("{color-neutral-0}");
+    expect(light["color-bg"].$value).toBe("{color-neutral-0}");
+    expect(light["color-background-surface-default"].$value).toBe("{color-bg}");
   });
   it("emits raw DTCG dimension token verbatim for color-state-disabled-opacity (light)", () => {
     const light = buildSemanticDtcg(themeInputs, "light");
