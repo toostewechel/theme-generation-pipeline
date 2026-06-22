@@ -10,19 +10,26 @@ const REP_L = 0.62;
 const CHROMA_MAX = 0.3;
 const CHROMA_STEP = 0.005;
 
-function hexOf(hue: number, chroma: number): string {
-  return formatHex({ mode: "oklch", l: REP_L, c: chroma, h: hue });
+function hexOf(hue: number, chroma: number, l: number): string {
+  return formatHex({ mode: "oklch", l, c: chroma, h: hue });
 }
 
-/** Parse a pasted hex into a seed. Keeps hue + chroma, discards lightness
- * (the ramp generates lightness). Returns null if unparseable. */
-function parseHex(input: string): HueSeed | null {
+interface ParsedHex {
+  hue: number;
+  chroma: number;
+  l: number;
+}
+
+/** Parse a pasted hex. Hue + chroma seed the ramp; lightness is kept only for
+ * the field/swatch readout (it never affects generation). Null if unparseable. */
+function parseHex(input: string): ParsedHex | null {
   const c = oklch(input.trim());
   if (!c) return null;
   const hue = Math.round((((c.h ?? 0) % 360) + 360) % 360);
   const raw = Math.min(CHROMA_MAX, Math.max(0, c.c ?? 0));
   const chroma = Math.round(raw / CHROMA_STEP) * CHROMA_STEP;
-  return { hue, chroma };
+  const l = Math.min(1, Math.max(0, c.l ?? REP_L));
+  return { hue, chroma, l };
 }
 
 // Representative hue spectrum for a hue-slider track (fixed chroma/lightness).
@@ -36,8 +43,8 @@ function chromaTrack(hue: number): string {
   return `linear-gradient(90deg, oklch(0.72 0 ${hue}), oklch(0.72 0.3 ${hue}))`;
 }
 // A mid-lightness sample of the seed, for the swatch.
-function swatchColor(seed: HueSeed): string {
-  return `oklch(0.62 ${seed.chroma} ${seed.hue})`;
+function swatchCss(l: number, hue: number, chroma: number): string {
+  return `oklch(${l} ${chroma} ${hue})`;
 }
 
 const CONTRAST_ALIASES: [string, number][] = [["low", 0.25], ["default", 0.5], ["high", 0.85]];
@@ -74,13 +81,14 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
   const wrap = el("div", "seed");
 
   const head = el("div", "seed-head");
+  let displayL = REP_L; // lightness shown in the field/swatch; echoes a pasted hex
   const swatch = el("span", "swatch");
-  swatch.style.background = swatchColor(seed);
+  swatch.style.background = swatchCss(displayL, seed.hue, seed.chroma);
   const hex = el("input", "hex") as HTMLInputElement;
   hex.type = "text";
   hex.spellcheck = false;
-  hex.value = hexOf(seed.hue, seed.chroma);
-  hex.title = "Paste a brand hex — its hue & chroma seed the ramp; lightness is generated";
+  hex.value = hexOf(seed.hue, seed.chroma, displayL);
+  hex.title = "Paste a brand hex — hue & chroma seed the ramp; the lightness shown here just echoes your paste";
   head.append(swatch, el("span", "seed-name", name), hex);
   wrap.appendChild(head);
 
@@ -102,28 +110,30 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
 
   const emit = () => {
     const next: HueSeed = { hue: Number(hue.value), chroma: Number(chr.value) };
-    swatch.style.background = swatchColor(next);
+    swatch.style.background = swatchCss(displayL, next.hue, next.chroma);
     hueVal.textContent = `${next.hue}°`;
     chrVal.textContent = next.chroma.toFixed(3);
     chr.style.backgroundImage = chromaTrack(next.hue); // keep chroma track in this hue
-    hex.value = hexOf(next.hue, next.chroma);
+    hex.value = hexOf(next.hue, next.chroma, displayL);
     hex.classList.remove("hex--bad");
     onSeed(next);
   };
   hue.addEventListener("input", emit);
   chr.addEventListener("input", emit);
 
-  // Paste / type a brand hex to seed this accent.
+  // Paste / type a brand hex to seed this accent. Hue + chroma feed the engine;
+  // the pasted lightness is echoed in the field/swatch (display only).
   hex.addEventListener("change", () => {
     const parsed = parseHex(hex.value);
     if (!parsed) {
       hex.classList.add("hex--bad");
-      hex.value = hexOf(Number(hue.value), Number(chr.value));
+      hex.value = hexOf(Number(hue.value), Number(chr.value), displayL);
       setTimeout(() => hex.classList.remove("hex--bad"), 900);
       return;
     }
     hue.value = String(parsed.hue);
     chr.value = String(parsed.chroma);
+    displayL = parsed.l; // echo the pasted lightness in the readout
     emit();
   });
 
