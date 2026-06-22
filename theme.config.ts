@@ -54,6 +54,10 @@ const themeInputs: ThemeInputs = {
       "c": 0.056416291146257055,
       "h": 210.81794300425463
     }
+  },
+  "darkSurfaces": {
+    "base": 0.095,
+    "step": 0.034
   }
 };
 
