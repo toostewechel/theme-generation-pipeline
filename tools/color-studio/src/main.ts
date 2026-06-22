@@ -4,6 +4,7 @@ import type { ThemeInputs } from "@project/src/engine/index.js";
 import { mountControls } from "./ui/controls.js";
 import { renderPreview } from "./ui/preview.js";
 import { serializeConfig } from "./serialize.js";
+import { copyTokensForFigma } from "./export-figma.js";
 
 let state: ThemeInputs = structuredClone(themeInputs);
 let mode: "light" | "dark" = "light";
@@ -51,6 +52,18 @@ saveBtn.addEventListener("click", async () => {
   setTimeout(() => {
     saveBtn.classList.remove("btn--ok");
     saveBtn.textContent = "Save to config";
+  }, 1600);
+});
+
+const exportBtn = document.getElementById("export-figma-btn")!;
+exportBtn.addEventListener("click", async () => {
+  exportBtn.textContent = "Copying…";
+  const ok = await copyTokensForFigma(state);
+  exportBtn.classList.toggle("btn--ok", ok);
+  exportBtn.textContent = ok ? "Copied ✓" : "Copy failed";
+  setTimeout(() => {
+    exportBtn.classList.remove("btn--ok");
+    exportBtn.textContent = "Copy for Figma";
   }, 1600);
 });
 
