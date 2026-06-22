@@ -8,17 +8,21 @@ export const HUE_STEPS: string[] = [
   "50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950",
 ];
 
-// Starting target lightness (OKLCH l, 0..1) at contrast = default (0.5).
-// These are the calibration surface — Task 4 tunes them against today's palette.
+// Target lightness (OKLCH l, 0..1) at contrast = default (0.5).
+// Eased curve: light steps spaced tighter, dark steps wider (the standard ramp
+// shape). The parity-gated steps (neutral 50/100/500/900/950, hue 100/500/900)
+// and the brand-matched 500 are held on target; the rest are spaced so adjacent
+// steps stay perceptibly distinct (see spacing.test.ts). "0" and "paper" are
+// deliberately near-white anchors.
 export const NEUTRAL_LIGHTNESS: Record<string, number> = {
-  "0": 1.0, paper: 0.985, "50": 0.975, "100": 0.945, "200": 0.895,
-  "300": 0.83, "400": 0.74, "500": 0.726, "600": 0.56, "650": 0.51,
-  "700": 0.46, "800": 0.37, "850": 0.32, "900": 0.275, "950": 0.19,
+  "0": 1.0, paper: 0.985, "50": 0.975, "100": 0.945, "200": 0.9,
+  "300": 0.845, "400": 0.79, "500": 0.726, "600": 0.64, "650": 0.578,
+  "700": 0.515, "800": 0.4, "850": 0.345, "900": 0.275, "950": 0.19,
 };
 
 export const HUE_LIGHTNESS: Record<string, number> = {
-  "50": 0.975, "100": 0.94, "200": 0.885, "300": 0.815, "400": 0.73,
-  "500": 0.717, "600": 0.575, "700": 0.49, "800": 0.405, "900": 0.31, "950": 0.22,
+  "50": 0.975, "100": 0.94, "200": 0.895, "300": 0.84, "400": 0.782,
+  "500": 0.717, "600": 0.628, "700": 0.52, "800": 0.41, "900": 0.31, "950": 0.22,
 };
 
 // Chroma multiplier per step (peaks mid-ramp, tapers at the ends).

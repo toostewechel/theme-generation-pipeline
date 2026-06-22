@@ -66,11 +66,11 @@
   },
   "color-text-default": {
     "$type": "color",
-    "$value": "{color-neutral-600}"
+    "$value": "{color-neutral-700}"
   },
   "color-text-subtle": {
     "$type": "color",
-    "$value": "{color-neutral-600}"
+    "$value": "{color-neutral-700}"
   },
   "color-text-muted": {
     "$type": "color",
