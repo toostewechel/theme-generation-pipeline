@@ -2,6 +2,7 @@ import { StyleDictionary } from "style-dictionary-utils";
 import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
 import { typographyMixinsFormat } from "../src/formatters/typographyMixins.js";
 import { buildFluidTypographyMixins } from "../src/fluid/buildFluidMixins.js";
+import { oklchCssTransform } from "../src/transforms/oklchColor.js";
 
 // Manifest structure matching src/tokens/manifest.json
 interface Manifest {
@@ -59,6 +60,9 @@ StyleDictionary.registerTransform({
   },
 });
 
+// Register oklch/css color transform
+StyleDictionary.registerTransform(oklchCssTransform);
+
 // Register custom format for SCSS typography mixins
 StyleDictionary.registerFormat(typographyMixinsFormat);
 
@@ -84,7 +88,7 @@ const sharedPlatformConfig = {
     "border/css/shorthand",
     "typography/css/shorthand",
     "transition/css/shorthand",
-    "w3c-color/css",
+    "oklch/css",
     "dimension/css",
     "duration/css",
     "shadow/css",
