@@ -1,3 +1,4 @@
+import { formatHex } from "culori";
 import {
   buildRamps, resolveSemantics, buildAlphas, buildDarkSurfaces, contrastRatio,
   type ThemeInputs, type Oklch, type RampSet,
@@ -110,6 +111,26 @@ function renderLabelOnFill(set: RampSet): string {
   </div>`;
 }
 
+// Verbatim brand colors — exact, separate from the derived ramp (color-brand-*).
+function renderBrand(state: ThemeInputs): string {
+  const slots: [string, "primary" | "secondary" | "tertiary"][] = [
+    ["primary", "primary"], ["secondary", "secondary"], ["tertiary", "tertiary"],
+  ];
+  const items = slots.map(([label, slot]) => {
+    const seed = state.accents[slot];
+    const c = state.brand?.[slot] ?? { l: 0.62, c: seed.chroma, h: seed.hue };
+    const hex = formatHex({ mode: "oklch", l: c.l, c: c.c, h: c.h });
+    return `<div class="brand-item">
+      <span class="brand-sw" style="background:${css(c)}"></span>
+      <div><div class="brand-name">color-brand-${label}</div><code class="brand-hex">${hex}</code></div>
+    </div>`;
+  }).join("");
+  return `<div class="pv-section">
+    <div class="pv-section-title">Brand <span class="pv-legend">exact source colors, verbatim in color-brand-*</span></div>
+    <div class="brand-row">${items}</div>
+  </div>`;
+}
+
 // The sample consumes only semantic tokens (var(--color-*)), never raw ramp
 // steps — it is the proof that the semantic layer holds up in context.
 function renderSample(vars: string): string {
@@ -164,5 +185,6 @@ export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void 
     const sub = root.querySelector(".pv-sub");
     if (sub) sub.textContent = `Generated ${Object.keys(set).length} ramps · ${mode} surface`;
   }
-  body.innerHTML = renderRamps(set, surface) + renderLabelOnFill(set) + renderSample(vars);
+  body.innerHTML =
+    renderRamps(set, surface) + renderLabelOnFill(set) + renderBrand(state) + renderSample(vars);
 }

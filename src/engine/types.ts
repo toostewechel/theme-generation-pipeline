@@ -12,6 +12,13 @@ export interface ThemeInputs {
   contrast: ContrastInput;
   accents: { primary: HueSeed; secondary: HueSeed; tertiary: HueSeed };
   status: { success: HueSeed; error: HueSeed; warning: HueSeed; info: HueSeed };
+  /**
+   * Verbatim source colors per accent slot, emitted as `color-brand-*` tokens.
+   * The ramp is derived from a seed's hue + chroma; this is the exact color for
+   * the one place it must match (logo, hero). Omitted slots fall back to the
+   * accent at a representative lightness.
+   */
+  brand?: { primary?: Oklch; secondary?: Oklch; tertiary?: Oklch };
 }
 
 /** A single resolved color. l in 0..1, h in degrees, alpha in 0..1. */

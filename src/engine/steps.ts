@@ -37,6 +37,10 @@ export const CHROMA_PEAK_T = 0.5; // peak position (≈ fill / step 500)
 export const CHROMA_SIGMA_LIGHT = 0.3; // falloff toward the light end
 export const CHROMA_SIGMA_DARK = 0.34; // falloff toward the dark end
 
+// Representative lightness for a `color-brand-*` token when no verbatim brand
+// color is supplied for that accent slot (the accent's hue/chroma at mid tone).
+export const BRAND_DEFAULT_L = 0.62;
+
 // Chroma multiplier per step (peaks mid-ramp, tapers at the ends).
 export const CHROMA_CURVE: Record<string, number> = {
   "0": 0.0, paper: 0.5, "50": 0.25, "100": 0.45, "200": 0.7, "300": 0.9,

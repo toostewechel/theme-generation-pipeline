@@ -1,5 +1,5 @@
 import { oklch, formatHex } from "culori";
-import type { ThemeInputs, HueSeed } from "@project/src/engine/index.js";
+import type { ThemeInputs, HueSeed, Oklch } from "@project/src/engine/index.js";
 
 type OnChange = (next: ThemeInputs) => void;
 
@@ -76,8 +76,13 @@ function range(min: number, max: number, step: number, value: number): HTMLInput
 }
 
 /** A labeled hue + chroma control for one seed. Updates its own swatch + values
- * in place on input (never rebuilt), then emits the new seed upward. */
-function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void): HTMLElement {
+ * in place on input (never rebuilt), then emits the new seed AND its verbatim
+ * source color (exact on paste) upward. */
+function seedControl(
+  name: string,
+  seed: HueSeed,
+  onSeed: (s: HueSeed, source: Oklch) => void,
+): HTMLElement {
   const wrap = el("div", "seed");
 
   const head = el("div", "seed-head");
@@ -108,7 +113,10 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
 
   wrap.append(hueRow, chrRow);
 
-  const emit = () => {
+  // `source` is the verbatim color for the brand token. On a paste it is the
+  // exact parsed color (full precision); on slider tuning it is the swatch
+  // color at the current display lightness.
+  const emit = (source?: Oklch) => {
     const next: HueSeed = { hue: Number(hue.value), chroma: Number(chr.value) };
     swatch.style.background = swatchCss(displayL, next.hue, next.chroma);
     hueVal.textContent = `${next.hue}°`;
@@ -116,16 +124,17 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
     chr.style.backgroundImage = chromaTrack(next.hue); // keep chroma track in this hue
     hex.value = hexOf(next.hue, next.chroma, displayL);
     hex.classList.remove("hex--bad");
-    onSeed(next);
+    onSeed(next, source ?? { l: displayL, c: next.chroma, h: next.hue });
   };
-  hue.addEventListener("input", emit);
-  chr.addEventListener("input", emit);
+  hue.addEventListener("input", () => emit());
+  chr.addEventListener("input", () => emit());
 
-  // Paste / type a brand hex to seed this accent. Hue + chroma feed the engine;
-  // the pasted lightness is echoed in the field/swatch (display only).
+  // Paste / type a brand hex to seed this accent. Hue + chroma feed the ramp;
+  // the verbatim color is preserved as the brand token (exact, full precision).
   hex.addEventListener("change", () => {
     const parsed = parseHex(hex.value);
-    if (!parsed) {
+    const exact = oklch(hex.value.trim());
+    if (!parsed || !exact) {
       hex.classList.add("hex--bad");
       hex.value = hexOf(Number(hue.value), Number(chr.value), displayL);
       setTimeout(() => hex.classList.remove("hex--bad"), 900);
@@ -134,7 +143,7 @@ function seedControl(name: string, seed: HueSeed, onSeed: (s: HueSeed) => void):
     hue.value = String(parsed.hue);
     chr.value = String(parsed.chroma);
     displayL = parsed.l; // echo the pasted lightness in the readout
-    emit();
+    emit({ l: exact.l, c: exact.c ?? 0, h: exact.h ?? 0 });
   });
 
   return wrap;
@@ -155,9 +164,9 @@ function group(title: string, children: HTMLElement[]): HTMLElement {
 export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
   const root = document.getElementById("controls")!;
   root.innerHTML = "";
-  let current = initial;
+  let current: ThemeInputs = { ...initial, brand: { ...(initial.brand ?? {}) } };
 
-  // Foundation: neutral seed + contrast
+  // Foundation: neutral seed + contrast (neutral has no brand token)
   const neutral = seedControl("neutral", current.neutral, (s) => {
     current = { ...current, neutral: s };
     onChange(current);
@@ -178,16 +187,20 @@ export function mountControls(initial: ThemeInputs, onChange: OnChange): void {
 
   root.appendChild(group("Foundation", [neutral, contrastRow]));
 
-  // Accents
+  // Accents — each also records its verbatim source as the brand token.
   const accentControls = (["primary", "secondary", "tertiary"] as const).map((key) =>
-    seedControl(key, current.accents[key], (s) => {
-      current = { ...current, accents: { ...current.accents, [key]: s } };
+    seedControl(key, current.accents[key], (s, source) => {
+      current = {
+        ...current,
+        accents: { ...current.accents, [key]: s },
+        brand: { ...current.brand, [key]: source },
+      };
       onChange(current);
     }),
   );
   root.appendChild(group("Accents", accentControls));
 
-  // Status
+  // Status (no brand token)
   const statusControls = (["success", "error", "warning", "info"] as const).map((key) =>
     seedControl(key, current.status[key], (s) => {
       current = { ...current, status: { ...current.status, [key]: s } };

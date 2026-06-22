@@ -1306,5 +1306,38 @@
         81
       ]
     }
+  },
+  "color-brand-primary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "oklch",
+      "components": [
+        0.62,
+        0.128,
+        136
+      ]
+    }
+  },
+  "color-brand-secondary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "oklch",
+      "components": [
+        0.62,
+        0.11,
+        220
+      ]
+    }
+  },
+  "color-brand-tertiary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "oklch",
+      "components": [
+        0.62,
+        0.1,
+        330
+      ]
+    }
   }
 }

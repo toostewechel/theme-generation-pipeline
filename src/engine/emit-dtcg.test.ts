@@ -30,6 +30,27 @@ describe("buildPrimitivesDtcg", () => {
   });
 });
 
+describe("buildPrimitivesDtcg — brand tokens", () => {
+  it("emits color-brand-* for every accent slot", () => {
+    const prims = buildPrimitivesDtcg(themeInputs);
+    expect(prims["color-brand-primary"]).toBeDefined();
+    expect(prims["color-brand-secondary"]).toBeDefined();
+    expect(prims["color-brand-tertiary"]).toBeDefined();
+  });
+
+  it("defaults to the accent hue/chroma at representative lightness", () => {
+    const v = (buildPrimitivesDtcg(themeInputs) as any)["color-brand-primary"].$value;
+    expect(v.colorSpace).toBe("oklch");
+    expect(v.components[2]).toBeCloseTo(themeInputs.accents.primary.hue, 0);
+  });
+
+  it("emits the verbatim brand color when one is supplied", () => {
+    const withBrand = { ...themeInputs, brand: { secondary: { l: 0.824, c: 0.135, h: 70 } } };
+    const v = (buildPrimitivesDtcg(withBrand) as any)["color-brand-secondary"].$value;
+    expect(v.components).toEqual([0.824, 0.135, 70]);
+  });
+});
+
 describe("buildSemanticDtcg", () => {
   it("emits reference values for semantic tokens", () => {
     const light = buildSemanticDtcg(themeInputs, "light");
