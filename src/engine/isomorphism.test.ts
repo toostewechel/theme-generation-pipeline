@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const PURE = [
   "types.ts", "contrast-input.ts", "steps.ts", "ramps.ts",
   "contrast.ts", "derived.ts", "semantics.ts", "index.ts",
+  "dtcg.ts",
 ];
 
 describe("engine isomorphism", () => {
