@@ -56,3 +56,25 @@ describe("SEMANTICS tables cover the same names in light and dark", () => {
     }
   });
 });
+
+describe("intent border tokens", () => {
+  const expected = {
+    "color-border-success":        { light: ["success", "600"], dark: ["success", "400"] },
+    "color-border-success-subtle": { light: ["success", "200"], dark: ["success", "800"] },
+    "color-border-error":          { light: ["error", "600"],   dark: ["error", "400"] },
+    "color-border-error-subtle":   { light: ["error", "200"],   dark: ["error", "800"] },
+    "color-border-warning":        { light: ["warning", "600"], dark: ["warning", "400"] },
+    "color-border-warning-subtle": { light: ["warning", "200"], dark: ["warning", "800"] },
+    "color-border-info":           { light: ["info", "600"],    dark: ["info", "400"] },
+    "color-border-info-subtle":    { light: ["info", "200"],    dark: ["info", "800"] },
+    "color-border-neutral":        { light: ["neutral", "300"], dark: ["neutral", "700"] },
+    "color-border-neutral-subtle": { light: ["neutral", "200"], dark: ["neutral", "800"] },
+  } as const;
+
+  for (const [name, m] of Object.entries(expected)) {
+    it(`${name} maps to the expected ramp/step in both modes`, () => {
+      expect(SEMANTICS_LIGHT[name]).toEqual({ kind: "ref", ramp: m.light[0], step: m.light[1] });
+      expect(SEMANTICS_DARK[name]).toEqual({ kind: "ref", ramp: m.dark[0], step: m.dark[1] });
+    });
+  }
+});
