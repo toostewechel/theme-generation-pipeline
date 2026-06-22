@@ -63,9 +63,23 @@ A dictionary makes you look up every word someone already wrote down. If a word 
 
 For engineers. The jargon is intentional here.
 
-## Color space
+## Why OKLCH is the foundational primitive
 
-Everything is computed in **OKLCH** (`L` perceptual lightness 0–1, `C` chroma, `H` hue in degrees). It's perceptually uniform, so equal `L` steps read as even, and it's CSS-native (`oklch()`, and `oklch(from … l c h)` for runtime state shifts). All output is emitted as `oklch(L C H)` custom properties, gamut-clamped to Display-P3 via `culori`'s `clampChroma(color, "oklch", "p3")`.
+Every color in the system — the three seed inputs, every ramp step, every semantic token, every emitted custom property — lives as a single `Oklch` value (`{ l, c, h, alpha? }`: `L` perceptual lightness 0–1, `C` chroma, `H` hue in degrees). Choosing OKLCH as *the* representation, not just a convenient intermediate, is what makes the rest of the engine possible. Four properties earn it that role.
+
+**1. Perceptual uniformity — the curves operate on a linear axis.**
+Equal steps in `L` read as evenly spaced brightness. That is the precondition for generating a ramp by *math* rather than by eye: the lightness quadratic `L(t)` and the chroma gaussian `C(t)` (see *Ramp synthesis*) are shaped on an axis where "halfway" actually looks halfway. Run the same arithmetic in sRGB or HSL and the steps bunch and stretch unpredictably — which is precisely why the old hand-authored palette had to be tuned one swatch at a time.
+
+**2. Independent axes — move one thing without disturbing the others.**
+`L`, `C`, and `H` are separable, and the engine leans on that everywhere. It holds `H` constant across all 11 steps of a ramp (`seed.hue` for every step), so a ramp is genuinely *one hue getting lighter and darker* — none of the blue-drifts-toward-purple hue shift you get dragging lightness in HSL. It shapes `C` with its own independent curve. And gamut mapping is `clampChroma(color, "oklch", "p3")`, which reduces **only** `C`, leaving `L` and `H` untouched — so squeezing a color into Display-P3 never changes how light it is or what hue it is. This separability is also what lets primitives be named by role (`secondary`, not `sky`): retuning a hue moves `H` and nothing the ramp's structure depends on.
+
+**3. It separates the axis we author on from the axis we verify on.**
+This is the subtle one. OKLCH `L` is *perceptual* lightness, not WCAG *relative luminance* `Y` — two hues at the same `L` have different `Y`. Rather than fight that gap, the engine uses each space for what it is good at: it **shapes** color in OKLCH (uniform, predictable) and **measures contrast** in WCAG luminance (`wcagContrast`, the exact ratio Lighthouse/axe report), binary-searching each fill's `L` until the luminance ratio hits target (see *Ramp synthesis* and *Contrast model*). Holding both a perceptual handle and a measurable handle on the *same* value is the entire accessibility guarantee, compressed into one primitive.
+
+**4. CSS-native, end to end — no lossy conversion at the boundary.**
+The same primitive survives all the way into the browser. Output emits as `oklch(L C H[/a])` custom properties, and runtime state shifts (hover/active intensity) use the relative form `oklch(from … l c h)` — nudging `L`/`C` of an existing token live, in the browser, in the same space the engine reasoned in. A designer's live preview, the shipped CSS, and a runtime hover state are all the same color math; nothing is rounded through sRGB and back.
+
+The payoff is that one `Oklch` type runs unbroken from the three seed inputs to the emitted variable, so every guarantee the engine proves — even step spacing, in-gamut after clamp, WCAG-anchored fills — is a property of the *actual shipped value*, not of an intermediate that gets converted away.
 
 ## Inputs
 
