@@ -90,6 +90,26 @@ function renderRamps(set: RampSet, surface: Oklch): string {
 
 let surfaceLabel = "surface";
 
+// Demonstrates the accessibility payoff: a white label on each intent's fill
+// clears the same WCAG ratio, because every fill is anchored to that target.
+function renderLabelOnFill(set: RampSet): string {
+  const white: Oklch = { l: 1, c: 0, h: 0 };
+  const intents: [string, keyof RampSet][] = [
+    ["Primary", "accent"], ["Secondary", "secondary"], ["Tertiary", "tertiary"],
+    ["Success", "success"], ["Error", "error"], ["Warning", "warning"], ["Info", "info"],
+  ];
+  const pills = intents.map(([label, fam]) => {
+    const fill = set[fam]["500"];
+    const r = contrastRatio(fill, white).toFixed(2);
+    return `<span class="fill-pill" style="background:${css(fill)}" title="white on ${label} fill = ${r}:1">Label</span>`;
+  }).join("");
+  const ratio = contrastRatio(set.accent["500"], white).toFixed(1);
+  return `<div class="pv-section">
+    <div class="pv-section-title">Label on fill <span class="pv-legend">white label clears ${ratio}:1 on every intent — one check, whole palette</span></div>
+    <div class="fill-row">${pills}</div>
+  </div>`;
+}
+
 // The sample consumes only semantic tokens (var(--color-*)), never raw ramp
 // steps — it is the proof that the semantic layer holds up in context.
 function renderSample(vars: string): string {
@@ -144,5 +164,5 @@ export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void 
     const sub = root.querySelector(".pv-sub");
     if (sub) sub.textContent = `Generated ${Object.keys(set).length} ramps · ${mode} surface`;
   }
-  body.innerHTML = renderRamps(set, surface) + renderSample(vars);
+  body.innerHTML = renderRamps(set, surface) + renderLabelOnFill(set) + renderSample(vars);
 }

@@ -20,10 +20,22 @@ export const NEUTRAL_LIGHTNESS: Record<string, number> = {
   "700": 0.515, "800": 0.4, "850": 0.345, "900": 0.275, "950": 0.19,
 };
 
-export const HUE_LIGHTNESS: Record<string, number> = {
-  "50": 0.975, "100": 0.94, "200": 0.895, "300": 0.84, "400": 0.782,
-  "500": 0.717, "600": 0.628, "700": 0.52, "800": 0.41, "900": 0.31, "950": 0.22,
-};
+// --- Hue ramps: per-hue WCAG-anchored model (no shared lightness array) ---
+// Lightness is a per-hue quadratic through three anchors: a near-white light
+// end, the FILL_STEP solved so white-on-fill hits the contrast target, and a
+// near-black dark end. Because the fill is solved in WCAG-luminance space, the
+// label-on-fill ratio holds across every hue (OKLCH lightness alone would not
+// — see wcag-fill.test.ts). Chroma is a skewed gaussian peaking near the fill.
+export const HUE_L_LIGHT = 0.97; // step 50 anchor (t = 0)
+export const HUE_L_DARK = 0.16; // step 950 anchor (t = 1)
+export const FILL_STEP = "500"; // the "base fill" a white label sits on
+export const LABEL_ON_FILL_TARGET = 4.6; // white-on-fill WCAG floor (contrast knob raises it)
+
+// Skewed gaussian for chroma across the ramp (t in 0..1): peak near the fill,
+// separate sigmas so saturation can lean instead of peaking symmetrically.
+export const CHROMA_PEAK_T = 0.5; // peak position (≈ fill / step 500)
+export const CHROMA_SIGMA_LIGHT = 0.3; // falloff toward the light end
+export const CHROMA_SIGMA_DARK = 0.34; // falloff toward the dark end
 
 // Chroma multiplier per step (peaks mid-ramp, tapers at the ends).
 export const CHROMA_CURVE: Record<string, number> = {

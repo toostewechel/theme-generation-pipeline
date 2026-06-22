@@ -188,21 +188,21 @@ export const SEMANTICS_LIGHT: Record<string, SemanticSpec> = {
 
   // ── Actions – primary (accent) ────────────────────────────────────────
   "color-action-primary-background":    ref("accent", "500"),
-  "color-action-primary-on-bg":         ref("accent", "900"),
+  "color-action-primary-on-bg":         ref("neutral", "0"),
   "color-action-primary-text":          ref("accent", "700"),
   "color-action-primary-icon":          ref("accent", "500"),
   "color-action-primary-border":        ref("accent", "500"),
 
   // ── Actions – secondary (sky) ─────────────────────────────────────────
   "color-action-secondary-background":  ref("secondary", "500"),
-  "color-action-secondary-on-bg":       ref("secondary", "900"),
+  "color-action-secondary-on-bg":       ref("neutral", "0"),
   "color-action-secondary-text":        ref("secondary", "700"),
   "color-action-secondary-icon":        ref("secondary", "500"),
   "color-action-secondary-border":      ref("secondary", "500"),
 
   // ── Actions – tertiary (pink) ─────────────────────────────────────────
   "color-action-tertiary-background":   ref("tertiary", "500"),
-  "color-action-tertiary-on-bg":        ref("tertiary", "900"),
+  "color-action-tertiary-on-bg":        ref("neutral", "0"),
   "color-action-tertiary-text":         ref("tertiary", "700"),
   "color-action-tertiary-icon":         ref("tertiary", "500"),
   "color-action-tertiary-border":       ref("tertiary", "500"),
@@ -230,7 +230,7 @@ export const SEMANTICS_LIGHT: Record<string, SemanticSpec> = {
 
   // ── Feedback – success (→ success ramp) ───────────────────────────────
   "color-feedback-success-background":  ref("success", "500"),
-  "color-feedback-success-on-bg":       ref("success", "900"),
+  "color-feedback-success-on-bg":       ref("neutral", "0"),
   "color-feedback-success-text":        ref("success", "700"),
   "color-feedback-success-icon":        ref("success", "500"),
   "color-feedback-success-border":      ref("success", "400"),
@@ -251,7 +251,7 @@ export const SEMANTICS_LIGHT: Record<string, SemanticSpec> = {
 
   // ── Feedback – info (→ info ramp) ─────────────────────────────────────
   "color-feedback-info-background":     ref("info", "500"),
-  "color-feedback-info-on-bg":          ref("info", "900"),
+  "color-feedback-info-on-bg":          ref("neutral", "0"),
   "color-feedback-info-text":           ref("info", "700"),
   "color-feedback-info-icon":           ref("info", "500"),
   "color-feedback-info-border":         ref("info", "400"),
@@ -353,21 +353,21 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = {
 
   // ── Actions – primary (accent) ────────────────────────────────────────
   "color-action-primary-background":    ref("accent", "500"),
-  "color-action-primary-on-bg":         ref("accent", "900"),
+  "color-action-primary-on-bg":         ref("neutral", "0"),
   "color-action-primary-text":          ref("accent", "500"),
   "color-action-primary-icon":          ref("accent", "500"),
   "color-action-primary-border":        ref("accent", "500"),
 
   // ── Actions – secondary (sky) ─────────────────────────────────────────
   "color-action-secondary-background":  ref("secondary", "500"),
-  "color-action-secondary-on-bg":       ref("secondary", "900"),
+  "color-action-secondary-on-bg":       ref("neutral", "0"),
   "color-action-secondary-text":        ref("secondary", "500"),
   "color-action-secondary-icon":        ref("secondary", "500"),
   "color-action-secondary-border":      ref("secondary", "500"),
 
   // ── Actions – tertiary (pink) ─────────────────────────────────────────
   "color-action-tertiary-background":   ref("tertiary", "500"),
-  "color-action-tertiary-on-bg":        ref("tertiary", "900"),
+  "color-action-tertiary-on-bg":        ref("neutral", "0"),
   "color-action-tertiary-text":         ref("tertiary", "500"),
   "color-action-tertiary-icon":         ref("tertiary", "500"),
   "color-action-tertiary-border":       ref("tertiary", "500"),
@@ -395,7 +395,7 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = {
 
   // ── Feedback – success (→ success ramp) ───────────────────────────────
   "color-feedback-success-background":  ref("success", "500"),
-  "color-feedback-success-on-bg":       ref("success", "900"),
+  "color-feedback-success-on-bg":       ref("neutral", "0"),
   "color-feedback-success-text":        ref("success", "400"),
   "color-feedback-success-icon":        ref("success", "400"),
   "color-feedback-success-border":      ref("success", "400"),
@@ -416,7 +416,7 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = {
 
   // ── Feedback – info (→ info ramp) ─────────────────────────────────────
   "color-feedback-info-background":     ref("info", "500"),
-  "color-feedback-info-on-bg":          ref("info", "900"),
+  "color-feedback-info-on-bg":          ref("neutral", "0"),
   "color-feedback-info-text":           ref("info", "400"),
   "color-feedback-info-icon":           ref("info", "500"),
   "color-feedback-info-border":         ref("info", "400"),

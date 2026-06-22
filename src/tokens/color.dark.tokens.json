@@ -206,7 +206,7 @@
   },
   "color-action-primary-on-bg": {
     "$type": "color",
-    "$value": "{color-accent-900}"
+    "$value": "{color-neutral-0}"
   },
   "color-action-primary-text": {
     "$type": "color",
@@ -226,7 +226,7 @@
   },
   "color-action-secondary-on-bg": {
     "$type": "color",
-    "$value": "{color-sky-900}"
+    "$value": "{color-neutral-0}"
   },
   "color-action-secondary-text": {
     "$type": "color",
@@ -246,7 +246,7 @@
   },
   "color-action-tertiary-on-bg": {
     "$type": "color",
-    "$value": "{color-pink-900}"
+    "$value": "{color-neutral-0}"
   },
   "color-action-tertiary-text": {
     "$type": "color",
@@ -326,7 +326,7 @@
   },
   "color-feedback-success-on-bg": {
     "$type": "color",
-    "$value": "{color-success-900}"
+    "$value": "{color-neutral-0}"
   },
   "color-feedback-success-text": {
     "$type": "color",
@@ -386,7 +386,7 @@
   },
   "color-feedback-info-on-bg": {
     "$type": "color",
-    "$value": "{color-info-900}"
+    "$value": "{color-neutral-0}"
   },
   "color-feedback-info-text": {
     "$type": "color",

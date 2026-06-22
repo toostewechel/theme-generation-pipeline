@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { clampChroma, inGamut } from "culori";
-import { buildRamp, buildRamps } from "./ramps.js";
-import { NEUTRAL_STEPS, HUE_STEPS, NEUTRAL_LIGHTNESS, HUE_LIGHTNESS } from "./steps.js";
+import { buildRamps } from "./ramps.js";
+import { NEUTRAL_STEPS, HUE_STEPS } from "./steps.js";
 import type { ThemeInputs } from "./types.js";
 
 const INPUTS: ThemeInputs = {
@@ -22,8 +22,8 @@ const INPUTS: ThemeInputs = {
 
 const inP3 = inGamut("p3");
 
-describe("buildRamp", () => {
-  const ramp = buildRamp(INPUTS.accents.primary, HUE_STEPS, HUE_LIGHTNESS, 0.5);
+describe("hue ramp", () => {
+  const ramp = buildRamps(INPUTS).accent;
 
   it("produces a color for every step", () => {
     for (const step of HUE_STEPS) {
