@@ -12,13 +12,13 @@ export const HUE_STEPS: string[] = [
 // These are the calibration surface — Task 4 tunes them against today's palette.
 export const NEUTRAL_LIGHTNESS: Record<string, number> = {
   "0": 1.0, paper: 0.985, "50": 0.975, "100": 0.945, "200": 0.895,
-  "300": 0.83, "400": 0.74, "500": 0.65, "600": 0.56, "650": 0.51,
+  "300": 0.83, "400": 0.74, "500": 0.726, "600": 0.56, "650": 0.51,
   "700": 0.46, "800": 0.37, "850": 0.32, "900": 0.275, "950": 0.19,
 };
 
 export const HUE_LIGHTNESS: Record<string, number> = {
   "50": 0.975, "100": 0.94, "200": 0.885, "300": 0.815, "400": 0.73,
-  "500": 0.655, "600": 0.575, "700": 0.49, "800": 0.405, "900": 0.31, "950": 0.22,
+  "500": 0.717, "600": 0.575, "700": 0.49, "800": 0.405, "900": 0.31, "950": 0.22,
 };
 
 // Chroma multiplier per step (peaks mid-ramp, tapers at the ends).
