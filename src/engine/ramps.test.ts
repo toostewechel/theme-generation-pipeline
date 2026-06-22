@@ -69,3 +69,25 @@ describe("buildRamps", () => {
     }
   });
 });
+
+describe("strict monotonic lightness at high contrast", () => {
+  for (const contrastValue of ["high" as const, 1 as const]) {
+    const label = contrastValue === "high" ? '"high"' : "1";
+
+    it(`hue ramp is strictly decreasing at contrast ${label}`, () => {
+      const set = buildRamps({ ...INPUTS, contrast: contrastValue });
+      const ls = HUE_STEPS.map((s) => set.accent[s].l);
+      for (let i = 1; i < ls.length; i++) {
+        expect(ls[i]).toBeLessThan(ls[i - 1]);
+      }
+    });
+
+    it(`neutral ramp is strictly decreasing at contrast ${label}`, () => {
+      const set = buildRamps({ ...INPUTS, contrast: contrastValue });
+      const ls = NEUTRAL_STEPS.map((s) => set.neutral[s].l);
+      for (let i = 1; i < ls.length; i++) {
+        expect(ls[i]).toBeLessThan(ls[i - 1]);
+      }
+    });
+  }
+});
