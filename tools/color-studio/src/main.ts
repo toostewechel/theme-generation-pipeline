@@ -27,12 +27,14 @@ mountControls(state, (next) => {
 });
 
 const modeToggle = document.getElementById("mode-toggle")!;
-function syncModeLabel() {
+function syncMode() {
   modeToggle.textContent = mode === "light" ? "☀ Light" : "☾ Dark";
+  // Drive app chrome (sidebar) theming too, not just the preview pane.
+  document.documentElement.classList.toggle("mode-dark", mode === "dark");
 }
 modeToggle.addEventListener("click", () => {
   mode = mode === "light" ? "dark" : "light";
-  syncModeLabel();
+  syncMode();
   schedulePreview();
 });
 
@@ -52,5 +54,5 @@ saveBtn.addEventListener("click", async () => {
   }, 1600);
 });
 
-syncModeLabel();
+syncMode();
 renderPreview(state, mode);

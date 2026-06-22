@@ -170,17 +170,17 @@ function renderSample(vars: string): string {
   return `<div class="pv-section">
     <div class="pv-section-title">In context · semantic tokens</div>
     <div class="sample" style="${vars}">
-      <h4 style="color:var(--color-text-emphasis)">Tune the seed, read it in place</h4>
-      <p style="color:var(--color-text-default)">Body copy on the raised surface, styled entirely from the generated semantic tokens.</p>
-      <p class="sample-muted" style="color:var(--color-text-muted)">Muted annotation · <a href="#" style="color:var(--color-text-link)">a link</a></p>
-      <div class="sample-field" style="background:var(--color-background-surface-default);border-color:var(--color-border-default)">
-        <span style="color:var(--color-text-muted)">Input placeholder</span>
+      <h4 style="color:var(--color-fg-emphasis)">Tune the seed, read it in place</h4>
+      <p style="color:var(--color-fg)">Body copy on the raised surface, styled entirely from the generated semantic tokens.</p>
+      <p class="sample-muted" style="color:var(--color-fg-muted)">Muted annotation · <a href="#" style="color:var(--color-fg-link)">a link</a></p>
+      <div class="sample-field" style="background:var(--color-bg);border-color:var(--color-border-default)">
+        <span style="color:var(--color-fg-muted)">Input placeholder</span>
       </div>
       <div class="sample-row">
-        <button class="sample-btn" style="background:var(--color-action-primary-background);color:var(--color-action-primary-on-bg)">Primary action</button>
-        <button class="sample-btn sample-btn--ghost" style="color:var(--color-action-secondary-text);border-color:var(--color-border-default)">Secondary</button>
-        <span class="sample-chip" style="background:var(--color-feedback-success-background);color:var(--color-feedback-success-text)">Success</span>
-        <span class="sample-chip" style="background:var(--color-feedback-error-background);color:var(--color-feedback-error-text)">Error</span>
+        <button class="sample-btn" style="background:var(--color-bg-accent);color:var(--color-fg-on-accent)">Primary action</button>
+        <button class="sample-btn sample-btn--ghost" style="color:var(--color-fg-secondary);border-color:var(--color-border-default)">Secondary</button>
+        <span class="sample-chip" style="background:var(--color-bg-success-subtle);color:var(--color-fg-success)">Success</span>
+        <span class="sample-chip" style="background:var(--color-bg-error-subtle);color:var(--color-fg-error)">Error</span>
       </div>
     </div></div>`;
 }

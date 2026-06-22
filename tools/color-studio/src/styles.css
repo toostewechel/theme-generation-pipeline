@@ -26,6 +26,22 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Dark mode: re-point the chrome tokens so the whole sidebar follows the
+   preview's dark/light toggle. Cool neutral (hue 250) to match the dark
+   preview surface; sidebar sits a touch lighter than the preview background
+   so the divider still reads. */
+html.mode-dark {
+  --ink: oklch(0.93 0.006 250);
+  --ink-soft: oklch(0.72 0.01 250);
+  --ink-faint: oklch(0.58 0.01 250);
+
+  --chrome: oklch(0.165 0.005 250);
+  --panel: oklch(0.215 0.006 250);
+  --line: oklch(0.28 0.006 250);
+  --line-strong: oklch(0.37 0.008 250);
+  --track: oklch(0.3 0.006 250);
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -52,6 +68,7 @@ html, body {
   min-height: 0;
   background: var(--chrome);
   border-right: 1px solid var(--line);
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
 }
 
 #sidebar-head {
@@ -381,8 +398,8 @@ html, body {
 
 /* sample — driven entirely by injected var(--color-*) semantic tokens */
 .sample {
-  background: var(--color-background-surface-raised, var(--surface));
-  color: var(--color-text-default, var(--on-surface));
+  background: var(--color-bg-raised, var(--surface));
+  color: var(--color-fg, var(--on-surface));
   border: 1px solid var(--color-border-default, transparent);
   border-radius: var(--radius);
   padding: 22px 24px;
