@@ -22,7 +22,7 @@ describe("serializeConfig", () => {
     const src = serializeConfig(inputs);
     expect(src).toContain("const themeInputs: ThemeInputs");
     expect(src).toContain("export default themeInputs;");
-    expect(src).toContain('hue: 138');
+    expect(src).toContain('"hue": 138');
   });
 
   it("round-trips the numbers via JSON embedded in the source", () => {
