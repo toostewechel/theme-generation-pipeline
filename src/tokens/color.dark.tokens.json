@@ -212,6 +212,46 @@
     "$type": "color",
     "$value": "{color-accent-700}"
   },
+  "color-border-success": {
+    "$type": "color",
+    "$value": "{color-success-400}"
+  },
+  "color-border-success-subtle": {
+    "$type": "color",
+    "$value": "{color-success-800}"
+  },
+  "color-border-error": {
+    "$type": "color",
+    "$value": "{color-error-400}"
+  },
+  "color-border-error-subtle": {
+    "$type": "color",
+    "$value": "{color-error-800}"
+  },
+  "color-border-warning": {
+    "$type": "color",
+    "$value": "{color-warning-400}"
+  },
+  "color-border-warning-subtle": {
+    "$type": "color",
+    "$value": "{color-warning-800}"
+  },
+  "color-border-info": {
+    "$type": "color",
+    "$value": "{color-info-400}"
+  },
+  "color-border-info-subtle": {
+    "$type": "color",
+    "$value": "{color-info-800}"
+  },
+  "color-border-neutral": {
+    "$type": "color",
+    "$value": "{color-neutral-700}"
+  },
+  "color-border-neutral-subtle": {
+    "$type": "color",
+    "$value": "{color-neutral-800}"
+  },
   "color-control-background-default": {
     "$type": "color",
     "$value": "{color-neutral-0}"
