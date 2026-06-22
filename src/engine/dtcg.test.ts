@@ -35,15 +35,13 @@ describe("buildGeneratedFiles", () => {
     }
   });
 
-  it("file contents contain the per-builder output (minus the banner)", () => {
+  it("file contents equal the per-builder output (minus the banner)", () => {
     const strip = (o: Record<string, unknown>) => {
       const { $description, ...rest } = o;
       return rest;
     };
-    // primitives file also contains static passthrough tokens (color-prism-*)
-    // so we use toMatchObject (subset) rather than toEqual.
     expect(strip(files["primitives-color.mode-1.tokens.json"] as any))
-      .toMatchObject(buildPrimitivesDtcg(INPUTS));
+      .toEqual(buildPrimitivesDtcg(INPUTS));
     expect(strip(files["color.light.tokens.json"] as any))
       .toEqual(buildSemanticDtcg(INPUTS, "light"));
     expect(strip(files["color.dark.tokens.json"] as any))
