@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Tooltip } from "@base-ui-components/react/tooltip";
 import { Toast } from "@base-ui-components/react/toast";
 import themeInputs from "@project/theme.config.js";
@@ -38,6 +38,12 @@ function AppInner() {
       setRafState(latest);
     });
   };
+
+  // Cancel a pending rAF on unmount so a scheduled setRafState can't fire after
+  // the component is gone (observable in Strict Mode dev / hot-reload).
+  useEffect(() => () => {
+    if (frame.current) cancelAnimationFrame(frame.current);
+  }, []);
 
   const toggleMode = () => {
     const next = mode === "light" ? "dark" : "light";
