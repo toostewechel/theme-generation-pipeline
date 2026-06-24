@@ -23,7 +23,7 @@ export function Section({ id, title, description, modified, onReset, children }:
     <Collapsible.Root
       open={open}
       onOpenChange={handleOpen}
-      render={<section className="sec" data-open={open} />}
+      render={<section className="sec" data-open={String(open)} />}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <Collapsible.Trigger className="sec-head">
