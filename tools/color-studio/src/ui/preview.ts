@@ -188,16 +188,21 @@ function renderSample(vars: string): string {
 let showContrast = true;
 let lastState: ThemeInputs | null = null;
 let lastMode: "light" | "dark" = "light";
+let lastRoot: HTMLElement | null = null;
 
-export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void {
+export function renderPreview(
+  state: ThemeInputs,
+  mode: "light" | "dark",
+  root: HTMLElement = document.getElementById("preview")!,
+): void {
   lastState = state;
   lastMode = mode;
+  lastRoot = root;
   const set = buildRamps(state);
   const surface = mode === "light" ? set.neutral["0"] : set.neutral["950"];
   surfaceLabel = mode === "light" ? "neutral-0" : "dark surface";
   const vars = semanticVars(state, set, mode);
-
-  const root = document.getElementById("preview")!;
+  // root is now the passed-in element
   root.className = mode === "light" ? "mode-light" : "mode-dark";
 
   let body = document.getElementById("pv-body");
@@ -212,7 +217,7 @@ export function renderPreview(state: ThemeInputs, mode: "light" | "dark"): void 
     const cb = document.getElementById("contrast-toggle") as HTMLInputElement;
     cb.addEventListener("change", () => {
       showContrast = cb.checked;
-      if (lastState) renderPreview(lastState, lastMode);
+      if (lastState) renderPreview(lastState, lastMode, lastRoot!);
     });
   } else {
     const sub = root.querySelector(".pv-sub");
