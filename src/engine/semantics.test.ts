@@ -12,7 +12,7 @@ const ramps = buildRamps(themeInputs);
 describe("resolveSemantics — lean tokens", () => {
   const light = resolveSemantics(ramps, themeInputs, "light");
   it("resolves a fixed-step lean token to a primitive", () => {
-    expect(light["color-bg"]).toEqual({ ref: "color-neutral-0" });
+    expect(light["color-bg-default"]).toEqual({ ref: "color-neutral-0" });
     expect(light["color-bg-accent"]).toEqual({ ref: "color-accent-500" });
   });
   it("no longer emits the dropped legacy families", () => {

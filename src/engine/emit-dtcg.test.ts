@@ -54,7 +54,7 @@ describe("buildPrimitivesDtcg — brand tokens", () => {
 describe("buildSemanticDtcg", () => {
   it("emits reference values for lean semantic tokens", () => {
     const light = buildSemanticDtcg(themeInputs, "light");
-    expect(light["color-bg"].$value).toBe("{color-neutral-0}");
+    expect(light["color-bg-default"].$value).toBe("{color-neutral-0}");
     expect(light["color-background-surface-default"]).toBeUndefined(); // legacy dropped
   });
   it("emits raw DTCG dimension token verbatim for color-state-disabled-opacity (light)", () => {
