@@ -202,10 +202,9 @@ export function renderPreview(
   const surface = mode === "light" ? set.neutral["0"] : set.neutral["950"];
   surfaceLabel = mode === "light" ? "neutral-0" : "dark surface";
   const vars = semanticVars(state, set, mode);
-  // root is now the passed-in element
   root.className = mode === "light" ? "mode-light" : "mode-dark";
 
-  let body = document.getElementById("pv-body");
+  let body = root.querySelector<HTMLElement>("#pv-body");
   if (!body) {
     root.innerHTML = `<h3 class="pv-title">Preview</h3>
       <div class="pv-head-row">
@@ -213,8 +212,8 @@ export function renderPreview(
         <label class="pv-toggle"><input type="checkbox" id="contrast-toggle" checked /> Contrast</label>
       </div>
       <div id="pv-body"></div>`;
-    body = document.getElementById("pv-body")!;
-    const cb = document.getElementById("contrast-toggle") as HTMLInputElement;
+    body = root.querySelector<HTMLElement>("#pv-body")!;
+    const cb = root.querySelector<HTMLInputElement>("#contrast-toggle")!;
     cb.addEventListener("change", () => {
       showContrast = cb.checked;
       if (lastState) renderPreview(lastState, lastMode, lastRoot!);
