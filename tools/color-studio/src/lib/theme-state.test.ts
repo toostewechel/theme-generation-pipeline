@@ -39,4 +39,13 @@ describe("resetSection", () => {
     expect(out.contrast).toBe(0.5);
     expect(out.status.error).toEqual({ hue: 5, chroma: 0.2 }); // untouched
   });
+  it("restores brand when resetting accents", () => {
+    const baseWithBrand: ThemeInputs = { ...base, brand: { primary: { l: 0.62, c: 0.16, h: 150 } } };
+    const cur: ThemeInputs = {
+      ...baseWithBrand,
+      accents: { ...baseWithBrand.accents, primary: { hue: 200, chroma: 0.16 } },
+      brand: { primary: { l: 0.5, c: 0.2, h: 30 } },
+    };
+    expect(resetSection("accents", cur, baseWithBrand).brand).toEqual(baseWithBrand.brand);
+  });
 });
