@@ -4,7 +4,6 @@
     "build:tokens": "npx tsx scripts/buildTokens.ts",
     "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-descriptions",
     "build:theme": "npx tsx scripts/buildTheme.ts",
-    "check:figma-drift": "npx tsx scripts/checkFigmaDrift.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "preview:fluid": "cd tools/fluid-preview && npm run dev",
