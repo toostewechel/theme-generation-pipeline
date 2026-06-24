@@ -500,21 +500,22 @@ Expected: report shows `unchanged` > 0, no `⚠ removed` line, and `exit=0`.
 
 - [ ] **Step 5: Smoke-test the breaking path (exit 1), then restore**
 
-Simulate a rename in the working tree, run, then restore the file:
+Simulate a rename in the working tree, run, then restore the files. Note: `color-fg-default` exists in **both** `color.light` and `color.dark` (names union across mode files), so the rename must be applied to both files for the name to disappear from the union — this mirrors a real Figma variable rename, which is mode-agnostic:
 
 ```bash
 npx tsx -e '
 import { readFileSync, writeFileSync } from "node:fs";
-const p = "src/tokens/color.light.tokens.json";
-const j = JSON.parse(readFileSync(p, "utf-8"));
-j["color-fg-RENAMED"] = j["color-fg-default"]; delete j["color-fg-default"];
-writeFileSync(p, JSON.stringify(j, null, 2) + "\n");
+for (const p of ["src/tokens/color.light.tokens.json", "src/tokens/color.dark.tokens.json"]) {
+  const j = JSON.parse(readFileSync(p, "utf-8"));
+  j["color-fg-RENAMED"] = j["color-fg-default"]; delete j["color-fg-default"];
+  writeFileSync(p, JSON.stringify(j, null, 2) + "\n");
+}
 '
 npm run check:token-drift; echo "exit=$?"
-git checkout -- src/tokens/color.light.tokens.json
+git checkout -- src/tokens/color.light.tokens.json src/tokens/color.dark.tokens.json
 ```
 
-Expected: `color-fg-default` listed under `removed`, `color-fg-RENAMED` under `added`, and `exit=1`. After `git checkout`, the file is restored.
+Expected: `color-fg-default` listed under `removed`, `color-fg-RENAMED` under `added`, and `exit=1`. After `git checkout`, both files are restored. Confirm `git status` is clean before continuing.
 
 - [ ] **Step 6: Smoke-test the CI ref mode (exit 0)**
 

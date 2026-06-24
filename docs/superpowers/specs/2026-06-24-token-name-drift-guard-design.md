@@ -133,6 +133,8 @@ Exit codes: `1` if `hasBreaking`, `0` if clean, `2` on bad input (unknown ref, `
 
 Drift = **unaccepted name disappearances in the working tree**; **committing = accepting**. After you commit the overwritten tokens, `HEAD` advances and a re-run is clean. The CI mode (`main...HEAD`) answers the orthogonal question "does this branch, as a whole, drop or rename any token vs main?"
 
+**Union-across-modes semantics.** `namesAt` unions names across *all* of a collection's mode files (e.g. `color.light` + `color.dark`). A name is therefore reported as `removed` only when it disappears from **every** file that held it. This is correct for real authoring: a Figma variable's name is mode-agnostic, so a genuine rename propagates to all its mode files and is always caught. The one edge case it cannot see is a name that exists in some mode files but not its siblings — there, a single-file rename would be masked. The current token files are key-symmetric across modes, so this is inert today; ID-based matching (the future extension) removes the ambiguity entirely.
+
 ## Testing
 
 - **`diffNames`** (fake data): removed-only flags breaking; added-only does not; unchanged counted; ignore (string + regex) strips from both buckets and clears `hasBreaking` when only ignored names differ; arrays sorted.
