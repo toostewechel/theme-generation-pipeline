@@ -83,17 +83,23 @@ function main() {
     process.exit(diff.hasBreaking ? 1 : 0);
   }
 
-  console.log(`Token name-drift  (base: ${describeSource(base)} → head: ${describeSource(head)})`);
-  console.log(`  ✓ ${diff.unchanged} unchanged`);
+  console.log(`🔍 Token name-drift  ${describeSource(base)} → ${describeSource(head)}`);
+  console.log(`   ✅ ${diff.unchanged} unchanged`);
   if (diff.removed.length) {
-    console.log(`  ⚠ ${diff.removed.length} removed (renames-away or removals — break consumers):`);
-    for (const n of diff.removed) console.log(`      ${n}`);
+    console.log(`   🚨 ${diff.removed.length} removed (renames-away or removals — break consumers):`);
+    for (const n of diff.removed) console.log(`      🔻 ${n}`);
   }
   if (diff.added.length) {
-    console.log(`  + ${diff.added.length} added (safe):`);
-    for (const n of diff.added) console.log(`      ${n}`);
+    console.log(`   🆕 ${diff.added.length} added (safe):`);
+    for (const n of diff.added) console.log(`      ➕ ${n}`);
   }
-  if (diff.ignored.length) console.log(`  · ${diff.ignored.length} ignored`);
+  if (diff.ignored.length) console.log(`   🙈 ${diff.ignored.length} ignored`);
+
+  console.log(
+    diff.hasBreaking
+      ? `\n💥 Breaking drift — ${diff.removed.length} name(s) removed. Review before committing.`
+      : `\n🎉 No breaking drift — all clear!`,
+  );
 
   process.exit(diff.hasBreaking ? 1 : 0);
 }
