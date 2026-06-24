@@ -1,6 +1,7 @@
 import { defineConfig, type Plugin } from "vite";
 import { resolve } from "path";
 import { writeFileSync } from "fs";
+import react from "@vitejs/plugin-react";
 
 const projectRoot = resolve(__dirname, "../..");
 
@@ -29,7 +30,7 @@ function saveThemePlugin(): Plugin {
 
 export default defineConfig({
   root: ".",
-  plugins: [saveThemePlugin()],
+  plugins: [react(), saveThemePlugin()],
   resolve: { alias: { "@project": projectRoot } },
   server: { open: true, fs: { allow: [projectRoot] } },
 });
