@@ -79,7 +79,7 @@ export function ParamSlider(props: ParamSliderProps) {
           className={trackStyle ? "track track--gradient" : "track track--plain"}
           style={trackStyle ? { backgroundImage: trackStyle } : undefined}
         >
-          <Slider.Track>
+          <Slider.Track className="track-rail">
             {ticks?.map((t) => (
               <span
                 key={t.label}
