@@ -7,7 +7,10 @@ import { hexOf, parseHex, hueTrack, chromaTrack, swatchCss, REP_L } from "../lib
 interface SeedControlProps {
   name: string;
   seed: HueSeed;
-  onSeed: (seed: HueSeed, source: Oklch) => void;
+  // `source` (the verbatim brand color) is emitted ONLY on a hex paste. Slider
+  // tuning reshapes the ramp seed and emits no source, so a brand color set by
+  // an earlier paste stays pinned.
+  onSeed: (seed: HueSeed, source?: Oklch) => void;
 }
 
 export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
@@ -19,8 +22,10 @@ export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
 
   useEffect(() => () => { if (badTimer.current) clearTimeout(badTimer.current); }, []);
 
-  const emit = (next: HueSeed, source?: Oklch) =>
-    onSeed(next, source ?? { l: displayL, c: next.chroma, h: next.hue });
+  // Pass `source` straight through: undefined for slider tuning (brand untouched),
+  // the exact parsed color for a paste. No swatch-derived fallback — that would
+  // overwrite the pinned brand color on every drag.
+  const emit = (next: HueSeed, source?: Oklch) => onSeed(next, source);
 
   const onHexCommit = (raw: string) => {
     const parsed = parseHex(raw);

@@ -9,6 +9,17 @@ function css(c: Oklch): string {
   return `oklch(${c.l} ${c.c} ${c.h}${a})`;
 }
 
+// sRGB hex for the clipboard (formatHex clamps out-of-gamut OKLCH to sRGB).
+function hexOf(c: Oklch): string {
+  return formatHex({ mode: "oklch", l: c.l, c: c.c, h: c.h }) ?? "#000000";
+}
+
+// Copy + check icons, both present in every copy affordance; CSS swaps which is
+// shown via a `.copied` class on the ancestor (toggled by the click handler).
+const COPY_ICON =
+  `<span class="ic ic-copy"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>` +
+  `<span class="ic ic-check"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5 9-10"/></svg></span>`;
+
 function readableOn(bg: Oklch, set: RampSet): string {
   return contrastRatio(set.neutral["0"], bg) >= contrastRatio(set.neutral["950"], bg)
     ? css(set.neutral["0"])
@@ -94,9 +105,13 @@ function renderRamps(set: RampSet, surface: Oklch): string {
         const meta = showContrast
           ? `<span class="cr" style="color:${ink}">${ratio}${g ? ` <b class="g-${g.tier}">${g.label}</b>` : ""}</span>`
           : "";
-        return `<div class="chip${showContrast ? " tall" : ""}" title="${name}-${step} · ${ratio}:1 vs surface" style="background:${css(color)}">
-          <span class="step" style="color:${ink}">${step}</span>${meta}
-        </div>`;
+        const hex = hexOf(color);
+        return `<button type="button" class="chip${showContrast ? " tall" : ""}" data-hex="${hex}" title="${name}-${step} · ${ratio}:1 vs surface — copy ${hex}" aria-label="Copy ${name}-${step} ${hex}">
+          <span class="chip-fill" style="background:${css(color)}">
+            <span class="step" style="color:${ink}">${step}</span>${meta}
+          </span>
+          <span class="chip-copy" aria-hidden="true">${COPY_ICON}</span>
+        </button>`;
       })
       .join("");
     return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div></div>`;
@@ -152,10 +167,16 @@ function renderBrand(state: ThemeInputs): string {
   const items = slots.map(([label, slot]) => {
     const seed = state.accents[slot];
     const c = state.brand?.[slot] ?? { l: 0.62, c: seed.chroma, h: seed.hue };
-    const hex = formatHex({ mode: "oklch", l: c.l, c: c.c, h: c.h });
+    const hex = hexOf(c);
     return `<div class="brand-item">
-      <span class="brand-sw" style="background:${css(c)}"></span>
-      <div><div class="brand-name">color-brand-${label}</div><code class="brand-hex">${hex}</code></div>
+      <span class="swatch swatch--brand"><i style="background:${css(c)}"></i></span>
+      <div>
+        <div class="brand-name">color-brand-${label}</div>
+        <div class="brand-hex-row">
+          <code class="brand-hex">${hex}</code>
+          <button type="button" class="copy-btn" data-hex="${hex}" title="Copy ${hex}" aria-label="Copy ${hex}">${COPY_ICON}</button>
+        </div>
+      </div>
     </div>`;
   }).join("");
   return `<div class="pv-section">
@@ -217,6 +238,17 @@ export function renderPreview(
     cb.addEventListener("change", () => {
       showContrast = cb.checked;
       if (lastState) renderPreview(lastState, lastMode, lastRoot!);
+    });
+    // Delegated copy-to-clipboard for any swatch carrying a data-hex (ramp
+    // chips, brand swatches). Attached once; survives body.innerHTML rebuilds.
+    root.addEventListener("click", (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>("[data-hex]");
+      const hex = el?.getAttribute("data-hex");
+      if (!el || !hex) return;
+      navigator.clipboard.writeText(hex).then(() => {
+        el.classList.add("copied");
+        setTimeout(() => el.classList.remove("copied"), 1000);
+      }).catch(() => {});
     });
   } else {
     const sub = root.querySelector(".pv-sub");
