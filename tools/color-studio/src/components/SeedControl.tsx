@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { oklch } from "culori";
 import type { HueSeed, Oklch } from "@project/src/engine/index.js";
 import { ParamSlider } from "./ParamSlider.js";
@@ -14,7 +14,10 @@ export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
   // displayL echoes a pasted hex's lightness; it never affects generation.
   const [displayL, setDisplayL] = useState(REP_L);
   const [hexBad, setHexBad] = useState(false);
+  const badTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hexValue = hexOf(seed.hue, seed.chroma, displayL);
+
+  useEffect(() => () => { if (badTimer.current) clearTimeout(badTimer.current); }, []);
 
   const emit = (next: HueSeed, source?: Oklch) =>
     onSeed(next, source ?? { l: displayL, c: next.chroma, h: next.hue });
@@ -24,10 +27,12 @@ export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
     const exact = oklch(raw.trim());
     if (!parsed || !exact) {
       setHexBad(true);
-      setTimeout(() => setHexBad(false), 900);
+      if (badTimer.current) clearTimeout(badTimer.current);
+      badTimer.current = setTimeout(() => setHexBad(false), 900);
       return;
     }
     setDisplayL(parsed.l);
+    // exact.l! is safe: culori's oklch() always populates l on a non-null result (guarded by !exact above).
     emit({ hue: parsed.hue, chroma: parsed.chroma }, { l: exact.l!, c: exact.c ?? 0, h: exact.h ?? 0 });
   };
 
