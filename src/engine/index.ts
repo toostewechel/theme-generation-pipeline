@@ -7,3 +7,4 @@ export * from "./derived.js";
 export * from "./semantics.js";
 export * from "./dtcg.js";
 export * from "./figma-export.js";
+export * from "./figma-drift.js";
