@@ -5,9 +5,12 @@ import { IconChevron, IconReset } from "./icons.js";
 interface SectionProps {
   id: string;
   title: string;
-  description: string;
-  modified: boolean;
-  onReset: () => void;
+  /** Optional — omit for static groups (e.g. output/display options). */
+  description?: string;
+  /** Optional — when omitted, no "modified" diamond is shown. */
+  modified?: boolean;
+  /** Optional — when omitted, no reset affordance is rendered. */
+  onReset?: () => void;
   children: React.ReactNode;
 }
 
@@ -32,16 +35,18 @@ export function Section({ id, title, description, modified, onReset, children }:
           <span className="sec-title">{title}</span>
           {modified && <span className="sec-diamond" title="modified from default" />}
         </Collapsible.Trigger>
-        <button
-          className="sec-reset"
-          title="Reset section"
-          onClick={onReset}
-          aria-label={`Reset ${title}`}
-        >
-          <IconReset size={15} />
-        </button>
+        {onReset && (
+          <button
+            className="sec-reset"
+            title="Reset section"
+            onClick={onReset}
+            aria-label={`Reset ${title}`}
+          >
+            <IconReset size={15} />
+          </button>
+        )}
       </div>
-      <p className="sec-desc">{description}</p>
+      {description && <p className="sec-desc">{description}</p>}
       <Collapsible.Panel>
         <div className="sec-body">{children}</div>
       </Collapsible.Panel>

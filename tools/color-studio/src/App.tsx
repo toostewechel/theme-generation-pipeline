@@ -16,6 +16,9 @@ function AppInner() {
   );
   const [state, setState] = useState<ThemeInputs>(() => structuredClone(baseline));
   const [mode, setMode] = useState<"light" | "dark">("light");
+  // Preview display preference (contrast badges on ramp swatches). Owned here so
+  // the control can live in the sidebar; not part of ThemeInputs / saved config.
+  const [showContrast, setShowContrast] = useState(true);
   const toast = Toast.useToastManager();
 
   // Coalesce preview re-renders to one per frame. `state` updates immediately so
@@ -78,13 +81,15 @@ function AppInner() {
         state={state}
         baseline={baseline}
         mode={mode}
+        showContrast={showContrast}
         onChange={update}
         onModeToggle={toggleMode}
+        onShowContrastChange={setShowContrast}
         onSave={onSave}
         onCopyFigma={onCopyFigma}
         onResetAll={onResetAll}
       />
-      <Preview state={rafState} mode={mode} />
+      <Preview state={rafState} mode={mode} showContrast={showContrast} />
       <Toast.Portal>
         <Toast.Viewport className="toast-viewport">
           {toast.toasts.map((t) => (

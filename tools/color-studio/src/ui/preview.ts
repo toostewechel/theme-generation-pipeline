@@ -231,19 +231,17 @@ function renderSample(vars: string): string {
     </div></div>`;
 }
 
+// Set from renderPreview's argument each render; read by renderRamps (which
+// runs synchronously within the same call, so the module-level handoff is safe).
 let showContrast = true;
-let lastState: ThemeInputs | null = null;
-let lastMode: "light" | "dark" = "light";
-let lastRoot: HTMLElement | null = null;
 
 export function renderPreview(
   state: ThemeInputs,
   mode: "light" | "dark",
   root: HTMLElement = document.getElementById("preview")!,
+  showContrastOpt = true,
 ): void {
-  lastState = state;
-  lastMode = mode;
-  lastRoot = root;
+  showContrast = showContrastOpt;
   const set = buildRamps(state);
   const surface = mode === "light" ? set.neutral["0"] : set.neutral["950"];
   surfaceLabel = mode === "light" ? "neutral-0" : "dark surface";
@@ -253,17 +251,9 @@ export function renderPreview(
   let body = root.querySelector<HTMLElement>("#pv-body");
   if (!body) {
     root.innerHTML = `<h3 class="pv-title">Preview</h3>
-      <div class="pv-head-row">
-        <p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>
-        <label class="pv-toggle"><input type="checkbox" id="contrast-toggle" checked /> Contrast</label>
-      </div>
+      <p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>
       <div id="pv-body"></div>`;
     body = root.querySelector<HTMLElement>("#pv-body")!;
-    const cb = root.querySelector<HTMLInputElement>("#contrast-toggle")!;
-    cb.addEventListener("change", () => {
-      showContrast = cb.checked;
-      if (lastState) renderPreview(lastState, lastMode, lastRoot!);
-    });
     // Delegated copy-to-clipboard for any swatch carrying a data-hex (ramp
     // chips, brand swatches). Attached once; survives body.innerHTML rebuilds.
     root.addEventListener("click", (e) => {

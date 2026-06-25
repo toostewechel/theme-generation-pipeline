@@ -16,8 +16,10 @@ interface SidebarProps {
   state: ThemeInputs;
   baseline: ThemeInputs;
   mode: "light" | "dark";
+  showContrast: boolean;
   onChange: (next: ThemeInputs) => void;
   onModeToggle: () => void;
+  onShowContrastChange: (next: boolean) => void;
   onSave: () => void;
   onCopyFigma: () => void;
   onResetAll: () => void;
@@ -31,8 +33,10 @@ export function Sidebar(props: SidebarProps) {
     state,
     baseline,
     mode,
+    showContrast,
     onChange,
     onModeToggle,
+    onShowContrastChange,
     onSave,
     onCopyFigma,
     onResetAll,
@@ -183,24 +187,36 @@ export function Sidebar(props: SidebarProps) {
         />
       </Section>
 
-      <div className="sec sec--output">
-        <div className="sec-head sec-head--static">
-          <span className="sec-chevron-slot" aria-hidden="true" />
-          <span className="sec-title">Output</span>
-        </div>
-        <label className="alpha-toggle">
-          <span className="alpha-toggle-text">
-            <span className="alpha-toggle-title">Alpha-over-white tokens</span>
+      <Section
+        id="output"
+        title="Output"
+        description="Optional tokens & preview display"
+      >
+        <div className="opt-row">
+          <span className="opt-text">
+            <span className="opt-title">Alpha-over-white tokens</span>
             <small>Emit translucent twins of every ramp step, matched over white.</small>
           </span>
           <Toggle
             pressed={!!state.alpha}
             onPressedChange={(p) => onChange({ ...state, alpha: p })}
-            className="alpha-switch"
+            className="opt-switch"
             aria-label="Toggle alpha-over-white tokens"
           />
-        </label>
-      </div>
+        </div>
+        <div className="opt-row">
+          <span className="opt-text">
+            <span className="opt-title">Contrast badges</span>
+            <small>Show WCAG contrast ratios on the ramp swatches in the preview.</small>
+          </span>
+          <Toggle
+            pressed={showContrast}
+            onPressedChange={onShowContrastChange}
+            className="opt-switch"
+            aria-label="Toggle contrast badges"
+          />
+        </div>
+      </Section>
 
       <div className="foot">
         <button
