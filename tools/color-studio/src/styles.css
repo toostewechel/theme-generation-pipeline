@@ -811,3 +811,7 @@ body {
   padding: 3px 10px;
   border-radius: 999px;
 }
+
+.sec--output { padding: 12px 0; }
+.alpha-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.alpha-toggle small { display: block; opacity: 0.6; font-size: 11px; margin-top: 2px; }

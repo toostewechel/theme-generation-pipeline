@@ -183,6 +183,24 @@ export function Sidebar(props: SidebarProps) {
         />
       </Section>
 
+      <div className="sec sec--output">
+        <div className="sec-head" style={{ cursor: "default" }}>
+          <span className="sec-title">Output</span>
+        </div>
+        <label className="alpha-toggle">
+          <Toggle
+            pressed={!!state.alpha}
+            onPressedChange={(p) => onChange({ ...state, alpha: p })}
+            className="mode-toggle"
+            aria-label="Toggle alpha-over-white tokens"
+          />
+          <span>
+            Alpha-over-white tokens
+            <small>Emit translucent twins of every ramp step, matched over white.</small>
+          </span>
+        </label>
+      </div>
+
       <div className="foot">
         <button
           className="btn btn--ghost"
