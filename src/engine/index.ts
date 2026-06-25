@@ -4,6 +4,7 @@ export * from "./steps.js";
 export * from "./ramps.js";
 export * from "./contrast.js";
 export * from "./derived.js";
+export * from "./alpha-over.js";
 export * from "./semantics.js";
 export * from "./dtcg.js";
 export * from "./figma-export.js";
