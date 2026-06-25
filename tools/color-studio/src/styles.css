@@ -812,9 +812,79 @@ body {
   border-radius: 999px;
 }
 
-.sec--output { padding: 12px 0; }
-.alpha-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-.alpha-toggle small { display: block; opacity: 0.6; font-size: 11px; margin-top: 2px; }
+/* ---------- Output (alpha switch) ---------- */
+/* Static (non-collapsible) section head: no chevron, so a spacer keeps the
+   title aligned with the collapsible sections above (16px padding + 16px slot). */
+.sec-head--static {
+  cursor: default;
+}
+.sec-chevron-slot {
+  flex: none;
+  width: 16px;
+}
+.alpha-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* matches .sec-body so the label aligns under the section title text */
+  padding: 2px 16px 14px 32px;
+  cursor: pointer;
+}
+.alpha-toggle-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.alpha-toggle-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.alpha-toggle small {
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-faint);
+}
+/* Pill switch (Base UI Toggle exposes the on-state via data-pressed). */
+.alpha-switch {
+  flex: none;
+  position: relative;
+  width: 34px;
+  height: 20px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  cursor: pointer;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+.alpha-switch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  transform: translateY(-50%);
+  transition: transform 0.15s var(--ease), background 0.15s var(--ease);
+}
+.alpha-switch[data-pressed],
+.alpha-switch[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.alpha-switch[data-pressed]::after,
+.alpha-switch[aria-pressed="true"]::after {
+  transform: translate(14px, -50%);
+  background: oklch(1 0 0);
+}
+.alpha-switch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
 
 .pv-alpha .ramp-chips { background: #fff; border-radius: 8px; padding: 4px; }
 .pv-alpha .pv-section-title { color: inherit; }
