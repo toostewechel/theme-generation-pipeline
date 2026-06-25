@@ -4,6 +4,87 @@ A plain-English running log of notable features added to the pipeline — what t
 
 ---
 
+## 2026-06-25 — Preview Tabs: Color Ramps & Playground 🗂️ *(for designers)*
+
+**One line:** The Color Studio preview is split into two tabs — the palette ("Color ramps") and a live component "Playground" — so each view is clean and focused instead of one long scroll.
+
+### The problem it solves (ELI5)
+
+The Studio's preview used to be one tall stack: every color ramp, the label-on-fill demo, dark surfaces, brand swatches, *and* a little sample of UI — all scrolling together. As more got added it became a wall. You had to scroll past the palette to see components, and past components to compare ramps. Two different jobs (judging the palette vs. seeing it on real UI) were fighting for the same space.
+
+### What it does
+
+A tab bar at the top of the preview splits it into two focused views:
+
+- **Color ramps** — everything about the palette itself: the ramps, the white-label-on-fill accessibility demo, the dark-surface elevation ladder, the brand swatches, and (when enabled) the alpha-over-white ramps.
+- **Playground** — the colors on *real components*: a card, buttons (primary / secondary / disabled), form inputs in default / focused / invalid states, status alerts and badges (success / error / warning / info) — all painted purely from the generated **semantic** tokens, so it's an honest test of whether the system holds up in context.
+
+The tab you last looked at is remembered between reloads. Alongside this, the sidebar gained an **"Output" settings group** (a proper collapsible section) that holds the alpha-tokens switch and the **contrast-badge toggle** — the latter moved out of the preview and into the sidebar where the other controls live.
+
+### How you use it
+
+```bash
+npm run preview:studio      # opens the Studio
+```
+
+Click **Color ramps** / **Playground** to switch views. Toggle contrast badges and alpha output from the sidebar's **Output** section.
+
+### Why it's valuable
+
+- **Focus.** Each view does one job, so you're not scrolling past one to reach the other.
+- **A real proving ground.** The Playground shows components driven only by semantic tokens — the truest "does this theme actually work?" check, separate from raw swatch-gazing.
+- **Controls live with controls.** Moving the contrast toggle into the sidebar keeps the preview for *showing* and the sidebar for *tuning*.
+
+### Good to know
+
+- The Playground specimens style **only their colors** from `var(--color-*)` tokens; their shape (radius, spacing) is illustrative plain CSS, not a claim about radius/spacing tokens (which the color engine doesn't generate).
+- The active tab persists in `localStorage`, like the sidebar's collapsible sections.
+
+---
+
+## 2026-06-25 — Alpha-Over-White Color Tokens 🫧
+
+**One line:** An optional set of *translucent* twins of every color shade — each one looks identical to the solid when placed over white, but works as a tint/border/overlay over **any** surface. (Same idea as [alphredo.app](https://alphredo.app/).)
+
+### The problem it solves (ELI5)
+
+A solid color is picked to look right on one background. But lots of UI wants a *see-through* version of that color: a subtle border, a hover wash, an overlay, a tint on a card. If you just lower the opacity of the solid by eye, it rarely matches — and it definitely won't match across light surfaces, images, and colored cards.
+
+The trick (what alphredo does): for a given solid color, find the **most transparent** color that, when composited over white, renders *exactly* the same as the solid. Now you have one token that equals the solid over white **and** tints correctly over everything else.
+
+### What it does
+
+When you turn the feature on, the engine emits an alpha twin for every step of the 8 named ramps (neutral + 3 accents + 4 status), named `color-{ramp}-alpha-{step}` (e.g. `color-accent-alpha-500`). It's **off by default** and lives alongside the existing fixed black/white opacity tokens — nothing changes unless you opt in.
+
+The clever bits that make it correct:
+
+- **Solved where compositing actually happens.** The math runs in gamma **sRGB** (the space browsers and Figma blend alpha in), so the twin renders pixel-identical to the solid over white. The transparency is `1 − (lightest channel)`: light shades become very see-through, dark shades stay nearly opaque.
+- **Stored in the engine's native space.** The result is converted back to **OKLCH + alpha**, so the token file stays consistent with every other color the engine emits.
+
+### How you use it
+
+- **In the Studio:** flip **Alpha-over-white tokens** in the sidebar's *Output* section, and a preview row shows every alpha ramp on a white plate.
+- **In config:** set `alpha: true` in [theme.config.ts](theme.config.ts), then:
+
+```bash
+npm run build:theme        # regenerates the color token files, now with alpha twins
+npm run build:tokens       # builds the CSS / platform outputs
+```
+
+### Why it's valuable
+
+- **One token, any surface.** A single translucent step covers borders, hovers, and overlays that tint correctly over white, dark, images, or colored cards — instead of maintaining separate solids per background.
+- **Faithful by construction.** Because it's solved in the space compositing happens, "over white it matches the solid" is a guarantee, not a hope.
+- **Opt-in and additive.** Off by default, no change to existing output; the long-standing `color-black/white-alpha-*` ladder is untouched.
+
+### Good to know
+
+- Only the **8 named ramps** get twins — dark-mode surfaces and the verbatim `color-brand-*` colors deliberately don't.
+- The emitted alpha is rounded to 4 dp at the token-writing step (the engine keeps full precision internally), so the CSS stays tidy.
+- It rides the same path as every other generated color, so the **Token Name-Drift Guard** sees the new names just like any other — and the Figma copy bundle includes them when enabled.
+
+---
+
 ## 2026-06-24 — Token Name-Drift Guard 🔍
 
 **One line:** A safety net that warns you when a design-token *name* disappears, so a typo or forgotten rename in Figma can't quietly break everything that depends on it.
