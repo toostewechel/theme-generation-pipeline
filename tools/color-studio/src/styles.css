@@ -887,7 +887,7 @@ body {
 .pv-tab:hover {
   color: var(--ink-soft);
 }
-.pv-tab[data-selected] {
+.pv-tab[data-active] {
   color: var(--ink);
   border-bottom-color: var(--accent);
 }
