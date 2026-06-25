@@ -30,7 +30,7 @@ export function alphaOverWhite(solid: Oklch): Oklch {
   return {
     l: back.l,
     c: back.c ?? 0,
-    h: back.h ?? solid.h,
+    h: Number.isFinite(back.h) ? (back.h as number) : solid.h,
     alpha,
   };
 }

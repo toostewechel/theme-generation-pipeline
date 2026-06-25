@@ -118,9 +118,9 @@ type for what they claim to demonstrate.
 
 - `.pv-tablist` — horizontal row beneath the `.pv-title`.
 - `.pv-tab` — quiet by default (muted ink, no background), full-ink when active,
-  with a 2px bottom-border indicator on the selected tab (Base UI marks the active
-  tab via `data-selected`). Hover/focus-visible states consistent with other studio
-  controls.
+  with a 2px bottom-border indicator on the selected tab (Base UI rc.0 marks the
+  active tab via `data-active`). Hover/focus-visible states consistent with other
+  studio controls.
 - `#pv-content` — the scroll area below the tab bar.
 - Dark mode inherits the existing `#preview.mode-dark` treatment; add
   `#preview.mode-dark .pv-tab` overrides only if needed for contrast.
