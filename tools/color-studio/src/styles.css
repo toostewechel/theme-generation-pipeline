@@ -859,3 +859,41 @@ body {
 
 .pv-alpha .ramp-chips { background: #fff; border-radius: 8px; padding: 4px; }
 .pv-alpha .pv-section-title { color: inherit; }
+
+/* ---------- Preview tabs ---------- */
+.pv-tabs {
+  margin-bottom: 18px;
+}
+.pv-tablist {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.pv-tab {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+.pv-tab:hover {
+  color: var(--ink-soft);
+}
+.pv-tab[data-selected] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+.pv-tab:focus-visible {
+  outline: none;
+  color: var(--ink);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-radius: 4px;
+}

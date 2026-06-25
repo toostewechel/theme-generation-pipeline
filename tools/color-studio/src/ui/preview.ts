@@ -210,9 +210,9 @@ function renderBrand(state: ThemeInputs): string {
   </div>`;
 }
 
-// The sample consumes only semantic tokens (var(--color-*)), never raw ramp
+// The playground consumes only semantic tokens (var(--color-*)), never raw ramp
 // steps — it is the proof that the semantic layer holds up in context.
-function renderSample(vars: string): string {
+function renderPlaygroundTab(vars: string): string {
   return `<div class="pv-section">
     <div class="pv-section-title">In context · semantic tokens</div>
     <div class="sample" style="${vars}">
@@ -231,31 +231,45 @@ function renderSample(vars: string): string {
     </div></div>`;
 }
 
-// Set from renderPreview's argument each render; read by renderRamps (which
-// runs synchronously within the same call, so the module-level handoff is safe).
+// Set from renderPreview's options each render; read by renderRamps (which runs
+// synchronously within the same call, so the module-level handoff is safe).
 let showContrast = true;
+
+// The "Color ramps" tab: every palette / token visualization.
+function renderRampsTab(
+  set: RampSet,
+  surface: Oklch,
+  state: ThemeInputs,
+  mode: "light" | "dark",
+): string {
+  const caption = `<p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>`;
+  return (
+    caption +
+    renderRamps(set, surface) +
+    renderLabelOnFill(set) +
+    renderDarkSurfaces(state) +
+    renderBrand(state) +
+    (state.alpha ? renderAlphaRamps(set) : "")
+  );
+}
 
 export function renderPreview(
   state: ThemeInputs,
   mode: "light" | "dark",
-  root: HTMLElement = document.getElementById("preview")!,
-  showContrastOpt = true,
+  root: HTMLElement,
+  opts: { showContrast?: boolean; tab?: "ramps" | "playground" } = {},
 ): void {
-  showContrast = showContrastOpt;
+  showContrast = opts.showContrast ?? true;
+  const tab = opts.tab ?? "ramps";
   const set = buildRamps(state);
   const surface = mode === "light" ? set.neutral["0"] : set.neutral["950"];
   surfaceLabel = mode === "light" ? "neutral-0" : "dark surface";
   const vars = semanticVars(state, set, mode);
-  root.className = mode === "light" ? "mode-light" : "mode-dark";
 
-  let body = root.querySelector<HTMLElement>("#pv-body");
-  if (!body) {
-    root.innerHTML = `<h3 class="pv-title">Preview</h3>
-      <p class="pv-sub">Generated ${Object.keys(set).length} ramps · ${mode} surface</p>
-      <div id="pv-body"></div>`;
-    body = root.querySelector<HTMLElement>("#pv-body")!;
-    // Delegated copy-to-clipboard for any swatch carrying a data-hex (ramp
-    // chips, brand swatches). Attached once; survives body.innerHTML rebuilds.
+  // Delegated copy-to-clipboard for any swatch carrying a data-hex (ramp chips,
+  // brand swatches). Bound once on the (React-owned, stable) content container;
+  // survives innerHTML rebuilds.
+  if (!root.dataset.copyBound) {
     root.addEventListener("click", (e) => {
       const el = (e.target as HTMLElement).closest<HTMLElement>("[data-hex]");
       const hex = el?.getAttribute("data-hex");
@@ -265,12 +279,11 @@ export function renderPreview(
         setTimeout(() => el.classList.remove("copied"), 1000);
       }).catch(() => {});
     });
-  } else {
-    const sub = root.querySelector(".pv-sub");
-    if (sub) sub.textContent = `Generated ${Object.keys(set).length} ramps · ${mode} surface`;
+    root.dataset.copyBound = "1";
   }
-  body.innerHTML =
-    renderRamps(set, surface) + renderLabelOnFill(set) + renderDarkSurfaces(state) +
-    renderBrand(state) + renderSample(vars) +
-    (state.alpha ? renderAlphaRamps(set) : "");
+
+  root.innerHTML =
+    tab === "playground"
+      ? renderPlaygroundTab(vars)
+      : renderRampsTab(set, surface, state, mode);
 }
