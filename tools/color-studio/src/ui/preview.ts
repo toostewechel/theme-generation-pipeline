@@ -1,6 +1,7 @@
 import { formatHex } from "culori";
 import {
   buildRamps, resolveSemantics, buildAlphas, buildDarkSurfaces, contrastRatio,
+  alphaOverWhite,
   type ThemeInputs, type Oklch, type RampSet,
 } from "@project/src/engine/index.js";
 
@@ -123,6 +124,30 @@ function renderRamps(set: RampSet, surface: Oklch): string {
 }
 
 let surfaceLabel = "surface";
+
+// The 8 named ramps that get alpha twins (excludes darkSurface).
+const ALPHA_RAMPS: (keyof RampSet)[] = [
+  "neutral", "accent", "secondary", "tertiary",
+  "success", "error", "warning", "info",
+];
+
+// Alpha-over-white twins on a white plate, so "matches the solid" reads at a
+// glance regardless of the preview's light/dark mode (these are solved vs white).
+function renderAlphaRamps(set: RampSet): string {
+  const rows = ALPHA_RAMPS.map((name) => {
+    const ramp = set[name] as Record<string, Oklch>;
+    const chips = Object.entries(ramp).map(([step, color]) => {
+      const twin = alphaOverWhite(color);
+      return `<div class="chip" title="${name}-alpha-${step} · α ${twin.alpha}">
+        <span class="chip-fill" style="background:${css(twin)}">
+          <span class="step" style="color:#111">${step}</span>
+        </span>
+      </div>`;
+    }).join("");
+    return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div></div>`;
+  });
+  return `<div class="pv-section pv-alpha"><div class="pv-section-title">Alpha over white <span class="pv-legend">each step solved to the most-transparent color that matches the solid over white</span></div>${rows.join("")}</div>`;
+}
 
 // Demonstrates the accessibility payoff: a white label on each intent's fill
 // clears the same WCAG ratio, because every fill is anchored to that target.
@@ -256,5 +281,6 @@ export function renderPreview(
   }
   body.innerHTML =
     renderRamps(set, surface) + renderLabelOnFill(set) + renderDarkSurfaces(state) +
-    renderBrand(state) + renderSample(vars);
+    renderBrand(state) + renderSample(vars) +
+    (state.alpha ? renderAlphaRamps(set) : "");
 }

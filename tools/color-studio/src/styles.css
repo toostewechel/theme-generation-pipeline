@@ -815,3 +815,6 @@ body {
 .sec--output { padding: 12px 0; }
 .alpha-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .alpha-toggle small { display: block; opacity: 0.6; font-size: 11px; margin-top: 2px; }
+
+.pv-alpha .ramp-chips { background: #fff; border-radius: 8px; padding: 4px; }
+.pv-alpha .pv-section-title { color: inherit; }
