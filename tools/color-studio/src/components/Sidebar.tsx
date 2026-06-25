@@ -5,6 +5,7 @@ import { Section } from "./Section.js";
 import { SeedControl } from "./SeedControl.js";
 import { ParamSlider } from "./ParamSlider.js";
 import { FigmaIcon } from "./FigmaIcon.js";
+import { IconSun, IconMoon, IconReset } from "./icons.js";
 import {
   isSectionModified,
   resetSection,
@@ -56,7 +57,7 @@ export function Sidebar(props: SidebarProps) {
                 className="mode-toggle"
                 aria-label="Toggle dark preview"
               >
-                {mode === "dark" ? "☀" : "☾"}
+                {mode === "dark" ? <IconSun size={16} /> : <IconMoon size={16} />}
               </Toggle>
             }
           />
@@ -188,7 +189,7 @@ export function Sidebar(props: SidebarProps) {
           onClick={onResetAll}
           title="Reset everything to defaults"
         >
-          ↺ Reset all
+          <IconReset size={14} /> Reset all
         </button>
         <button className="btn btn--primary" onClick={onSave}>
           Save theme

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Collapsible } from "@base-ui-components/react/collapsible";
+import { IconChevron, IconReset } from "./icons.js";
 
 interface SectionProps {
   id: string;
@@ -27,7 +28,7 @@ export function Section({ id, title, description, modified, onReset, children }:
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <Collapsible.Trigger className="sec-head">
-          <span className="sec-chevron">▼</span>
+          <IconChevron className="sec-chevron" size={15} />
           <span className="sec-title">{title}</span>
           {modified && <span className="sec-diamond" title="modified from default" />}
         </Collapsible.Trigger>
@@ -37,7 +38,7 @@ export function Section({ id, title, description, modified, onReset, children }:
           onClick={onReset}
           aria-label={`Reset ${title}`}
         >
-          ↺
+          <IconReset size={15} />
         </button>
       </div>
       <p className="sec-desc">{description}</p>
