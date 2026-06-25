@@ -211,23 +211,51 @@ function renderBrand(state: ThemeInputs): string {
 }
 
 // The playground consumes only semantic tokens (var(--color-*)), never raw ramp
-// steps — it is the proof that the semantic layer holds up in context.
+// steps — it is the proof that the semantic layer holds up in context. Structural
+// styling (radius/spacing) is illustrative CSS; only color comes from tokens.
 function renderPlaygroundTab(vars: string): string {
+  const STATUSES = ["success", "error", "warning", "info"] as const;
+  const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+
+  const alerts = STATUSES.map(
+    (s) =>
+      `<div class="pg-alert" style="background:var(--color-bg-${s}-subtle);color:var(--color-fg-${s})">
+        <strong>${cap(s)}</strong> — styled from --color-bg-${s}-subtle and --color-fg-${s}.
+      </div>`,
+  ).join("");
+
+  const badges = STATUSES.map(
+    (s) =>
+      `<span class="sample-chip" style="background:var(--color-bg-${s}-subtle);color:var(--color-fg-${s})">${s}</span>`,
+  ).join("");
+
   return `<div class="pv-section">
-    <div class="pv-section-title">In context · semantic tokens</div>
+    <div class="pv-section-title">Playground <span class="pv-legend">components styled entirely from semantic color tokens</span></div>
     <div class="sample" style="${vars}">
-      <h4 style="color:var(--color-fg-emphasis)">Tune the seed, read it in place</h4>
-      <p style="color:var(--color-fg)">Body copy on the raised surface, styled entirely from the generated semantic tokens.</p>
-      <p class="sample-muted" style="color:var(--color-fg-muted)">Muted annotation · <a href="#" style="color:var(--color-fg-link)">a link</a></p>
-      <div class="sample-field" style="background:var(--color-bg);border-color:var(--color-border-default)">
-        <span style="color:var(--color-fg-muted)">Input placeholder</span>
+      <div class="pg-card" style="background:var(--color-bg);border-color:var(--color-border-default)">
+        <h4 style="color:var(--color-fg-emphasis)">Tune the seed, read it in place</h4>
+        <p style="color:var(--color-fg)">Body copy on the raised surface, styled entirely from the generated semantic tokens.</p>
+        <p class="sample-muted" style="color:var(--color-fg-muted)">Muted annotation · <a href="#" style="color:var(--color-fg-link)">a link</a></p>
       </div>
       <div class="sample-row">
         <button class="sample-btn" style="background:var(--color-bg-accent);color:var(--color-fg-on-accent)">Primary action</button>
         <button class="sample-btn sample-btn--ghost" style="color:var(--color-fg-secondary);border-color:var(--color-border-default)">Secondary</button>
-        <span class="sample-chip" style="background:var(--color-bg-success-subtle);color:var(--color-fg-success)">Success</span>
-        <span class="sample-chip" style="background:var(--color-bg-error-subtle);color:var(--color-fg-error)">Error</span>
+        <button class="sample-btn" style="background:var(--color-bg-accent);color:var(--color-fg-on-accent);opacity:0.45" disabled>Disabled</button>
       </div>
+      <div class="pg-form">
+        <div class="sample-field" style="background:var(--color-bg);border-color:var(--color-border-default)">
+          <span style="color:var(--color-fg-muted)">Input placeholder</span>
+        </div>
+        <div class="sample-field" style="background:var(--color-bg);border-color:var(--color-fg-link)">
+          <span style="color:var(--color-fg)">Focused value</span>
+        </div>
+        <div class="sample-field" style="background:var(--color-bg);border-color:var(--color-fg-error)">
+          <span style="color:var(--color-fg)">Invalid value</span>
+        </div>
+        <p class="pg-help" style="color:var(--color-fg-error)">This field is required.</p>
+      </div>
+      <div class="pg-alerts">${alerts}</div>
+      <div class="sample-row">${badges}</div>
     </div></div>`;
 }
 
