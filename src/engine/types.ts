@@ -26,6 +26,12 @@ export interface ThemeInputs {
    * base + (n-1)·step. Omitted → engine defaults.
    */
   darkSurfaces?: { base: number; step: number };
+  /**
+   * When true, emit `color-{ramp}-alpha-{step}` twins for the 8 named ramps:
+   * each solid step solved (alphredo-style) to the most-transparent color that
+   * composites over white to match it. Omitted/false → no alpha twins (default).
+   */
+  alpha?: boolean;
 }
 
 /** A single resolved color. l in 0..1, h in degrees, alpha in 0..1. */
