@@ -12,7 +12,7 @@ export function oklchToDtcg(c: Oklch): object {
     colorSpace: "oklch",
     components: [round(c.l), round(c.c), round(c.h, 2)],
   };
-  if (c.alpha !== undefined) value.alpha = c.alpha;
+  if (c.alpha !== undefined) value.alpha = round(c.alpha);
   return { $type: "color", $value: value };
 }
 
