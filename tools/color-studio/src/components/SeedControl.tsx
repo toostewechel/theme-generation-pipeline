@@ -11,9 +11,11 @@ interface SeedControlProps {
   // tuning reshapes the ramp seed and emits no source, so a brand color set by
   // an earlier paste stays pinned.
   onSeed: (seed: HueSeed, source?: Oklch) => void;
+  /** When provided, render a remove (✕) button in the seed header. */
+  onRemove?: () => void;
 }
 
-export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
+export function SeedControl({ name, seed, onSeed, onRemove }: SeedControlProps) {
   // displayL echoes a pasted hex's lightness; it never affects generation.
   const [displayL, setDisplayL] = useState(REP_L);
   const [hexBad, setHexBad] = useState(false);
@@ -53,6 +55,17 @@ export function SeedControl({ name, seed, onSeed }: SeedControlProps) {
           onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
           title="Paste a brand hex — hue & chroma seed the ramp; the lightness shown just echoes your paste"
         />
+        {onRemove && (
+          <button
+            type="button"
+            className="seed-remove"
+            onClick={onRemove}
+            aria-label={`Remove ${name} accent`}
+            title={`Remove ${name} accent`}
+          >
+            ×
+          </button>
+        )}
       </div>
       <ParamSlider
         name="Hue" min={0} max={360} step={1} value={seed.hue}

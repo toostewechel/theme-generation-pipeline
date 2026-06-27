@@ -9,6 +9,10 @@ import { IconSun, IconMoon, IconReset } from "./icons.js";
 import {
   isSectionModified,
   resetSection,
+  presentAccentSlots,
+  accentCount,
+  addAccent,
+  removeAccent,
   type SectionKey,
 } from "../lib/theme-state.js";
 
@@ -25,7 +29,6 @@ interface SidebarProps {
   onResetAll: () => void;
 }
 
-const ACCENTS = ["primary", "secondary", "tertiary"] as const;
 const STATUS = ["success", "error", "warning", "info"] as const;
 
 export function Sidebar(props: SidebarProps) {
@@ -111,22 +114,34 @@ export function Sidebar(props: SidebarProps) {
         modified={mod("accents")}
         onReset={() => reset("accents")}
       >
-        {ACCENTS.map((key) => (
+        {presentAccentSlots(state).map((key, i, all) => (
           <SeedControl
             key={key}
             name={key}
-            seed={state.accents[key]}
+            seed={state.accents[key]!}
             onSeed={(seed: HueSeed, source?: Oklch) =>
               onChange({
                 ...state,
                 accents: { ...state.accents, [key]: seed },
-                // Brand is only rewritten on a paste (source present); slider tuning
-                // leaves the pinned brand color intact.
                 ...(source ? { brand: { ...state.brand, [key]: source } } : {}),
               })
             }
+            onRemove={
+              key !== "primary" && i === all.length - 1
+                ? () => onChange(removeAccent(state))
+                : undefined
+            }
           />
         ))}
+        {accentCount(state) < 3 && (
+          <button
+            type="button"
+            className="btn btn--ghost add-accent"
+            onClick={() => onChange(addAccent(state))}
+          >
+            + Add accent
+          </button>
+        )}
       </Section>
 
       <Section
