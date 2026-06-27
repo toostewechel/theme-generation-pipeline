@@ -134,8 +134,8 @@ const ALPHA_RAMPS: (keyof RampSet)[] = [
 // Alpha-over-white twins on a white plate, so "matches the solid" reads at a
 // glance regardless of the preview's light/dark mode (these are solved vs white).
 function renderAlphaRamps(set: RampSet): string {
-  const rows = ALPHA_RAMPS.map((name) => {
-    const ramp = set[name] as Record<string, Oklch>;
+  const rows = ALPHA_RAMPS.filter((name) => set[name]).map((name) => {
+    const ramp = set[name]! as Record<string, Oklch>;
     const chips = Object.entries(ramp).map(([step, color]) => {
       const twin = alphaOverWhite(color);
       return `<div class="chip" title="${name}-alpha-${step} · α ${twin.alpha?.toFixed(3)}">
@@ -157,8 +157,8 @@ function renderLabelOnFill(set: RampSet): string {
     ["Primary", "accent"], ["Secondary", "secondary"], ["Tertiary", "tertiary"],
     ["Success", "success"], ["Error", "error"], ["Warning", "warning"], ["Info", "info"],
   ];
-  const pills = intents.map(([label, fam]) => {
-    const fill = set[fam]["500"];
+  const pills = intents.filter(([, fam]) => set[fam]).map(([label, fam]) => {
+    const fill = set[fam]!["500"];
     const r = contrastRatio(fill, white).toFixed(2);
     return `<span class="fill-pill" style="background:${css(fill)}" title="white on ${label} fill = ${r}:1">Label</span>`;
   }).join("");
@@ -189,8 +189,8 @@ function renderBrand(state: ThemeInputs): string {
   const slots: [string, "primary" | "secondary" | "tertiary"][] = [
     ["primary", "primary"], ["secondary", "secondary"], ["tertiary", "tertiary"],
   ];
-  const items = slots.map(([label, slot]) => {
-    const seed = state.accents[slot];
+  const items = slots.filter(([, slot]) => state.accents[slot]).map(([label, slot]) => {
+    const seed = state.accents[slot]!;
     const c = state.brand?.[slot] ?? { l: 0.62, c: seed.chroma, h: seed.hue };
     const hex = hexOf(c);
     return `<div class="brand-item">
