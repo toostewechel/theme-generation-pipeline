@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildGeneratedFiles, buildPrimitivesDtcg, buildSemanticDtcg, BANNER } from "./dtcg.js";
+import { buildGeneratedFiles, buildPrimitivesDtcg, BANNER } from "./dtcg.js";
 import { buildRamps } from "./ramps.js";
 import type { ThemeInputs } from "./types.js";
 
@@ -22,10 +22,8 @@ const INPUTS: ThemeInputs = {
 describe("buildGeneratedFiles", () => {
   const files = buildGeneratedFiles(INPUTS);
 
-  it("contains exactly the three canonical filenames", () => {
+  it("contains exactly the one canonical filename", () => {
     expect(Object.keys(files).sort()).toEqual([
-      "color.dark.tokens.json",
-      "color.light.tokens.json",
       "primitives-color.mode-1.tokens.json",
     ]);
   });
@@ -43,10 +41,6 @@ describe("buildGeneratedFiles", () => {
     };
     expect(strip(files["primitives-color.mode-1.tokens.json"] as any))
       .toEqual(buildPrimitivesDtcg(INPUTS));
-    expect(strip(files["color.light.tokens.json"] as any))
-      .toEqual(buildSemanticDtcg(INPUTS, "light"));
-    expect(strip(files["color.dark.tokens.json"] as any))
-      .toEqual(buildSemanticDtcg(INPUTS, "dark"));
   });
 });
 

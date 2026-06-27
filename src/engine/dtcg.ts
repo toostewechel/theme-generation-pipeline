@@ -86,7 +86,5 @@ export function buildGeneratedFiles(inputs: ThemeInputs): Record<string, object>
   const withBanner = (obj: object) => ({ $description: BANNER, ...obj });
   return {
     "primitives-color.mode-1.tokens.json": withBanner(buildPrimitivesDtcg(inputs)),
-    "color.light.tokens.json": withBanner(buildSemanticDtcg(inputs, "light")),
-    "color.dark.tokens.json": withBanner(buildSemanticDtcg(inputs, "dark")),
   };
 }
