@@ -272,7 +272,7 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = { ...LEAN_DARK, ...K
 /** A semantic ref to an absent accent slot falls back to primary (`accent`),
  * so the resolver stays total for any accent count. UI guarantees tail-order;
  * the engine just substitutes whatever accent slot is missing. */
-function accentOrFallback(ramp: RefSpec["ramp"], ramps: RampSet): RefSpec["ramp"] {
+function accentOrFallback<T extends RefSpec["ramp"]>(ramp: T, ramps: RampSet): T | "accent" {
   if ((ramp === "secondary" || ramp === "tertiary") && !ramps[ramp]) return "accent";
   return ramp;
 }
