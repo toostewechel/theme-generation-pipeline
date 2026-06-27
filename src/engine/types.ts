@@ -10,7 +10,7 @@ export type ContrastInput = number | "low" | "default" | "high";
 export interface ThemeInputs {
   neutral: HueSeed;
   contrast: ContrastInput;
-  accents: { primary: HueSeed; secondary: HueSeed; tertiary: HueSeed };
+  accents: { primary: HueSeed; secondary?: HueSeed; tertiary?: HueSeed };
   status: { success: HueSeed; error: HueSeed; warning: HueSeed; info: HueSeed };
   /**
    * Verbatim source colors per accent slot, emitted as `color-brand-*` tokens.
@@ -47,9 +47,9 @@ export type Ramp = Record<string, Oklch>;
 
 export interface RampSet {
   neutral: Ramp;
-  accent: Ramp; // primary
-  secondary: Ramp; // sky
-  tertiary: Ramp; // pink
+  accent: Ramp; // primary (always present)
+  secondary?: Ramp; // 2nd accent, omitted when absent
+  tertiary?: Ramp; // 3rd accent, omitted when absent
   success: Ramp;
   error: Ramp;
   warning: Ramp;
