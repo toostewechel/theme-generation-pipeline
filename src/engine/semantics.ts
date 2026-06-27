@@ -269,15 +269,25 @@ export const SEMANTICS_DARK: Record<string, SemanticSpec> = { ...LEAN_DARK, ...K
 
 // ─── Resolver ─────────────────────────────────────────────────────────────
 
+/** A semantic ref to an absent accent slot falls back to primary (`accent`),
+ * so the resolver stays total for any accent count. UI guarantees tail-order;
+ * the engine just substitutes whatever accent slot is missing. */
+function accentOrFallback(ramp: RefSpec["ramp"], ramps: RampSet): RefSpec["ramp"] {
+  if ((ramp === "secondary" || ramp === "tertiary") && !ramps[ramp]) return "accent";
+  return ramp;
+}
+
 function resolveSpec(spec: SemanticSpec, ramps: RampSet, k: number): ResolvedToken {
   if (spec.kind === "raw") return { raw: spec.token };
   if (spec.kind === "passthrough") return { ref: spec.name };
-  if (spec.kind === "ref") return { ref: nameFor(spec.ramp, spec.step) };
+  if (spec.kind === "ref") return { ref: nameFor(accentOrFallback(spec.ramp, ramps), spec.step) };
   // target: contrast-resolved ref
-  const surface = ramps[spec.onRamp][spec.onStep];
+  const onRamp = accentOrFallback(spec.onRamp, ramps);
+  const fam = accentOrFallback(spec.ramp, ramps);
+  const surface = ramps[onRamp]![spec.onStep];
   const min = targetFor(spec.min, k);
-  const step = resolveOnSurface(ramps[spec.ramp], surface, min, stepsFor(spec.ramp));
-  return { ref: nameFor(spec.ramp, step) };
+  const step = resolveOnSurface(ramps[fam]!, surface, min, stepsFor(fam));
+  return { ref: nameFor(fam, step) };
 }
 
 export function resolveSemantics(
