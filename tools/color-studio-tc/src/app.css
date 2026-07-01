@@ -35,3 +35,17 @@
   ) {
   background-color: color-mix(in oklab, var(--foreground) 28%, transparent);
 }
+
+/* Same story for the Segmented tabs (outline toggle variant): border
+   `--border 12%` + track `--input 5%` are near-invisible in light mode. Darken
+   the tab border, and give unselected tabs a faint track — leaving the selected
+   tab's highlight untouched. Light mode only. */
+:root:not(.dark) [data-slot="toggle-group-item"][data-variant="outline"] {
+  border-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+}
+:root:not(.dark)
+  [data-slot="toggle-group-item"][data-variant="outline"]:not([data-pressed]):not(
+    [aria-pressed="true"]
+  ):not([data-state="on"]) {
+  background-color: color-mix(in oklab, var(--foreground) 4%, transparent);
+}
