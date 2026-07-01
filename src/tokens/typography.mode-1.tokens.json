@@ -205,7 +205,7 @@
   },
   "typography-ui-primary-lg-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-semi-bold}"
   },
   "typography-ui-primary-lg-font-size": {
     "$type": "dimension",
@@ -225,7 +225,7 @@
   },
   "typography-ui-secondary-lg-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-ui-secondary-lg-font-size": {
     "$type": "dimension",
@@ -247,11 +247,11 @@
     "$type": "fontFamily",
     "$value": "{font-family-ui}"
   },
-  "typography-ui-primary-md-font-weight": {
-    "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
-  },
   "typography-ui-secondary-md-font-weight": {
+    "$type": "fontWeight",
+    "$value": "{font-weight-medium}"
+  },
+  "typography-ui-primary-md-font-weight": {
     "$type": "fontWeight",
     "$value": "{font-weight-semi-bold}"
   },
@@ -263,11 +263,11 @@
     "$type": "dimension",
     "$value": "{font-size-200}"
   },
-  "typography-ui-secondary-md-line-height": {
+  "typography-ui-primary-md-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-600}"
   },
-  "typography-ui-primary-md-line-height": {
+  "typography-ui-secondary-md-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-600}"
   },
@@ -279,21 +279,21 @@
     "$type": "dimension",
     "$value": "{font-letter-spacing-normal}"
   },
-  "typography-ui-secondary-sm-font-family": {
+  "typography-ui-primary-sm-font-family": {
     "$type": "fontFamily",
     "$value": "{font-family-ui}"
   },
-  "typography-ui-primary-sm-font-family": {
+  "typography-ui-secondary-sm-font-family": {
     "$type": "fontFamily",
     "$value": "{font-family-ui}"
   },
   "typography-ui-secondary-sm-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-ui-primary-sm-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-semi-bold}"
   },
   "typography-ui-primary-sm-font-size": {
     "$type": "dimension",
@@ -303,11 +303,11 @@
     "$type": "dimension",
     "$value": "{font-size-100}"
   },
-  "typography-ui-primary-sm-line-height": {
+  "typography-ui-secondary-sm-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-500}"
   },
-  "typography-ui-secondary-sm-line-height": {
+  "typography-ui-primary-sm-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-500}"
   },
@@ -329,11 +329,11 @@
   },
   "typography-ui-secondary-xs-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-semi-bold}"
+    "$value": "{font-weight-medium}"
   },
   "typography-ui-primary-xs-font-weight": {
     "$type": "fontWeight",
-    "$value": "{font-weight-bold}"
+    "$value": "{font-weight-semi-bold}"
   },
   "typography-ui-secondary-xs-font-size": {
     "$type": "dimension",
@@ -343,11 +343,11 @@
     "$type": "dimension",
     "$value": "{font-size-75}"
   },
-  "typography-ui-secondary-xs-line-height": {
+  "typography-ui-primary-xs-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-400}"
   },
-  "typography-ui-primary-xs-line-height": {
+  "typography-ui-secondary-xs-line-height": {
     "$type": "dimension",
     "$value": "{font-line-height-400}"
   },

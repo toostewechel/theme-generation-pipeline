@@ -4,8 +4,7 @@
     "primitives-color": {
       "modes": {
         "mode-1": [
-          "primitives-color.mode-1.tokens.json",
-          "primitives-color.static.tokens.json"
+          "primitives-color.mode-1.tokens.json"
         ]
       }
     },
