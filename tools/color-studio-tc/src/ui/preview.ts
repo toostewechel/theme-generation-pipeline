@@ -138,9 +138,13 @@ function renderAlphaRamps(set: RampSet): string {
     const ramp = set[name]! as Record<string, Oklch>;
     const chips = Object.entries(ramp).map(([step, color]) => {
       const twin = alphaOverWhite(color);
+      // The twin composited over white reads as the original solid `color`, so
+      // use the same contrast-adaptive ink as the solid ramp — the old fixed
+      // #111 was invisible on the darker alpha steps.
+      const ink = readableOn(color, set);
       return `<div class="chip" title="${name}-alpha-${step} · α ${twin.alpha?.toFixed(3)}">
         <span class="chip-fill" style="background:${css(twin)}">
-          <span class="step" style="color:#111">${step}</span>
+          <span class="step" style="color:${ink}">${step}</span>
         </span>
       </div>`;
     }).join("");
