@@ -102,8 +102,8 @@ export function buildRamps(inputs: ThemeInputs): RampSet {
   return {
     neutral: buildRamp(inputs.neutral, NEUTRAL_STEPS, NEUTRAL_LIGHTNESS, k),
     accent: hue(inputs.accents.primary),
-    secondary: hue(inputs.accents.secondary),
-    tertiary: hue(inputs.accents.tertiary),
+    ...(inputs.accents.secondary ? { secondary: hue(inputs.accents.secondary) } : {}),
+    ...(inputs.accents.tertiary ? { tertiary: hue(inputs.accents.tertiary) } : {}),
     success: hue(inputs.status.success),
     error: hue(inputs.status.error),
     warning: hue(inputs.status.warning),

@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { oklchToDtcg, buildPrimitivesDtcg, buildSemanticDtcg } from "./emit-dtcg.js";
 import themeInputs from "../../theme.config.js";
+import { mkdtempSync, readdirSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { writeGeneratedTokens } from "./emit-dtcg.js";
 
 describe("oklchToDtcg", () => {
   it("emits a DTCG oklch color object", () => {
@@ -68,5 +72,19 @@ describe("buildSemanticDtcg", () => {
   it("emits per-mode raw value for color-state-hover-intensity (dark)", () => {
     const dark = buildSemanticDtcg(themeInputs, "dark");
     expect(dark["color-state-hover-intensity"].$value.value).toBe(1.0499999523162842);
+  });
+});
+
+describe("writeGeneratedTokens", () => {
+  it("writes only the primitives file", () => {
+    const dir = mkdtempSync(join(tmpdir(), "tokens-"));
+    try {
+      writeGeneratedTokens(themeInputs, dir);
+      expect(readdirSync(dir).sort()).toEqual([
+        "primitives-color.mode-1.tokens.json",
+      ]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

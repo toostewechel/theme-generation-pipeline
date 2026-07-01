@@ -4,7 +4,3 @@ dist
 
 # Brainstorming visual companion
 .superpowers/
-
-# Playwright output
-tools/color-studio/test-results/
-tools/color-studio/playwright-report/

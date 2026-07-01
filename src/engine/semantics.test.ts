@@ -78,3 +78,14 @@ describe("intent border tokens", () => {
     });
   }
 });
+
+describe("resolveSemantics — missing accent fallback", () => {
+  it("resolves secondary-referencing tokens to the primary ramp when no secondary accent", () => {
+    const oneAccent = { ...themeInputs, accents: { primary: themeInputs.accents.primary } };
+    const ramps = buildRamps(oneAccent);
+    const resolved = resolveSemantics(ramps, oneAccent, "light");
+    // color-fg-secondary is ref("secondary", "700"); with no secondary accent it
+    // falls back to the primary ramp at the same step.
+    expect((resolved["color-fg-secondary"] as { ref: string }).ref).toBe("color-accent-700");
+  });
+});

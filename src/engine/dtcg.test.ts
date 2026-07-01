@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildGeneratedFiles, buildPrimitivesDtcg, buildSemanticDtcg, BANNER } from "./dtcg.js";
+import { buildGeneratedFiles, buildPrimitivesDtcg, BANNER } from "./dtcg.js";
 import { buildRamps } from "./ramps.js";
 import type { ThemeInputs } from "./types.js";
 
@@ -22,10 +22,8 @@ const INPUTS: ThemeInputs = {
 describe("buildGeneratedFiles", () => {
   const files = buildGeneratedFiles(INPUTS);
 
-  it("contains exactly the three canonical filenames", () => {
+  it("contains exactly the one canonical filename", () => {
     expect(Object.keys(files).sort()).toEqual([
-      "color.dark.tokens.json",
-      "color.light.tokens.json",
       "primitives-color.mode-1.tokens.json",
     ]);
   });
@@ -43,10 +41,6 @@ describe("buildGeneratedFiles", () => {
     };
     expect(strip(files["primitives-color.mode-1.tokens.json"] as any))
       .toEqual(buildPrimitivesDtcg(INPUTS));
-    expect(strip(files["color.light.tokens.json"] as any))
-      .toEqual(buildSemanticDtcg(INPUTS, "light"));
-    expect(strip(files["color.dark.tokens.json"] as any))
-      .toEqual(buildSemanticDtcg(INPUTS, "dark"));
   });
 });
 
@@ -88,5 +82,30 @@ describe("alpha-over-white twins", () => {
     const out = buildPrimitivesDtcg({ ...INPUTS, alpha: true }) as Record<string, any>;
     const alpha = out["color-accent-alpha-500"].$value.alpha;
     expect(alpha).toBe(Math.round(alpha * 1e4) / 1e4);
+  });
+});
+
+describe("buildPrimitivesDtcg — variable accents", () => {
+  const ONE = { ...INPUTS, accents: { primary: INPUTS.accents.primary } };
+
+  it("omits secondary/tertiary ramp tokens when only primary is present", () => {
+    const out = buildPrimitivesDtcg(ONE);
+    expect(out["color-accent-500"]).toBeDefined();
+    expect(out["color-secondary-500"]).toBeUndefined();
+    expect(out["color-tertiary-500"]).toBeUndefined();
+  });
+
+  it("omits brand tokens for absent accent slots", () => {
+    const out = buildPrimitivesDtcg(ONE);
+    expect(out["color-brand-primary"]).toBeDefined();
+    expect(out["color-brand-secondary"]).toBeUndefined();
+    expect(out["color-brand-tertiary"]).toBeUndefined();
+  });
+
+  it("omits alpha twins for absent accent ramps", () => {
+    const out = buildPrimitivesDtcg({ ...ONE, alpha: true });
+    expect(out["color-accent-alpha-500"]).toBeDefined();
+    expect(out["color-secondary-alpha-500"]).toBeUndefined();
+    expect(out["color-tertiary-alpha-500"]).toBeUndefined();
   });
 });

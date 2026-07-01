@@ -4,6 +4,51 @@ A plain-English running log of notable features added to the pipeline — what t
 
 ---
 
+## 2026-07-01 — Variable Accents (1–3) 🎚️ *(for designers)*
+
+**One line:** You can now add and remove accent colors in Color Studio — anywhere from **1 to 3** — instead of being locked to exactly three, and the engine emits only the accents that actually exist.
+
+### The problem it solves (ELI5)
+
+The system always assumed **three** accents: primary, secondary, tertiary. But not every brand wants three — plenty are built around a single accent, or two. Forcing a third meant either inventing a color nobody uses or leaving a slot that quietly muddies the palette. There was no way to say "this theme has one accent" and have the whole system agree.
+
+### What it does
+
+Accents are now **named, tail-ordered slots** — `primary` is always present, then you can add `secondary`, then `tertiary`, up to a max of three. In the Studio sidebar you get an **"Add accent"** button (until you hit three) and a remove (✕) control on the last accent (down to a minimum of one).
+
+The important design choices that keep it safe:
+
+- **Names stay frozen.** The 2nd accent is *always* `secondary`, the 3rd *always* `tertiary` — so token names never renumber and the Figma round-trip is preserved.
+- **The engine emits only what exists.** With one accent, no `color-secondary-*` / `color-tertiary-*` ramps, brand tokens, or alpha twins are generated — the Figma seed export shrinks to match.
+- **The preview never breaks.** In the Playground, a reference to a missing accent (e.g. `color-fg-secondary`) falls back to the **primary** accent at the same step, so every `--color-*` var stays defined and components render fully at any accent count.
+- **Tail-ordering by construction.** You can't have a tertiary without a secondary — the UI guarantees it, so the engine stays simple and just emits each slot independently.
+
+New accents come in with a sensible default: the hue is rotated 90° from primary (secondary → +90°, tertiary → +180°) at primary's chroma, so an added accent lands somewhere visually distinct rather than on top of what's already there.
+
+### How you use it
+
+```bash
+npm run preview:studio      # opens the Studio
+```
+
+- Click **Add accent** to grow the palette (up to 3); click ✕ on the last accent to shrink it (down to 1).
+- **Save to config** writes the accent set — including its count — back into [theme.config.ts](theme.config.ts).
+- `npm run build:theme` then regenerates the token files, emitting ramps/brand/alpha only for the accents present.
+
+### Why it's valuable
+
+- **Honest to the brand.** A one-accent brand produces a one-accent system — no phantom colors to ignore or misuse.
+- **Smaller, cleaner output.** Fewer accents means fewer generated tokens and a leaner Figma seed, not dead slots.
+- **Zero naming churn.** Because slots are named and tail-ordered, adding or removing an accent never renames anything that stayed — the Name-Drift Guard sees only genuine adds/removes.
+
+### Good to know
+
+- **Status stays a fixed four** (success / error / warning / info) — this change is about *accents* only.
+- Removal is **tail-based**: you drop the last accent, not an arbitrary middle one, so there's never a gap to renumber.
+- Built on the primitives-only engine: removing an accent affects which primitives are emitted and the live preview — never the semantic mapping shipped to Figma.
+
+---
+
 ## 2026-06-25 — Preview Tabs: Color Ramps & Playground 🗂️ *(for designers)*
 
 **One line:** The Color Studio preview is split into two tabs — the palette ("Color ramps") and a live component "Playground" — so each view is clean and focused instead of one long scroll.

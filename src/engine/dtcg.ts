@@ -37,6 +37,7 @@ export function buildPrimitivesDtcg(inputs: ThemeInputs): Record<string, object>
   const ramps = buildRamps(inputs);
   for (const [key, prefix] of Object.entries(rampNamePrefix)) {
     const ramp = ramps[key as keyof typeof ramps];
+    if (!ramp) continue;
     for (const [step, color] of Object.entries(ramp)) {
       out[`${prefix}-${step}`] = oklchToDtcg(color);
     }
@@ -49,12 +50,11 @@ export function buildPrimitivesDtcg(inputs: ThemeInputs): Record<string, object>
     out[`color-neutral-dark-surface-${step}`] = oklchToDtcg(color);
   }
 
-  const slots: ["primary" | "secondary" | "tertiary", HueSeed][] = [
-    ["primary", inputs.accents.primary],
-    ["secondary", inputs.accents.secondary],
-    ["tertiary", inputs.accents.tertiary],
-  ];
-  for (const [slot, seed] of slots) {
+  const brandSlots = (["primary", "secondary", "tertiary"] as const).filter(
+    (slot) => inputs.accents[slot],
+  );
+  for (const slot of brandSlots) {
+    const seed = inputs.accents[slot]!;
     const brand = inputs.brand?.[slot] ?? { l: BRAND_DEFAULT_L, c: seed.chroma, h: seed.hue };
     out[`color-brand-${slot}`] = oklchToDtcg(brand);
   }
@@ -62,6 +62,7 @@ export function buildPrimitivesDtcg(inputs: ThemeInputs): Record<string, object>
   if (inputs.alpha) {
     for (const [key, prefix] of Object.entries(rampNamePrefix)) {
       const ramp = ramps[key as keyof typeof ramps];
+      if (!ramp) continue;
       for (const [step, color] of Object.entries(ramp)) {
         out[`${prefix}-alpha-${step}`] = oklchToDtcg(alphaOverWhite(color));
       }
@@ -86,7 +87,5 @@ export function buildGeneratedFiles(inputs: ThemeInputs): Record<string, object>
   const withBanner = (obj: object) => ({ $description: BANNER, ...obj });
   return {
     "primitives-color.mode-1.tokens.json": withBanner(buildPrimitivesDtcg(inputs)),
-    "color.light.tokens.json": withBanner(buildSemanticDtcg(inputs, "light")),
-    "color.dark.tokens.json": withBanner(buildSemanticDtcg(inputs, "dark")),
   };
 }

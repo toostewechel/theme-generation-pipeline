@@ -91,3 +91,36 @@ describe("strict monotonic lightness at high contrast", () => {
     });
   }
 });
+
+describe("buildRamps — variable accents", () => {
+  it("omits secondary and tertiary when only primary is present", () => {
+    const BASE: ThemeInputs = {
+      neutral: { hue: 70, chroma: 0.006 },
+      contrast: "default",
+      accents: { primary: { hue: 138, chroma: 0.12 } },
+      status: {
+        success: { hue: 150, chroma: 0.12 }, error: { hue: 25, chroma: 0.17 },
+        warning: { hue: 70, chroma: 0.15 }, info: { hue: 240, chroma: 0.12 },
+      },
+    };
+    const set = buildRamps(BASE);
+    expect(set.accent).toBeDefined();
+    expect("secondary" in set).toBe(false);
+    expect("tertiary" in set).toBe(false);
+  });
+
+  it("includes secondary but omits tertiary when two accents are present", () => {
+    const BASE: ThemeInputs = {
+      neutral: { hue: 70, chroma: 0.006 },
+      contrast: "default",
+      accents: { primary: { hue: 138, chroma: 0.12 }, secondary: { hue: 220, chroma: 0.11 } },
+      status: {
+        success: { hue: 150, chroma: 0.12 }, error: { hue: 25, chroma: 0.17 },
+        warning: { hue: 70, chroma: 0.15 }, info: { hue: 240, chroma: 0.12 },
+      },
+    };
+    const set = buildRamps(BASE);
+    expect(set.secondary).toBeDefined();
+    expect("tertiary" in set).toBe(false);
+  });
+});
