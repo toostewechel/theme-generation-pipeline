@@ -46,9 +46,13 @@ export default function App() {
   const onSave = async () => {
     try {
       const res = await fetch("/__save-theme", { method: "POST", body: serializeConfig(state) });
-      if (res.ok) toast.success("Saved ✓"); else toast.error("Save failed");
+      if (res.ok) toast.success("Saved ✓");
+      // The /__save-theme endpoint only exists on the Vite dev/preview server. A
+      // non-OK status means it's missing (e.g. a static build) — say so.
+      else toast.error(`Save failed (HTTP ${res.status})`);
     } catch {
-      toast.error("Save failed");
+      // fetch rejected: the dev/preview server isn't reachable at this origin.
+      toast.error("Save failed — dev server not reachable (run via `npm run dev`)");
     }
   };
 
