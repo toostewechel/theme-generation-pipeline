@@ -11,8 +11,7 @@
     "paths": {
       "@ui": ["./src/ui/index.ts"],
       "@ui/*": ["./src/ui/*"]
-    },
-    "baseUrl": "."
+    }
   },
   "include": ["src"]
 }
