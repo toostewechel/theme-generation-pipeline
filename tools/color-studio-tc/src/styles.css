@@ -6,6 +6,7 @@
 @import "./ui/styles.css";
 @import "./ui/runtime-theme.css";
 @import "./preview.css";
+@import "./app.css";
 
 @theme {
   --spacing-field-control: 0.3125rem;
