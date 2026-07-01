@@ -415,7 +415,7 @@
 .cs-swatch > i { display: block; width: 14px; height: 14px; border-radius: 4px; }
 .cs-seed-name { font-size: 12px; font-weight: 500; }
 .cs-hex {
-  width: 96px; text-align: right; white-space: nowrap;
+  margin-left: auto; width: 96px; text-align: right; white-space: nowrap;
   font-family: var(--font-mono); font-size: 10.5px; text-transform: lowercase;
   color: var(--muted-foreground); background: var(--card);
   border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 7px;
@@ -429,9 +429,7 @@
 .cs-seed-remove:hover { color: var(--foreground); }
 
 /* Hue wheel — a tiny color compass; the marker points at the seed's current hue.
-   Sits in the right group beside the hex input; the auto margin pushes that
-   group to the right edge. */
-.cs-seed-head .cs-huewheel { margin-left: auto; }
+   Sits just right of the hex input (the hex carries the right-group auto margin). */
 .cs-huewheel {
   position: relative;
   flex: none;

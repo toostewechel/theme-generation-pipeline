@@ -40,7 +40,6 @@ export function SeedControl({ name, seed, onSeed, onRemove }: SeedControlProps) 
       <div className="cs-seed-head">
         <span className="cs-swatch"><i style={{ background: swatchCss(displayL, seed.hue, seed.chroma) }} /></span>
         <span className="cs-seed-name">{name}</span>
-        <HueWheel hue={seed.hue} />
         <input
           className={"cs-hex" + (hexBad ? " cs-hex--bad" : "")}
           type="text" spellCheck={false} defaultValue={hexValue} key={hexValue}
@@ -48,6 +47,7 @@ export function SeedControl({ name, seed, onSeed, onRemove }: SeedControlProps) 
           onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
           title="Paste a brand hex — hue & chroma seed the ramp; the lightness shown just echoes your paste"
         />
+        <HueWheel hue={seed.hue} />
         {onRemove && (
           <button type="button" className="cs-seed-remove" onClick={onRemove}
             aria-label={`Remove ${name} accent`} title={`Remove ${name} accent`}>×</button>
