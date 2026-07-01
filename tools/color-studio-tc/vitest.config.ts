@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, defaultExclude } from "vitest/config";
 import { resolve } from "path";
 
 export default defineConfig({
@@ -9,5 +9,5 @@ export default defineConfig({
       "@ui": resolve(__dirname, "src/ui/index.ts"),
     },
   },
-  test: { environment: "node", globals: true },
+  test: { environment: "node", globals: true, exclude: ["e2e/**", ...defaultExclude] },
 });
