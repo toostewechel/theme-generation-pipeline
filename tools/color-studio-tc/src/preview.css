@@ -414,8 +414,11 @@
 }
 .cs-swatch > i { display: block; width: 14px; height: 14px; border-radius: 4px; }
 .cs-seed-name { font-size: 12px; font-weight: 500; }
+/* Right group: remove (×), hex, hue wheel — pushed to the right edge as a unit. */
+.cs-seed-tail { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .cs-hex {
-  margin-left: auto; width: 96px; text-align: right; white-space: nowrap;
+  /* The value is always 7 chars (#rrggbb), so a snug width fits the content. */
+  width: 4.4rem; text-align: right; white-space: nowrap;
   font-family: var(--font-mono); font-size: 10.5px; text-transform: lowercase;
   color: var(--muted-foreground); background: var(--card);
   border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 7px;

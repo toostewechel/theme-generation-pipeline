@@ -40,18 +40,20 @@ export function SeedControl({ name, seed, onSeed, onRemove }: SeedControlProps) 
       <div className="cs-seed-head">
         <span className="cs-swatch"><i style={{ background: swatchCss(displayL, seed.hue, seed.chroma) }} /></span>
         <span className="cs-seed-name">{name}</span>
-        <input
-          className={"cs-hex" + (hexBad ? " cs-hex--bad" : "")}
-          type="text" spellCheck={false} defaultValue={hexValue} key={hexValue}
-          onBlur={(e) => onHexCommit(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-          title="Paste a brand hex — hue & chroma seed the ramp; the lightness shown just echoes your paste"
-        />
-        <HueWheel hue={seed.hue} />
-        {onRemove && (
-          <button type="button" className="cs-seed-remove" onClick={onRemove}
-            aria-label={`Remove ${name} accent`} title={`Remove ${name} accent`}>×</button>
-        )}
+        <span className="cs-seed-tail">
+          {onRemove && (
+            <button type="button" className="cs-seed-remove" onClick={onRemove}
+              aria-label={`Remove ${name} accent`} title={`Remove ${name} accent`}>×</button>
+          )}
+          <input
+            className={"cs-hex" + (hexBad ? " cs-hex--bad" : "")}
+            type="text" spellCheck={false} defaultValue={hexValue} key={hexValue}
+            onBlur={(e) => onHexCommit(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
+            title="Paste a brand hex — hue & chroma seed the ramp; the lightness shown just echoes your paste"
+          />
+          <HueWheel hue={seed.hue} />
+        </span>
       </div>
       <NumericControl
         name="Hue" min={0} max={360} step={1} value={seed.hue}
