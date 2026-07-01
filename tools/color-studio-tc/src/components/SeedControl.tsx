@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { oklch } from "culori";
 import type { HueSeed, Oklch } from "@project/src/engine/index.js";
 import { NumericControl } from "./NumericControl.js";
+import { HueWheel } from "./HueWheel.js";
 import { hexOf, parseHex, swatchCss, REP_L } from "../lib/controls-math.js";
 
 interface SeedControlProps {
@@ -39,6 +40,7 @@ export function SeedControl({ name, seed, onSeed, onRemove }: SeedControlProps) 
       <div className="cs-seed-head">
         <span className="cs-swatch"><i style={{ background: swatchCss(displayL, seed.hue, seed.chroma) }} /></span>
         <span className="cs-seed-name">{name}</span>
+        <HueWheel hue={seed.hue} />
         <input
           className={"cs-hex" + (hexBad ? " cs-hex--bad" : "")}
           type="text" spellCheck={false} defaultValue={hexValue} key={hexValue}
