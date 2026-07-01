@@ -1309,6 +1309,10 @@ git commit -m "feat(color-studio-tc): port e2e regression; retire tools/color-st
 
 ---
 
+## Amendment (2026-07-01, during execution)
+
+**Typecheck gate dropped — matches project precedent.** This project (and the old `tools/color-studio`) never run `tsc`; builds compile via Vite/esbuild without typechecking, and the verbatim-copied `preview.ts` carries latent strict-mode type errors. Forcing `tsc --noEmit` would either fail on pre-existing issues or force edits to verbatim-copied files (violating the reuse constraint). So: `npm run build` is `vite build` (not `tsc && vite build`), and the per-task `tsc --noEmit` gate in Tasks 5–8 is replaced by **`vite build` succeeds + `npm run test` stays green + Playwright/manual runtime checks**. (User-confirmed.)
+
 ## Notes / Deferred
 
 - **Gradient slider tracks + labeled ticks** (old `hueTrack`/`chromaTrack` + low/default/high labels) are dropped for v1 per the spec's Friction Point 1 — Toolcraft's `Slider` supports neither natively. Revisit as an enhancement (either a custom wrapper over the slider primitive, or contribute a track-background prop). `hueTrack`/`chromaTrack` stay exported from `controls-math` for that future work.
