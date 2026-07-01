@@ -9,7 +9,7 @@
     "test:watch": "vitest",
     "preview:fluid": "cd tools/fluid-preview && npm run dev",
     "preview:radius": "cd tools/radius-preview && npm run dev",
-    "preview:studio": "cd tools/color-studio && npm run dev"
+    "preview:studio": "cd tools/color-studio-tc && npm run dev"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

@@ -4,7 +4,8 @@ test("panel and slider render styled", async ({ page }) => {
   await page.goto("/");
 
   // Toolcraft panel surface has a non-transparent background once themed.
-  const panelTitle = page.getByText("Smoke Test");
+  // The real app renders "Color Studio" as the panel title.
+  const panelTitle = page.getByText("Color Studio");
   await expect(panelTitle).toBeVisible();
 
   // The slider primitive exposes role=slider.
@@ -15,7 +16,8 @@ test("panel surface has themed background (not transparent)", async ({ page }) =
   await page.goto("/");
 
   // Wait for the panel title to confirm the app has rendered.
-  await expect(page.getByText("Smoke Test")).toBeVisible();
+  // The real app renders "Color Studio" as the panel title.
+  await expect(page.getByText("Color Studio")).toBeVisible();
 
   // Check that body has the light background color (--background: oklch(1 0 0) = white).
   // Chromium may return the color in oklch or rgb depending on version.
@@ -45,7 +47,7 @@ test("panel surface has themed background (not transparent)", async ({ page }) =
 
 test("dark mode changes body background", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Smoke Test")).toBeVisible();
+  await expect(page.getByText("Color Studio")).toBeVisible();
 
   // Record light background first.
   const lightBg = await page.evaluate(() =>
