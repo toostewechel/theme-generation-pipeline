@@ -30,12 +30,12 @@ Assemble e.g.:
 
 ## Step 1 — Confirm the resolved inputs
 
-Resolve + echo the COMPLETE inputs (including every defaulted field) and show them to the user for approval before writing anything:
+Run this to print the resolved inputs:
 
 ```bash
-echo '<partial-json>' | npx tsx scripts/generateTheme.ts --emit-bundle >/dev/null && echo "inputs valid"
+echo '<partial-json>' | npx tsx scripts/generateTheme.ts --emit-resolved
 ```
-If validation fails, the CLI prints the errors to stderr and exits 1 — fix the inputs and retry. Present the resolved `ThemeInputs` and wait for a go-ahead.
+Show the COMPLETE resolved `ThemeInputs` (including every defaulted field) to the user and wait for approval before writing anything. If validation fails, the CLI prints the errors to stderr and exits 1 — fix the inputs and retry.
 
 ## Step 2 — Repo path (if the user wants tokens/CSS)
 

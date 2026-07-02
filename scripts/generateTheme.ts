@@ -18,6 +18,7 @@ const { values } = parseArgs({
     build: { type: "boolean" },
     "emit-bundle": { type: "boolean" },
     "emit-figma-plan": { type: "boolean" },
+    "emit-resolved": { type: "boolean" },
   },
 });
 
@@ -53,6 +54,9 @@ function main(): void {
   }
   if (values["emit-figma-plan"]) {
     process.stdout.write(JSON.stringify(buildFigmaVariablePlan(resolved), null, 2));
+  }
+  if (values["emit-resolved"]) {
+    process.stdout.write(JSON.stringify(resolved, null, 2));
   }
 }
 
