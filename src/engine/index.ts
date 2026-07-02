@@ -8,5 +8,6 @@ export * from "./alpha-over.js";
 export * from "./semantics.js";
 export * from "./dtcg.js";
 export * from "./figma-export.js";
+export * from "./figma-names.js";
 export * from "./token-drift.js";
 export * from "./hex-input.js";
