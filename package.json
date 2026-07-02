@@ -4,6 +4,7 @@
     "build:tokens": "npx tsx scripts/buildTokens.ts",
     "build:tokens-nd": "npx tsx scripts/buildTokens.ts --no-descriptions",
     "build:theme": "npx tsx scripts/buildTheme.ts",
+    "generate:theme": "npx tsx scripts/generateTheme.ts",
     "check:token-drift": "npx tsx scripts/checkTokenDrift.ts",
     "test": "vitest run",
     "test:watch": "vitest",
