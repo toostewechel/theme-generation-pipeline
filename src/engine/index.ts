@@ -12,3 +12,4 @@ export * from "./figma-names.js";
 export * from "./token-drift.js";
 export * from "./hex-input.js";
 export * from "./config-source.js";
+export * from "./resolve-inputs.js";
