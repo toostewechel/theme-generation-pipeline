@@ -3,8 +3,38 @@
   "collections": {
     "primitives-color": {
       "modes": {
+        "value": [
+          "primitives-color.value.tokens.json"
+        ]
+      }
+    },
+    "primitives-radius": {
+      "modes": {
+        "small": [
+          "primitives-radius.small.tokens.json"
+        ],
+        "medium": [
+          "primitives-radius.medium.tokens.json"
+        ],
+        "large": [
+          "primitives-radius.large.tokens.json"
+        ],
+        "full": [
+          "primitives-radius.full.tokens.json"
+        ]
+      }
+    },
+    "primitives-dimension": {
+      "modes": {
         "mode-1": [
-          "primitives-color.mode-1.tokens.json"
+          "primitives-dimension.mode-1.tokens.json"
+        ]
+      }
+    },
+    "primitives-font": {
+      "modes": {
+        "value": [
+          "primitives-font.value.tokens.json"
         ]
       }
     },
@@ -18,54 +48,27 @@
         ]
       }
     },
-    "primitives-font": {
+    "text-styles": {
       "modes": {
-        "mode-1": [
-          "primitives-font.mode-1.tokens.json"
+        "value": [
+          "text-styles.value.tokens.json"
         ]
       }
     },
-    "primitives-dimension": {
+    "size": {
       "modes": {
-        "mode-1": [
-          "primitives-dimension.mode-1.tokens.json"
+        "value": [
+          "size.value.tokens.json"
         ]
       }
     },
-    "dimension": {
+    "border": {
       "modes": {
-        "mode-1": [
-          "dimension.mode-1.tokens.json"
-        ]
-      }
-    },
-    "typography": {
-      "modes": {
-        "mode-1": [
-          "typography.mode-1.tokens.json"
-        ]
-      }
-    },
-    "primitives-radius": {
-      "modes": {
-        "mode-1": [
-          "primitives-radius.mode-1.tokens.json"
-        ]
-      }
-    },
-    "radius": {
-      "modes": {
-        "sharp": [
-          "radius.sharp.tokens.json"
-        ],
         "default": [
-          "radius.default.tokens.json"
+          "border.default.tokens.json"
         ],
-        "rounded": [
-          "radius.rounded.tokens.json"
-        ],
-        "pill": [
-          "radius.pill.tokens.json"
+        "bold": [
+          "border.bold.tokens.json"
         ]
       }
     }
@@ -76,6 +79,9 @@
     ],
     "effects": [
       "effects.styles.tokens.json"
+    ],
+    "color": [
+      "color.styles.tokens.json"
     ]
   }
 }

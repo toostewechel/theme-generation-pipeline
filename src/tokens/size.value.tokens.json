@@ -1,0 +1,42 @@
+{
+  "component-height-xxs": {
+    "$type": "dimension",
+    "$value": "{size-500}"
+  },
+  "component-height-xs": {
+    "$type": "dimension",
+    "$value": "{size-600}"
+  },
+  "component-height-sm": {
+    "$type": "dimension",
+    "$value": "{size-800}"
+  },
+  "component-height-md": {
+    "$type": "dimension",
+    "$value": "{size-1000}"
+  },
+  "component-height-lg": {
+    "$type": "dimension",
+    "$value": "{size-1200}"
+  },
+  "component-height-xl": {
+    "$type": "dimension",
+    "$value": "{size-1400}"
+  },
+  "icon-xs": {
+    "$type": "dimension",
+    "$value": "{size-400}"
+  },
+  "icon-sm": {
+    "$type": "dimension",
+    "$value": "{size-500}"
+  },
+  "icon-md": {
+    "$type": "dimension",
+    "$value": "{size-600}"
+  },
+  "icon-lg": {
+    "$type": "dimension",
+    "$value": "{size-700}"
+  }
+}

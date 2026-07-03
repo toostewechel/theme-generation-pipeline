@@ -1,94 +1,82 @@
 {
-  "radius-unit": {
-    "$type": "dimension",
-    "$value": {
-      "value": 4,
-      "unit": "px"
-    }
-  },
-  "radius-scale-xs": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0.5,
-      "unit": "px"
-    },
-    "$description": "unitless"
-  },
-  "radius-none": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0,
-      "unit": "px"
-    }
-  },
-  "radius-scale-sm": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0.75,
-      "unit": "px"
-    },
-    "$description": "unitless"
-  },
-  "radius-full": {
+  "1": {
     "$type": "dimension",
     "$value": {
       "value": 9999,
       "unit": "px"
     }
   },
-  "radius-scale-md": {
+  "2": {
     "$type": "dimension",
     "$value": {
-      "value": 1,
-      "unit": "px"
-    },
-    "$description": "unitless"
-  },
-  "radius-scale-lg": {
-    "$type": "dimension",
-    "$value": {
-      "value": 1.25,
-      "unit": "px"
-    },
-    "$description": "unitless"
-  },
-  "radius-scale-xl": {
-    "$type": "dimension",
-    "$value": {
-      "value": 1.5,
-      "unit": "px"
-    },
-    "$description": "unitless"
-  },
-  "radius-cap-xs": {
-    "$type": "dimension",
-    "$value": {
-      "value": 2,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-cap-sm": {
+  "3": {
     "$type": "dimension",
     "$value": {
-      "value": 4,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-cap-md": {
+  "4": {
     "$type": "dimension",
     "$value": {
-      "value": 8,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-cap-lg": {
+  "5": {
     "$type": "dimension",
     "$value": {
-      "value": 16,
+      "value": 9999,
       "unit": "px"
     }
   },
-  "radius-cap-xl": {
+  "6": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9999,
+      "unit": "px"
+    }
+  },
+  "1-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4.5,
+      "unit": "px"
+    }
+  },
+  "2-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 6,
+      "unit": "px"
+    }
+  },
+  "3-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9,
+      "unit": "px"
+    }
+  },
+  "4-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "5-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 18,
+      "unit": "px"
+    }
+  },
+  "6-max": {
     "$type": "dimension",
     "$value": {
       "value": 24,

@@ -1,0 +1,86 @@
+{
+  "1": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4.5,
+      "unit": "px"
+    }
+  },
+  "2": {
+    "$type": "dimension",
+    "$value": {
+      "value": 6,
+      "unit": "px"
+    }
+  },
+  "3": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9,
+      "unit": "px"
+    }
+  },
+  "4": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "5": {
+    "$type": "dimension",
+    "$value": {
+      "value": 18,
+      "unit": "px"
+    }
+  },
+  "6": {
+    "$type": "dimension",
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    }
+  },
+  "1-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4.5,
+      "unit": "px"
+    }
+  },
+  "2-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 6,
+      "unit": "px"
+    }
+  },
+  "3-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 9,
+      "unit": "px"
+    }
+  },
+  "4-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
+  "5-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 18,
+      "unit": "px"
+    }
+  },
+  "6-max": {
+    "$type": "dimension",
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    }
+  }
+}
