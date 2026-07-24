@@ -66,10 +66,10 @@ is already imported in `preview.ts`. sonner `toast` is used from `App.tsx` and
    it, and on success `toast.success(\`Copied ${name} ramp ✓\`)`. The ramp name
    for the toast is derived from the key suffix. Guard against a missing payload.
 
-5. **Styling** — add `.ramp-export` rules to the preview stylesheet
-   (`src/preview.css` or wherever `.ramp` / `.chip-copy` live): revealed on row
-   hover and on `:focus-visible`, sized/positioned to match `.chip-copy`,
-   theme-aware for light/dark preview surfaces.
+5. **Styling** — add `.ramp-export` rules to `src/preview.css` (where `.ramp`,
+   `.ramp-chips`, and `.chip-copy` already live): revealed on row hover and on
+   `:focus-visible`, sized/positioned to match `.chip-copy`, theme-aware for
+   light/dark preview surfaces.
 
 ## Components / boundaries
 
@@ -77,7 +77,7 @@ is already imported in `preview.ts`. sonner `toast` is used from `App.tsx` and
   record + `{ alpha }`. Output: ordered hex map. No DOM, no side effects.
 - Rendering additions live entirely in `renderRamps` / `renderAlphaRamps`
   (markup) and `renderPreview` (registry + handler branch) in `preview.ts`.
-- CSS additions are isolated to the preview stylesheet under `.ramp-export`.
+- CSS additions are isolated to `src/preview.css` under `.ramp-export`.
 
 ## Data flow
 
