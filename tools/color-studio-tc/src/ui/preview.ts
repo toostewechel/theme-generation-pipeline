@@ -331,9 +331,10 @@ export function renderPreview(
         const key = exportEl.getAttribute("data-export-key")!;
         const payload = exportPayloads[key];
         if (!payload) return;
-        const name = key.split(":")[1];
+        const [kind, name] = key.split(":");
+        const label = kind === "alpha" ? `${name} (alpha)` : name;
         navigator.clipboard.writeText(payload)
-          .then(() => toast.success(`Copied ${name} ramp ✓`))
+          .then(() => toast.success(`Copied ${label} ramp ✓`))
           .catch(() => toast.error("Copy failed"));
         return;
       }
