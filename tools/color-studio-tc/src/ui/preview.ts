@@ -155,8 +155,10 @@ const ALPHA_RAMPS: (keyof RampSet)[] = [
 function renderAlphaRamps(set: RampSet): string {
   const rows = ALPHA_RAMPS.filter((name) => set[name]).map((name) => {
     const ramp = set[name]! as Record<string, Oklch>;
+    const twins: Record<string, Oklch> = {};
     const chips = Object.entries(ramp).map(([step, color]) => {
       const twin = alphaOverWhite(color);
+      twins[step] = twin;
       // The twin composited over white reads as the original solid `color`, so
       // use the same contrast-adaptive ink as the solid ramp — the old fixed
       // #111 was invisible on the darker alpha steps.
@@ -167,7 +169,7 @@ function renderAlphaRamps(set: RampSet): string {
         </span>
       </div>`;
     }).join("");
-    const btn = registerExport("alpha", name, ramp);
+    const btn = registerExport("alpha", name, twins);
     return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div>${btn}</div>`;
   });
   return `<div class="pv-section pv-alpha"><div class="pv-section-title">Alpha over white <span class="pv-legend">each step solved to the most-transparent color that matches the solid over white</span></div>${rows.join("")}</div>`;
@@ -311,6 +313,7 @@ export function renderPreview(
   root: HTMLElement,
   opts: { showContrast?: boolean; tab?: "ramps" | "playground" } = {},
 ): void {
+  for (const k in exportPayloads) delete exportPayloads[k];
   showContrast = opts.showContrast ?? true;
   const tab = opts.tab ?? "ramps";
   const set = buildRamps(state);
