@@ -1,4 +1,6 @@
 import { formatHex } from "culori";
+import { toast } from "sonner";
+import { rampToHexMap } from "../ramp-export.js";
 import {
   buildRamps, resolveSemantics, buildAlphas, buildDarkSurfaces, contrastRatio,
   alphaOverWhite,
@@ -20,6 +22,22 @@ function hexOf(c: Oklch): string {
 const COPY_ICON =
   `<span class="ic ic-copy"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>` +
   `<span class="ic ic-check"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5 9-10"/></svg></span>`;
+
+// Braces glyph for the per-row "Export JSON" button.
+const EXPORT_ICON =
+  `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1"/><path d="M16 4h1a2 2 0 0 1 2 2v3a2 2 0 0 1 2 2 2 2 0 0 1-2 2v3a2 2 0 0 1-2 2h-1"/></svg>`;
+
+// Per-render registry: data-export-key -> pretty-printed JSON hex map.
+// Rebuilt at the top of every renderPreview call; read at click time by the
+// once-bound delegated listener, so it is always current across innerHTML rebuilds.
+const exportPayloads: Record<string, string> = {};
+
+function registerExport(kind: "solid" | "alpha", name: string, ramp: Record<string, Oklch>): string {
+  const key = `${kind}:${name}`;
+  exportPayloads[key] = JSON.stringify(rampToHexMap(ramp, { alpha: kind === "alpha" }), null, 2);
+  const verb = kind === "alpha" ? "alpha ramp" : "ramp";
+  return `<button type="button" class="ramp-export" data-export-key="${key}" title="Export ${name} ${verb} as JSON" aria-label="Export ${name} ${verb} as JSON">${EXPORT_ICON}</button>`;
+}
 
 function readableOn(bg: Oklch, set: RampSet): string {
   return contrastRatio(set.neutral["0"], bg) >= contrastRatio(set.neutral["950"], bg)
@@ -115,7 +133,8 @@ function renderRamps(set: RampSet, surface: Oklch): string {
         </button>`;
       })
       .join("");
-    return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div></div>`;
+    const btn = registerExport("solid", name, ramp as Record<string, Oklch>);
+    return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div>${btn}</div>`;
   });
   const legend = showContrast
     ? ` <span class="pv-legend">contrast vs ${surfaceLabel} · AA ≥ 4.5 · AAA ≥ 7 · L ≥ 3</span>`
@@ -136,8 +155,10 @@ const ALPHA_RAMPS: (keyof RampSet)[] = [
 function renderAlphaRamps(set: RampSet): string {
   const rows = ALPHA_RAMPS.filter((name) => set[name]).map((name) => {
     const ramp = set[name]! as Record<string, Oklch>;
+    const twins: Record<string, Oklch> = {};
     const chips = Object.entries(ramp).map(([step, color]) => {
       const twin = alphaOverWhite(color);
+      twins[step] = twin;
       // The twin composited over white reads as the original solid `color`, so
       // use the same contrast-adaptive ink as the solid ramp — the old fixed
       // #111 was invisible on the darker alpha steps.
@@ -148,7 +169,8 @@ function renderAlphaRamps(set: RampSet): string {
         </span>
       </div>`;
     }).join("");
-    return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div></div>`;
+    const btn = registerExport("alpha", name, twins);
+    return `<div class="ramp"><span class="ramp-name">${name}</span><div class="ramp-chips">${chips}</div>${btn}</div>`;
   });
   return `<div class="pv-section pv-alpha"><div class="pv-section-title">Alpha over white <span class="pv-legend">each step solved to the most-transparent color that matches the solid over white</span></div>${rows.join("")}</div>`;
 }
@@ -291,6 +313,7 @@ export function renderPreview(
   root: HTMLElement,
   opts: { showContrast?: boolean; tab?: "ramps" | "playground" } = {},
 ): void {
+  for (const k in exportPayloads) delete exportPayloads[k];
   showContrast = opts.showContrast ?? true;
   const tab = opts.tab ?? "ramps";
   const set = buildRamps(state);
@@ -303,6 +326,18 @@ export function renderPreview(
   // survives innerHTML rebuilds.
   if (!root.dataset.copyBound) {
     root.addEventListener("click", (e) => {
+      const exportEl = (e.target as HTMLElement).closest<HTMLElement>("[data-export-key]");
+      if (exportEl) {
+        const key = exportEl.getAttribute("data-export-key")!;
+        const payload = exportPayloads[key];
+        if (!payload) return;
+        const [kind, name] = key.split(":");
+        const label = kind === "alpha" ? `${name} (alpha)` : name;
+        navigator.clipboard.writeText(payload)
+          .then(() => toast.success(`Copied ${label} ramp ✓`))
+          .catch(() => toast.error("Copy failed"));
+        return;
+      }
       const el = (e.target as HTMLElement).closest<HTMLElement>("[data-hex]");
       const hex = el?.getAttribute("data-hex");
       if (!el || !hex) return;

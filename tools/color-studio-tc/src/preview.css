@@ -68,7 +68,7 @@
 
 .ramp {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 96px 1fr auto;
   align-items: center;
   gap: 14px;
   margin: 7px 0;
@@ -168,6 +168,34 @@
   background: oklch(0.55 0.13 150 / 0.92);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
+}
+/* Per-row Export JSON button: hidden until the row is hovered/focused. */
+.ramp-export {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-soft);
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.12s var(--ease), background 0.12s var(--ease);
+}
+.ramp:hover .ramp-export,
+.ramp-export:focus-visible {
+  opacity: 1;
+}
+.ramp-export:hover {
+  background: oklch(0 0 0 / 0.08);
+}
+#preview.mode-dark .ramp-export {
+  color: oklch(0.7 0.01 250);
+}
+#preview.mode-dark .ramp-export:hover {
+  background: oklch(1 0 0 / 0.12);
 }
 /* copy/check icon swap, shared by chips and the brand copy button */
 .ic {
