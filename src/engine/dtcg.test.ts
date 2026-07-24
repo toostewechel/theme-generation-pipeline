@@ -78,10 +78,10 @@ describe("alpha-over-white twins", () => {
     expect(out).not.toHaveProperty("color-brand-primary-alpha");
   });
 
-  it("rounds emitted alpha to at most 4 decimal places", () => {
+  it("rounds emitted alpha to whole percent (2 decimal places)", () => {
     const out = buildPrimitivesDtcg({ ...INPUTS, alpha: true }) as Record<string, any>;
     const alpha = out["color-accent-alpha-500"].$value.alpha;
-    expect(alpha).toBe(Math.round(alpha * 1e4) / 1e4);
+    expect(alpha).toBe(Math.round(alpha * 1e2) / 1e2);
   });
 });
 

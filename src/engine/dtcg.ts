@@ -12,7 +12,10 @@ export function oklchToDtcg(c: Oklch): object {
     colorSpace: "oklch",
     components: [round(c.l), round(c.c), round(c.h, 2)],
   };
-  if (c.alpha !== undefined) value.alpha = round(c.alpha);
+  // Opacity is emitted at whole-percent resolution (2 dp). Alpha composites in
+  // 8-bit, so finer precision is imperceptible; whole-percent keeps Figma's
+  // opacity field clean (62% rather than 62.34%) and matches how designers set it.
+  if (c.alpha !== undefined) value.alpha = round(c.alpha, 2);
   return { $type: "color", $value: value };
 }
 
