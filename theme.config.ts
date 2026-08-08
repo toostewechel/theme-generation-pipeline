@@ -2,8 +2,8 @@ type ThemeInputs = import("./src/engine/types.js").ThemeInputs;
 
 const themeInputs: ThemeInputs = {
   "neutral": {
-    "hue": 208,
-    "chroma": 0.01
+    "hue": 92,
+    "chroma": 0.025
   },
   "contrast": 0.5,
   "accents": {

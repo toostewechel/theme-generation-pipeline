@@ -6,122 +6,109 @@
       "unit": "px"
     }
   },
-  "space-025": {
-    "$type": "dimension",
-    "$value": {
-      "value": 1,
-      "unit": "px"
-    }
-  },
-  "space-050": {
+  "space-1": {
     "$type": "dimension",
     "$value": {
       "value": 2,
       "unit": "px"
-    }
+    },
+    "$description": "Some description"
   },
-  "space-100": {
+  "space-2": {
     "$type": "dimension",
     "$value": {
       "value": 4,
       "unit": "px"
     }
   },
-  "space-150": {
+  "space-3": {
     "$type": "dimension",
     "$value": {
       "value": 6,
       "unit": "px"
     }
   },
-  "space-200": {
+  "space-4": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     }
   },
-  "space-300": {
+  "space-5": {
     "$type": "dimension",
     "$value": {
       "value": 12,
       "unit": "px"
     }
   },
-  "space-400": {
+  "space-6": {
     "$type": "dimension",
     "$value": {
       "value": 16,
       "unit": "px"
     }
   },
-  "space-500": {
+  "space-8": {
     "$type": "dimension",
     "$value": {
       "value": 20,
       "unit": "px"
     }
   },
-  "space-600": {
+  "space-10": {
     "$type": "dimension",
     "$value": {
       "value": 24,
       "unit": "px"
     }
   },
-  "space-800": {
+  "space-12": {
     "$type": "dimension",
     "$value": {
       "value": 32,
       "unit": "px"
     }
   },
-  "space-1000": {
+  "space-16": {
     "$type": "dimension",
     "$value": {
       "value": 40,
       "unit": "px"
     }
   },
-  "space-1200": {
+  "space-20": {
     "$type": "dimension",
     "$value": {
       "value": 48,
       "unit": "px"
     }
   },
-  "space-1600": {
+  "space-24": {
     "$type": "dimension",
     "$value": {
       "value": 64,
       "unit": "px"
     }
   },
-  "space-2000": {
+  "space-32": {
     "$type": "dimension",
     "$value": {
       "value": 80,
       "unit": "px"
     }
   },
-  "space-2400": {
+  "space-40": {
     "$type": "dimension",
     "$value": {
       "value": 96,
       "unit": "px"
     }
   },
-  "space-2800": {
+  "space-48": {
     "$type": "dimension",
     "$value": {
-      "value": 112,
-      "unit": "px"
-    }
-  },
-  "space-3200": {
-    "$type": "dimension",
-    "$value": {
-      "value": 128,
+      "value": 124,
       "unit": "px"
     }
   },
@@ -132,360 +119,101 @@
       "unit": "px"
     }
   },
-  "depth-0": {
-    "$type": "dimension",
-    "$value": {
-      "value": 0,
-      "unit": "px"
-    }
-  },
-  "depth-025": {
-    "$type": "dimension",
-    "$value": {
-      "value": 1,
-      "unit": "px"
-    }
-  },
-  "depth-100": {
+  "size-1": {
     "$type": "dimension",
     "$value": {
       "value": 4,
       "unit": "px"
     }
   },
-  "depth-200": {
+  "size-2": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     }
   },
-  "depth-400": {
-    "$type": "dimension",
-    "$value": {
-      "value": 16,
-      "unit": "px"
-    }
-  },
-  "depth-800": {
-    "$type": "dimension",
-    "$value": {
-      "value": 32,
-      "unit": "px"
-    }
-  },
-  "depth-1200": {
-    "$type": "dimension",
-    "$value": {
-      "value": 48,
-      "unit": "px"
-    }
-  },
-  "depth-negative-025": {
-    "$type": "dimension",
-    "$value": {
-      "value": -1,
-      "unit": "px"
-    }
-  },
-  "depth-negative-100": {
-    "$type": "dimension",
-    "$value": {
-      "value": -4,
-      "unit": "px"
-    }
-  },
-  "depth-negative-200": {
-    "$type": "dimension",
-    "$value": {
-      "value": -8,
-      "unit": "px"
-    }
-  },
-  "depth-negative-400": {
-    "$type": "dimension",
-    "$value": {
-      "value": -16,
-      "unit": "px"
-    }
-  },
-  "depth-negative-800": {
-    "$type": "dimension",
-    "$value": {
-      "value": -32,
-      "unit": "px"
-    }
-  },
-  "depth-negative-1200": {
-    "$type": "dimension",
-    "$value": {
-      "value": -48,
-      "unit": "px"
-    }
-  },
-  "size-025": {
-    "$type": "dimension",
-    "$value": {
-      "value": 1,
-      "unit": "px"
-    }
-  },
-  "size-050": {
-    "$type": "dimension",
-    "$value": {
-      "value": 2,
-      "unit": "px"
-    }
-  },
-  "size-100": {
-    "$type": "dimension",
-    "$value": {
-      "value": 4,
-      "unit": "px"
-    }
-  },
-  "size-150": {
-    "$type": "dimension",
-    "$value": {
-      "value": 6,
-      "unit": "px"
-    }
-  },
-  "size-200": {
-    "$type": "dimension",
-    "$value": {
-      "value": 8,
-      "unit": "px"
-    }
-  },
-  "size-300": {
+  "size-3": {
     "$type": "dimension",
     "$value": {
       "value": 12,
       "unit": "px"
     }
   },
-  "size-400": {
+  "size-4": {
     "$type": "dimension",
     "$value": {
       "value": 16,
       "unit": "px"
     }
   },
-  "size-500": {
+  "size-5": {
     "$type": "dimension",
     "$value": {
       "value": 20,
       "unit": "px"
     }
   },
-  "size-600": {
+  "size-6": {
     "$type": "dimension",
     "$value": {
       "value": 24,
       "unit": "px"
     }
   },
-  "size-700": {
+  "size-7": {
     "$type": "dimension",
     "$value": {
       "value": 28,
       "unit": "px"
     }
   },
-  "size-800": {
+  "size-8": {
     "$type": "dimension",
     "$value": {
       "value": 32,
       "unit": "px"
     }
   },
-  "size-900": {
-    "$type": "dimension",
-    "$value": {
-      "value": 36,
-      "unit": "px"
-    }
-  },
-  "size-1000": {
+  "size-10": {
     "$type": "dimension",
     "$value": {
       "value": 40,
       "unit": "px"
     }
   },
-  "size-1200": {
+  "size-12": {
     "$type": "dimension",
     "$value": {
       "value": 48,
       "unit": "px"
     }
   },
-  "size-1400": {
+  "size-14": {
     "$type": "dimension",
     "$value": {
       "value": 56,
       "unit": "px"
     }
   },
-  "size-1600": {
+  "size-16": {
     "$type": "dimension",
     "$value": {
       "value": 64,
       "unit": "px"
     }
   },
-  "size-2000": {
+  "size-20": {
     "$type": "dimension",
     "$value": {
       "value": 80,
       "unit": "px"
     }
   },
-  "size-2400": {
+  "size-24": {
     "$type": "dimension",
     "$value": {
       "value": 96,
-      "unit": "px"
-    }
-  },
-  "size-2800": {
-    "$type": "dimension",
-    "$value": {
-      "value": 112,
-      "unit": "px"
-    }
-  },
-  "size-3200": {
-    "$type": "dimension",
-    "$value": {
-      "value": 128,
-      "unit": "px"
-    }
-  },
-  "blur-default": {
-    "$type": "dimension",
-    "$value": {
-      "value": 4,
-      "unit": "px"
-    }
-  },
-  "space-negative-25": {
-    "$type": "dimension",
-    "$value": {
-      "value": -1,
-      "unit": "px"
-    }
-  },
-  "space-negative-50": {
-    "$type": "dimension",
-    "$value": {
-      "value": -2,
-      "unit": "px"
-    }
-  },
-  "space-negative-100": {
-    "$type": "dimension",
-    "$value": {
-      "value": -4,
-      "unit": "px"
-    }
-  },
-  "space-negative-150": {
-    "$type": "dimension",
-    "$value": {
-      "value": -6,
-      "unit": "px"
-    }
-  },
-  "space-negative-200": {
-    "$type": "dimension",
-    "$value": {
-      "value": -8,
-      "unit": "px"
-    }
-  },
-  "space-negative-300": {
-    "$type": "dimension",
-    "$value": {
-      "value": -12,
-      "unit": "px"
-    }
-  },
-  "space-negative-400": {
-    "$type": "dimension",
-    "$value": {
-      "value": -16,
-      "unit": "px"
-    }
-  },
-  "space-negative-500": {
-    "$type": "dimension",
-    "$value": {
-      "value": -20,
-      "unit": "px"
-    }
-  },
-  "space-negative-600": {
-    "$type": "dimension",
-    "$value": {
-      "value": -24,
-      "unit": "px"
-    }
-  },
-  "space-negative-800": {
-    "$type": "dimension",
-    "$value": {
-      "value": -32,
-      "unit": "px"
-    }
-  },
-  "space-negative-1000": {
-    "$type": "dimension",
-    "$value": {
-      "value": -40,
-      "unit": "px"
-    }
-  },
-  "space-negative-1200": {
-    "$type": "dimension",
-    "$value": {
-      "value": -48,
-      "unit": "px"
-    }
-  },
-  "space-negative-1600": {
-    "$type": "dimension",
-    "$value": {
-      "value": -64,
-      "unit": "px"
-    }
-  },
-  "space-negative-2000": {
-    "$type": "dimension",
-    "$value": {
-      "value": -80,
-      "unit": "px"
-    }
-  },
-  "space-negative-2400": {
-    "$type": "dimension",
-    "$value": {
-      "value": -96,
-      "unit": "px"
-    }
-  },
-  "space-negative-2800": {
-    "$type": "dimension",
-    "$value": {
-      "value": -112,
-      "unit": "px"
-    }
-  },
-  "space-negative-3200": {
-    "$type": "dimension",
-    "$value": {
-      "value": -20,
       "unit": "px"
     }
   }

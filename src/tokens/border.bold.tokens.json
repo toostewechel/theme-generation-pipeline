@@ -1,9 +1,0 @@
-{
-  "width": {
-    "$type": "dimension",
-    "$value": {
-      "value": 2,
-      "unit": "px"
-    }
-  }
-}
