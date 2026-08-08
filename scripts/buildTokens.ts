@@ -3,6 +3,11 @@ import { readFileSync, mkdirSync, writeFileSync, unlinkSync } from "fs";
 import { typographyMixinsFormat } from "../src/formatters/typographyMixins.js";
 import { buildFluidTypographyMixins } from "../src/fluid/buildFluidMixins.js";
 import { oklchCssTransform } from "../src/transforms/oklchColor.js";
+import {
+  cssPlatformConfig,
+  dimensionEmTransform,
+  dimensionUnitlessTransform,
+} from "../src/transforms/cssPlatform.js";
 
 // Manifest structure matching src/tokens/manifest.json
 interface Manifest {
@@ -18,47 +23,9 @@ interface Manifest {
   };
 }
 
-// Register custom transform for unitless dimensions
-// Tokens with the $description: 'unitless' will output as raw numbers without units
-StyleDictionary.registerTransform({
-  name: "dimension/unitless",
-  type: "value",
-  // Transitive means the transform should follow and apply to token references
-  transitive: true,
-  filter: (token) => {
-    return token.$type === "dimension" && token.$description === "unitless";
-  },
-  transform: (token) => {
-    // Read from the ORIGINAL DTCG value so this is immune to any earlier
-    // dimension transform (dimension/css, size/rem) that may have already
-    // stringified the value with a unit. This transform must run LAST so
-    // nothing re-appends a unit afterwards.
-    const source = token.original?.$value ?? token.$value;
-    if (typeof source === "object" && source.value !== undefined) {
-      return String(source.value);
-    }
-    return String(source).replace(/(px|rem|em)$/, "");
-  },
-});
-
-// Register custom transform for em dimensions
-// Tokens with $description: 'em' will output values in em units (px / basePxFontSize)
-StyleDictionary.registerTransform({
-  name: "dimension/em",
-  type: "value",
-  transitive: true,
-  filter: (token) =>
-    token.$type === "dimension" && token.$description === "em",
-  transform: (token, config) => {
-    const baseFontSize = config?.basePxFontSize ?? 16;
-    const pxValue =
-      typeof token.$value === "object" && token.$value.value !== undefined
-        ? Number(token.$value.value)
-        : parseFloat(String(token.$value));
-    const emValue = Math.round((pxValue / baseFontSize) * 1000) / 1000;
-    return `${emValue}em`;
-  },
-});
+// Register custom dimension transforms (see src/transforms/cssPlatform.ts)
+StyleDictionary.registerTransform(dimensionUnitlessTransform);
+StyleDictionary.registerTransform(dimensionEmTransform);
 
 // Register oklch/css color transform
 StyleDictionary.registerTransform(oklchCssTransform);
@@ -71,40 +38,7 @@ const naturalSort = (a: { name: string }, b: { name: string }) =>
   a.name.localeCompare(b.name, undefined, { numeric: true });
 
 // Shared platform configuration for consistent transforms applied to all 7 builds
-// Transform order matters: dimension/unitless must come LAST so no other
-// dimension transform (dimension/css, size/rem) re-appends a unit afterwards
-const sharedPlatformConfig = {
-  transforms: [
-    "attribute/cti",
-    "name/kebab",
-    "time/seconds",
-    "html/icon",
-    "dimension/em",
-    "size/rem",
-    "asset/url",
-    "fontFamily/css",
-    "cubicBezier/css",
-    "strokeStyle/css/shorthand",
-    "border/css/shorthand",
-    "typography/css/shorthand",
-    "transition/css/shorthand",
-    "oklch/css",
-    "dimension/css",
-    "duration/css",
-    "shadow/css",
-    "strokeStyle/css",
-    "transition/css",
-    "typography/css",
-    "fontWeight/css",
-    "w3c-border/css",
-    "gradient/css",
-    // Must run LAST: strips the unit from dimension tokens marked
-    // $description: "unitless" so later transforms can't re-append a unit.
-    "dimension/unitless",
-  ],
-  outputUnit: "rem",
-  basePxFontSize: 16,
-};
+const sharedPlatformConfig = cssPlatformConfig;
 
 // Build tokens using Style Dictionary v5 with multi-mode CSS output
 // Handles token name collisions across modes by building separately and concatenating
